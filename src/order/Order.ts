@@ -68,7 +68,7 @@ export abstract class Order {
     );
 
     const [itemData, currencyData] = await Promise.all(dataPromises);
-    this.itemData = itemData;
+    this.itemData = itemData as Item;
     this.currencyData = currencyData;
   }
 

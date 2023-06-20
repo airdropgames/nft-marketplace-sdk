@@ -20,12 +20,18 @@ class BidOrder extends Order_1.Order {
      */
     async buildEip712Data(additionalData) {
         await this.fetchRequiredData();
+        if (!this.itemData) {
+            throw new Error('itemData is not set');
+        }
+        if (!this.currencyData) {
+            throw new Error('currencyData is not set');
+        }
         return {
             makerAddress: this.userWallet,
             offeredAsset: {
                 assetType: constants_1.ENUM_ASSET_TYPE.ERC20,
                 assetAddress: this.currencyData.contractAddress,
-                data: this.currencyData.TransferData,
+                data: this.currencyData.transferData,
                 value: this.currencyData.amount,
             },
             askedAsset: {
@@ -34,8 +40,8 @@ class BidOrder extends Order_1.Order {
                 data: ethers_1.ethers.utils.solidityPack(['uint256', 'bytes'], [this.itemData.tokenId, additionalData]),
                 value: this.itemData.amount,
             },
-            start: this.startTimestampUtc,
-            end: this.endTimestampUtc,
+            start: this.startTimeUtc,
+            end: this.endTimeUtc,
         };
     }
     /**
@@ -44,12 +50,18 @@ class BidOrder extends Order_1.Order {
      */
     async arrayify() {
         await this.fetchRequiredData();
+        if (!this.itemData) {
+            throw new Error('itemData is not set');
+        }
+        if (!this.currencyData) {
+            throw new Error('currencyData is not set');
+        }
         return [
             this.userWallet,
             this.currencyData.contractAddress,
             this.itemData.contractAddress,
-            this.startTimestampUtc,
-            this.endTimestampUtc,
+            this.startTimeUtc,
+            this.endTimeUtc,
         ];
     }
 }

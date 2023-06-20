@@ -38,11 +38,18 @@ export class OfferOrder extends Order {
    */
   async buildEip712Data(additionalData: string): Promise<Object> {
     await this.fetchRequiredData();
+    if (!this.itemData) {
+      throw new Error('itemData is not set');
+    }
+    if (!this.currencyData) {
+      throw new Error('currencyData is not set');
+    }
+
 
     return {
       makerAddress: this.userWallet,
       offeredAsset: {
-        assetType: ENUM_ASSET_TYPE[this.itemData!.type as keyof typeof ENUM_ASSET_TYPE],
+        assetType: ENUM_ASSET_TYPE[this.itemData.type as keyof typeof ENUM_ASSET_TYPE],
         assetAddress: this.itemData.contractAddress,
         data: ethers.utils.solidityPack(
           ['uint256', 'bytes'],
@@ -53,11 +60,11 @@ export class OfferOrder extends Order {
       askedAsset: {
         assetType: ENUM_ASSET_TYPE.ERC20,
         assetAddress: this.currencyData.contractAddress,
-        data: this.currencyData.TransferData,
+        data: this.currencyData.transferData,
         value: this.currencyData.amount,
       },
-      start: this.startTimestampUtc,
-      end: this.endTimestampUtc,
+      start: this.startTimeUtc,
+      end: this.endTimeUtc,
     };
   }
 
@@ -67,12 +74,18 @@ export class OfferOrder extends Order {
    */
   async arrayify(): Promise<Array<string>> {
     await this.fetchRequiredData();
+    if (!this.itemData) {
+      throw new Error('itemData is not set');
+    }
+    if (!this.currencyData) {
+      throw new Error('currencyData is not set');
+    }
     return [
       this.userWallet,
       this.itemData.contractAddress,
       this.currencyData.contractAddress,
-      this.startTimestampUtc,
-      this.endTimestampUtc,
+      this.startTimeUtc,
+      this.endTimeUtc,
     ];
   }
 }
