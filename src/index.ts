@@ -1,8 +1,8 @@
 /**
- * @class HyperPlazaSdk
+ * @class NftMarketplaceSdk
  * Handles all the interactions with the HyperPlaza API and intermidiate operations
  */
-export default class HyperPlazaSdk {
+export default class NftMarketplaceSdk {
     url = '';
     key = '';
     network = '';
