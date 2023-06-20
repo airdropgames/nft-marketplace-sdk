@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const tenant_1 = require("./apis/tenant");
 /**
  * @class NftMarketplaceSdk
  * Handles all the interactions with the HyperPlaza API and intermidiate operations
@@ -15,13 +16,12 @@ class NftMarketplaceSdk {
         this.url = '';
         this.key = '';
         this.network = '';
-        this.apis = null;
+        this.apis = {
+            tenant: new tenant_1.TenantApis(this),
+        };
         this.url = url;
         this.key = key;
         this.network = network;
-        // this.apis = {
-        //   tenant: new TenantApis(this),
-        // };
     }
     log() {
         console.log('Hello world');

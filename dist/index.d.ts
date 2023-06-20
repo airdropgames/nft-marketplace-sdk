@@ -1,3 +1,4 @@
+import { TenantApis } from "./apis/tenant";
 /**
  * @class NftMarketplaceSdk
  * Handles all the interactions with the HyperPlaza API and intermidiate operations
@@ -6,7 +7,9 @@ export default class NftMarketplaceSdk {
     url: string;
     key: string;
     network: string;
-    apis: null;
+    apis: {
+        tenant: TenantApis;
+    };
     /**
      *
      * @param {string} url HyperPlaza API url
