@@ -7,23 +7,23 @@ exports.Order = void 0;
  *
  */
 class Order {
-    constructor(nftMarketplaceSdk, itemId, itemAmount, currencyId, currencyAmount, userWallet, startTimeUtc, endTimeUtc) {
+    constructor(nftMarketplaceSdk, itemId, itemAmount, cryptoCurrencyId, cryptoCurrencyAmount, userWallet, startTimeUtc, endTimeUtc) {
         this.itemId = '';
         this.itemAmount = '';
-        this.currencyId = '';
-        this.currencyAmount = '';
+        this.cryptoCurrencyId = '';
+        this.cryptoCurrencyAmount = '';
         this.userWallet = '';
         this.startTimeUtc = '';
         this.endTimeUtc = '';
         this.nftMarketplaceSdk = null;
         this.itemData = null;
-        this.currencyData = null;
+        this.cryptoCurrencyData = null;
         this.signature = null;
         this.nftMarketplaceSdk = nftMarketplaceSdk;
         this.itemId = itemId;
         this.itemAmount = itemAmount;
-        this.currencyId = currencyId;
-        this.currencyAmount = currencyAmount;
+        this.cryptoCurrencyId = cryptoCurrencyId;
+        this.cryptoCurrencyAmount = cryptoCurrencyAmount;
         this.userWallet = userWallet;
         this.startTimeUtc = startTimeUtc;
         this.endTimeUtc = endTimeUtc;
@@ -46,12 +46,12 @@ class Order {
         dataPromises.push(this.itemData == null
             ? this.nftMarketplaceSdk.apis.tenant.getItem(this.itemId)
             : this.itemData);
-        dataPromises.push(this.currencyData == null
-            ? this.nftMarketplaceSdk.apis.tenant.getCryptoCurrency(this.currencyId)
-            : this.currencyData);
-        const [itemData, currencyData] = await Promise.all(dataPromises);
+        dataPromises.push(this.cryptoCurrencyData == null
+            ? this.nftMarketplaceSdk.apis.tenant.getCryptoCurrency(this.cryptoCurrencyId)
+            : this.cryptoCurrencyData);
+        const [itemData, cryptoCurrencyData] = await Promise.all(dataPromises);
         this.itemData = itemData;
-        this.currencyData = currencyData;
+        this.cryptoCurrencyData = cryptoCurrencyData;
     }
 }
 exports.Order = Order;

@@ -14,8 +14,8 @@ export class OfferOrder extends Order {
     nftMarketplaceSdk: NftMarketplaceSdk,
     itemId: string,
     itemAmount: string,
-    currencyId: string,
-    currencyAmount: string,
+    cryptoCurrencyId: string,
+    cryptoCurrencyAmount: string,
     userWallet: string,
     startTimeUtc: string,
     endTimeUtc: string
@@ -24,8 +24,8 @@ export class OfferOrder extends Order {
       nftMarketplaceSdk,
       itemId,
       itemAmount,
-      currencyId,
-      currencyAmount,
+      cryptoCurrencyId,
+      cryptoCurrencyAmount,
       userWallet,
       startTimeUtc,
       endTimeUtc,
@@ -41,8 +41,8 @@ export class OfferOrder extends Order {
     if (!this.itemData) {
       throw new Error('itemData is not set');
     }
-    if (!this.currencyData) {
-      throw new Error('currencyData is not set');
+    if (!this.cryptoCurrencyData) {
+      throw new Error('cryptoCurrencyData is not set');
     }
 
 
@@ -55,13 +55,13 @@ export class OfferOrder extends Order {
           ['uint256', 'bytes'],
           [this.itemData.tokenId, additionalData]
         ),
-        value: this.itemData.amount,
+        value: this.itemAmount,
       },
       askedAsset: {
         assetType: ENUM_ASSET_TYPE.ERC20,
-        assetAddress: this.currencyData.contractAddress,
-        data: this.currencyData.transferData,
-        value: this.currencyData.amount,
+        assetAddress: this.cryptoCurrencyData.contractAddress,
+        data: this.cryptoCurrencyData.transferData,
+        value: this.cryptoCurrencyAmount,
       },
       start: this.startTimeUtc,
       end: this.endTimeUtc,
@@ -77,13 +77,13 @@ export class OfferOrder extends Order {
     if (!this.itemData) {
       throw new Error('itemData is not set');
     }
-    if (!this.currencyData) {
-      throw new Error('currencyData is not set');
+    if (!this.cryptoCurrencyData) {
+      throw new Error('cryptoCurrencyData is not set');
     }
     return [
       this.userWallet,
       this.itemData.contractAddress,
-      this.currencyData.contractAddress,
+      this.cryptoCurrencyData.contractAddress,
       this.startTimeUtc,
       this.endTimeUtc,
     ];

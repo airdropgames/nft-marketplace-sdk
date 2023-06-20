@@ -11,8 +11,8 @@ const Order_1 = require("./Order");
  * @augments {Order}
  */
 class BidOrder extends Order_1.Order {
-    constructor(nftMarketplaceSdk, itemId, itemAmount, currencyId, currencyAmount, userWallet, startTimeUtc, endTimeUtc) {
-        super(nftMarketplaceSdk, itemId, itemAmount, currencyId, currencyAmount, userWallet, startTimeUtc, endTimeUtc);
+    constructor(nftMarketplaceSdk, itemId, itemAmount, cryptoCurrencyId, cryptoCurrencyAmount, userWallet, startTimeUtc, endTimeUtc) {
+        super(nftMarketplaceSdk, itemId, itemAmount, cryptoCurrencyId, cryptoCurrencyAmount, userWallet, startTimeUtc, endTimeUtc);
     }
     /**
      *
@@ -23,22 +23,22 @@ class BidOrder extends Order_1.Order {
         if (!this.itemData) {
             throw new Error('itemData is not set');
         }
-        if (!this.currencyData) {
-            throw new Error('currencyData is not set');
+        if (!this.cryptoCurrencyData) {
+            throw new Error('cryptoCurrencyData is not set');
         }
         return {
             makerAddress: this.userWallet,
             offeredAsset: {
                 assetType: constants_1.ENUM_ASSET_TYPE.ERC20,
-                assetAddress: this.currencyData.contractAddress,
-                data: this.currencyData.transferData,
-                value: this.currencyData.amount,
+                assetAddress: this.cryptoCurrencyData.contractAddress,
+                data: this.cryptoCurrencyData.transferData,
+                value: this.cryptoCurrencyAmount,
             },
             askedAsset: {
                 assetType: constants_1.ENUM_ASSET_TYPE[this.itemData.type],
                 assetAddress: this.itemData.contractAddress,
                 data: ethers_1.ethers.utils.solidityPack(['uint256', 'bytes'], [this.itemData.tokenId, additionalData]),
-                value: this.itemData.amount,
+                value: this.itemAmount,
             },
             start: this.startTimeUtc,
             end: this.endTimeUtc,
@@ -53,12 +53,12 @@ class BidOrder extends Order_1.Order {
         if (!this.itemData) {
             throw new Error('itemData is not set');
         }
-        if (!this.currencyData) {
-            throw new Error('currencyData is not set');
+        if (!this.cryptoCurrencyData) {
+            throw new Error('cryptoCurrencyData is not set');
         }
         return [
             this.userWallet,
-            this.currencyData.contractAddress,
+            this.cryptoCurrencyData.contractAddress,
             this.itemData.contractAddress,
             this.startTimeUtc,
             this.endTimeUtc,

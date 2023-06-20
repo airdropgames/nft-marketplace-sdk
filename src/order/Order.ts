@@ -8,23 +8,23 @@ import NftMarketplaceSdk from "..";
 export abstract class Order {
   itemId = '';
   itemAmount = '';
-  currencyId = '';
-  currencyAmount = '';
+  cryptoCurrencyId = '';
+  cryptoCurrencyAmount = '';
   userWallet = '';
   startTimeUtc = '';
   endTimeUtc = '';
 
   nftMarketplaceSdk: NftMarketplaceSdk | null = null;
   itemData: Item | null = null;
-  currencyData: CryptoCurrency | null = null;
+  cryptoCurrencyData: CryptoCurrency | null = null;
   signature: string | null = null;
 
   constructor(
     nftMarketplaceSdk: NftMarketplaceSdk,
     itemId: string,
     itemAmount: string,
-    currencyId: string,
-    currencyAmount: string,
+    cryptoCurrencyId: string,
+    cryptoCurrencyAmount: string,
     userWallet: string,
     startTimeUtc: string,
     endTimeUtc: string
@@ -32,8 +32,8 @@ export abstract class Order {
     this.nftMarketplaceSdk = nftMarketplaceSdk;
     this.itemId = itemId;
     this.itemAmount = itemAmount;
-    this.currencyId = currencyId;
-    this.currencyAmount = currencyAmount;
+    this.cryptoCurrencyId = cryptoCurrencyId;
+    this.cryptoCurrencyAmount = cryptoCurrencyAmount;
     this.userWallet = userWallet;
     this.startTimeUtc = startTimeUtc;
     this.endTimeUtc = endTimeUtc;
@@ -62,14 +62,14 @@ export abstract class Order {
         : this.itemData
     );
     dataPromises.push(
-      this.currencyData == null
-        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrency(this.currencyId)
-        : this.currencyData
+      this.cryptoCurrencyData == null
+        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrency(this.cryptoCurrencyId)
+        : this.cryptoCurrencyData
     );
 
-    const [itemData, currencyData] = await Promise.all(dataPromises);
+    const [itemData, cryptoCurrencyData] = await Promise.all(dataPromises);
     this.itemData = itemData as Item;
-    this.currencyData = currencyData;
+    this.cryptoCurrencyData = cryptoCurrencyData;
   }
 
   /**

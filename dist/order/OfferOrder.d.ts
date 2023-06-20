@@ -7,7 +7,7 @@ import { Order } from './Order';
  * @augments {Order}
  */
 export declare class OfferOrder extends Order {
-    constructor(nftMarketplaceSdk: NftMarketplaceSdk, itemId: string, itemAmount: string, currencyId: string, currencyAmount: string, userWallet: string, startTimeUtc: string, endTimeUtc: string);
+    constructor(nftMarketplaceSdk: NftMarketplaceSdk, itemId: string, itemAmount: string, cryptoCurrencyId: string, cryptoCurrencyAmount: string, userWallet: string, startTimeUtc: string, endTimeUtc: string);
     /**
      *
      * @inheritdoc Order.buildEip712Data
