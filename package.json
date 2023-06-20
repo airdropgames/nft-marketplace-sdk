@@ -1,0 +1,8 @@
+{
+  "name": "nft-marketplace-sdk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:airdropgames/nft-marketplace-sdk.git",
+  "author": "Ahmad Ali Abdilah <ahmad.ali.abdilah@gmail.com>",
+  "license": "MIT"
+}
