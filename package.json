@@ -2,6 +2,7 @@
   "name": "nft-marketplace-sdk",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:airdropgames/nft-marketplace-sdk.git",
   "author": "Ahmad Ali Abdilah <ahmad.ali.abdilah@gmail.com>",
   "license": "MIT",
@@ -20,7 +21,8 @@
     "prepublishOnly": "yarn test",
     "build:watch": "tsc --watch",
     "test": "jest",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "postinstall": "yarn build"
   },
   "engines": {
     "node": ">=16"
