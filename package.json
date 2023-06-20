@@ -23,7 +23,6 @@
     "build:watch": "tsc --watch",
     "test": "jest",
     "clean": "rm -rf dist",
-    "postinstall": "tsc --outDir ./build",
     "prepare": "husky install"
   },
   "engines": {
