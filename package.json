@@ -23,7 +23,8 @@
     "build:watch": "tsc --watch",
     "test": "jest",
     "clean": "rm -rf dist",
-    "postinstall": "tsc --outDir ./build"
+    "postinstall": "tsc --outDir ./build",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=16"
@@ -31,10 +32,5 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo \"[Husky] pre-commit\""
-    }
   }
 }
