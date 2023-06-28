@@ -3,7 +3,7 @@ export declare class TenantApis {
     hyperPlazaSdk: NftMarketplaceSdk;
     constructor(hyperPlazaSdk: NftMarketplaceSdk);
     getNftItem(id: string): Promise<Item>;
-    getCryptoCurrency(id: string): Promise<CryptoCurrency>;
+    getCryptoCurrency(contractAddress: string): Promise<CryptoCurrency>;
     createBid(): void;
     createOffer(): void;
     cancelTransaction(): void;

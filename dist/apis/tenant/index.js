@@ -12,8 +12,8 @@ class TenantApis {
     getNftItem(id) {
         return axios_1.default.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/items/${id}`).then((res) => res.data);
     }
-    getCryptoCurrency(id) {
-        return {};
+    getCryptoCurrency(contractAddress) {
+        return axios_1.default.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/currencies?contractAddress=${contractAddress}`).then((res) => res.data);
     }
     createBid() { }
     createOffer() { }

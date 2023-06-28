@@ -11,8 +11,8 @@ export class TenantApis {
     return axios.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/items/${id}`).then((res) => res.data);
   }
 
-  getCryptoCurrency(id: string): Promise<CryptoCurrency> {
-    return {} as any;
+  getCryptoCurrency(contractAddress: string): Promise<CryptoCurrency> {
+    return axios.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/currencies?contractAddress=${contractAddress}`).then((res) => res.data);
   }
 
   createBid() { }
