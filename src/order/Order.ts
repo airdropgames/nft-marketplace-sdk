@@ -58,7 +58,7 @@ export abstract class Order {
     const dataPromises = [];
     dataPromises.push(
       this.itemData == null
-        ? this.nftMarketplaceSdk!.apis.tenant.getItem(this.itemId)
+        ? this.nftMarketplaceSdk!.apis.tenant.getNftItem(this.itemId)
         : this.itemData
     );
     dataPromises.push(

@@ -44,7 +44,7 @@ class Order {
         // get item & currency data from amount
         const dataPromises = [];
         dataPromises.push(this.itemData == null
-            ? this.nftMarketplaceSdk.apis.tenant.getItem(this.itemId)
+            ? this.nftMarketplaceSdk.apis.tenant.getNftItem(this.itemId)
             : this.itemData);
         dataPromises.push(this.cryptoCurrencyData == null
             ? this.nftMarketplaceSdk.apis.tenant.getCryptoCurrency(this.cryptoCurrencyId)
