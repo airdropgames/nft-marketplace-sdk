@@ -8,5 +8,5 @@ export declare class TenantApis {
     createOffer(): void;
     cancelTransaction(): void;
     getCollections(): void;
-    getCollection(): void;
+    getCollection(id: string, includes: CollectionIncludesRequest[]): Promise<any>;
 }

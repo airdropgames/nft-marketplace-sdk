@@ -1,0 +1,1 @@
+type CollectionIncludesRequest = 'items';

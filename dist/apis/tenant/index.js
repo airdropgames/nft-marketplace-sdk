@@ -19,6 +19,8 @@ class TenantApis {
     createOffer() { }
     cancelTransaction() { }
     getCollections() { }
-    getCollection() { }
+    getCollection(id, includes) {
+        return axios_1.default.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/collections/${id}?includes=${includes.join(',')}`).then((res) => res.data);
+    }
 }
 exports.TenantApis = TenantApis;
