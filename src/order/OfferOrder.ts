@@ -44,13 +44,15 @@ export class OfferOrder extends Order {
     if (!this.cryptoCurrencyData) {
       throw new Error('cryptoCurrencyData is not set');
     }
-
+    if (!this.itemData.collection) {
+      throw new Error('itemData.collection is not set');
+    }
 
     return {
       makerAddress: this.userWallet,
       offeredAsset: {
-        assetType: ENUM_ASSET_TYPE[this.itemData.type as keyof typeof ENUM_ASSET_TYPE],
-        assetAddress: this.itemData.contractAddress,
+        assetType: ENUM_ASSET_TYPE[this.itemData.collection.protocolType as keyof typeof ENUM_ASSET_TYPE],
+        assetAddress: this.itemData.collection.contractAddress,
         data: ethers.utils.solidityPack(
           ['uint256', 'bytes'],
           [this.itemData.tokenId, additionalData]
@@ -80,9 +82,12 @@ export class OfferOrder extends Order {
     if (!this.cryptoCurrencyData) {
       throw new Error('cryptoCurrencyData is not set');
     }
+    if (!this.itemData.collection) {
+      throw new Error('itemData.collection is not set');
+    }
     return [
       this.userWallet,
-      this.itemData.contractAddress,
+      this.itemData.collection.contractAddress,
       this.cryptoCurrencyData.contractAddress,
       this.startTimeUtc,
       this.endTimeUtc,

@@ -13,7 +13,7 @@ export declare abstract class Order {
     startTimeUtc: string;
     endTimeUtc: string;
     nftMarketplaceSdk: NftMarketplaceSdk | null;
-    itemData: Item | null;
+    itemData: NftItem | null;
     cryptoCurrencyData: CryptoCurrency | null;
     signature: string | null;
     constructor(nftMarketplaceSdk: NftMarketplaceSdk, itemId: string, itemAmount: string, cryptoCurrencyId: string, cryptoCurrencyAmount: string, userWallet: string, startTimeUtc: string, endTimeUtc: string);

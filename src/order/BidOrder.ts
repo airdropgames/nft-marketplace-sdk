@@ -44,7 +44,9 @@ export class BidOrder extends Order {
     if (!this.cryptoCurrencyData) {
       throw new Error('cryptoCurrencyData is not set');
     }
-
+    if (!this.itemData.collection) {
+      throw new Error('itemData.collection is not set');
+    }
 
     return {
       makerAddress: this.userWallet,
@@ -55,8 +57,8 @@ export class BidOrder extends Order {
         value: this.cryptoCurrencyAmount,
       },
       askedAsset: {
-        assetType: ENUM_ASSET_TYPE[this.itemData.type as keyof typeof ENUM_ASSET_TYPE],
-        assetAddress: this.itemData.contractAddress,
+        assetType: ENUM_ASSET_TYPE[this.itemData.collection.protocolType as keyof typeof ENUM_ASSET_TYPE],
+        assetAddress: this.itemData.collection.contractAddress,
         data: ethers.utils.solidityPack(
           ['uint256', 'bytes'],
           [this.itemData.tokenId, additionalData]
@@ -80,10 +82,13 @@ export class BidOrder extends Order {
     if (!this.cryptoCurrencyData) {
       throw new Error('cryptoCurrencyData is not set');
     }
+    if (!this.itemData.collection) {
+      throw new Error('itemData.collection is not set');
+    }
     return [
       this.userWallet,
       this.cryptoCurrencyData.contractAddress,
-      this.itemData.contractAddress,
+      this.itemData.collection.contractAddress,
       this.startTimeUtc,
       this.endTimeUtc,
     ];

@@ -2,11 +2,12 @@ import NftMarketplaceSdk from "../..";
 export declare class TenantApis {
     hyperPlazaSdk: NftMarketplaceSdk;
     constructor(hyperPlazaSdk: NftMarketplaceSdk);
-    getNftItem(id: string): Promise<Item>;
-    getCryptoCurrency(contractAddress: string): Promise<CryptoCurrency>;
+    getNftItem(id: string): Promise<NftItem>;
+    getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency>;
+    getCryptoCurrencyById(id: string): Promise<CryptoCurrency>;
     createBid(): void;
     createOffer(): void;
     cancelTransaction(): void;
     getCollections(): void;
-    getCollection(id: string, includes: CollectionIncludesRequest[]): Promise<any>;
+    getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection>;
 }

@@ -15,7 +15,7 @@ export abstract class Order {
   endTimeUtc = '';
 
   nftMarketplaceSdk: NftMarketplaceSdk | null = null;
-  itemData: Item | null = null;
+  itemData: NftItem | null = null;
   cryptoCurrencyData: CryptoCurrency | null = null;
   signature: string | null = null;
 
@@ -63,13 +63,13 @@ export abstract class Order {
     );
     dataPromises.push(
       this.cryptoCurrencyData == null
-        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrency(this.cryptoCurrencyId)
+        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyId)
         : this.cryptoCurrencyData
     );
 
     const [itemData, cryptoCurrencyData] = await Promise.all(dataPromises);
-    this.itemData = itemData as Item;
-    this.cryptoCurrencyData = cryptoCurrencyData;
+    this.itemData = itemData as NftItem;
+    this.cryptoCurrencyData = cryptoCurrencyData as CryptoCurrency;
   }
 
   /**
