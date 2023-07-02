@@ -28,14 +28,12 @@ export type Collection = {
     royaltyReceiver: string | null;
     totalVolume: number;
     ownerCount: number;
-
     isRetrofit: null;
     isLogical: boolean;
     listedAt: string;
     createdAt: string;
     updatedAt: string;
     deletedAt: null;
-
     items: NftItem[] | null | undefined;
 };
 

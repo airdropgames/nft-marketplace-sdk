@@ -34,7 +34,7 @@ class BaseApi {
         this.post = async ({ data, header = this.headers.HeaderAuth(), endpoint, q = '', }) => {
             try {
                 const res = await this.axios.post(`${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`, data, header);
-                return res.data ? res.data : res.status;
+                return res.data;
             }
             catch (error) {
                 throw error;

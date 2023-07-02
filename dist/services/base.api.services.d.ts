@@ -14,7 +14,7 @@ declare class BaseApi {
         header: any;
         endpoint: string;
         q: string;
-    }) => Promise<any>;
+    }) => Promise<T>;
     get: <T = any>({ q, header, endpoint, params, }: {
         q?: string | undefined;
         header?: {

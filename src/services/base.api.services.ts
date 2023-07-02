@@ -32,14 +32,14 @@ class BaseApi {
     header: any;
     endpoint: string;
     q: string;
-  }) => {
+  }): Promise<T> => {
     try {
-      const res = await this.axios.post(
+      const res = await this.axios.post<T>(
         `${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`,
         data,
         header
       );
-      return res.data ? res.data : res.status;
+      return res.data;
     } catch (error: any) {
       throw error;
     }
@@ -97,7 +97,7 @@ class BaseApi {
     endpoint = '',
   }): Promise<T> => {
     try {
-      const res = await this.axios.patch(
+      const res = await this.axios.patch<T>(
         `${this.baseUrl}${endpoint}`,
         data,
         header
