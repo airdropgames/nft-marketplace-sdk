@@ -1,6 +1,6 @@
 // unit test for BidOrder class
-import NftMarketplaceSdk from '../../src';
-import { BidOrder } from '../../src/order/BidOrder';
+import NftMarketplaceSdk from '../../src/HyperSdk';
+import { BidOrder } from '../../src/lib/order/BidOrder';
 
 describe('BidOrder', () => {
   it('buildEip712Data', async () => {

@@ -1,6 +1,6 @@
 // unit test for OfferOrder class
-import NftMarketplaceSdk from '../../src';
-import { OfferOrder } from '../../src/order/OfferOrder';
+import NftMarketplaceSdk from '../../src/HyperSdk';
+import { OfferOrder } from '../../src/lib/order/OfferOrder';
 
 describe('OfferOrder', () => {
   it('buildEip712Data', async () => {
