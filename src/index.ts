@@ -1,2 +1,2 @@
-export {default} from './HyperSdk';
+export { default as NftMarketplaceSdk } from './HyperSdk';
 export * from './constants';

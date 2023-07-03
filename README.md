@@ -15,12 +15,33 @@ yarn add github:airdropgames/nft-marketplace-sdk#dev
 This sample initialize the sdk with the needed parameters. Please replace the parameters according to your need.
 
 ```js
-import { NftMarketplaceSdk } from 'nft-marketplace-sdk';
+// module (export & import)
+import hyprSDK from 'nft-marketplace-sdk';
+const { NftMarketplaceSdk } = hyprSDK
 
 const baseUrl = 'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/';
 const apiKey = 'kcFC6w3^h7LDbqBz';
 const network = 'mumbai';
-const sdk = new NftMarketplaceSdk(baseUrl, apiKey, network);
+const sdk = new NftMarketplaceSdk(baseUrl, apiKey, network, {
+  enableLogging: true,
+  // ... any config needed
+});
+```
+
+```js
+const { NftMarketplaceSdk } = require('../../dist/index.js')
+
+async function main() {
+  const url = `https://bamal2gltj.execute-api.eu-west-2.amazonaws.com`
+  const key = `kcFC6w3^h7LDbqBz`
+  const network = 'mumbai';
+  const hyperSdk = new NftMarketplaceSdk(url, key, network, {
+    enableLogging: true,
+    // ... any config needed
+  })
+
+  const data = await hyperSdk.apis.tenant.getCryptoCurrencyByContractAddress('<contract_address>')
+}
 ```
 
 ### Getting data from Hypr
