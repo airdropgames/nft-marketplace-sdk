@@ -40,6 +40,10 @@ class NftMarketplaceSdk {
             };
         }
         this._setLogLevel();
+        this.apis = {
+            ...this.apis,
+            tenant: new tenant_1.TenantApis(this)
+        };
     }
     getUrl() {
         return this.url;
@@ -60,7 +64,7 @@ class NftMarketplaceSdk {
         if (!url || url === '') {
             throw new Error('HyperPlaza API url is required');
         }
-        let _url = "";
+        let _url = url;
         if (url.endsWith('/')) {
             _url = url.slice(0, -1);
         }

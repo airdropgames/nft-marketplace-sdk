@@ -15,7 +15,9 @@ export default class NftMarketplaceSdk {
 
     public network: string;
 
-    public apis = {
+    public apis: {
+      tenant: TenantApis
+    } = {
       tenant: new TenantApis(this),
     };
 
@@ -34,6 +36,7 @@ export default class NftMarketplaceSdk {
      */
     constructor(url: string, key: string, network: string, opts?: HyprSDKOptions) {
       const validatedUrl = this._validateUrl(url)
+
       this.url = validatedUrl;
 
       const validatedKey = this._validateKey(key)
@@ -48,6 +51,10 @@ export default class NftMarketplaceSdk {
       }
 
       this._setLogLevel()
+      this.apis = {
+        ...this.apis,
+        tenant: new TenantApis(this)
+      }
     }
 
     public getUrl(): string {
@@ -71,7 +78,7 @@ export default class NftMarketplaceSdk {
         throw new Error('HyperPlaza API url is required')
       }
 
-      let _url = "";
+      let _url = url;
       if (url.endsWith('/')) {
         _url = url.slice(0, -1);
       }

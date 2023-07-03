@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TenantApis = void 0;
-const base_api_services_1 = __importDefault(require("src/services/base.api.services"));
-const endpoints_1 = __importDefault(require("src/config/endpoints"));
-const loglevel_1 = __importDefault(require("src/utils/loglevel"));
+const base_api_services_1 = __importDefault(require("../../services/base.api.services"));
+const endpoints_1 = __importDefault(require("../../config/endpoints"));
+const loglevel_1 = __importDefault(require("../../utils/loglevel"));
 class TenantApis extends base_api_services_1.default {
     constructor(hyperPlazaSdk) {
         super({
-            baseUrl: hyperPlazaSdk.url,
+            baseUrl: hyperPlazaSdk.getUrl(),
             endpoints: endpoints_1.default
         });
         this.hyperPlazaSdk = hyperPlazaSdk;
@@ -24,8 +24,8 @@ class TenantApis extends base_api_services_1.default {
             return data;
         }
         catch (error) {
-            loglevel_1.default.error(error);
-            throw new Error(error);
+            loglevel_1.default.error(error.message || "Item not found");
+            return null;
         }
     }
     async getCryptoCurrencyByContractAddress(contractAddress) {
@@ -37,8 +37,8 @@ class TenantApis extends base_api_services_1.default {
             return data;
         }
         catch (error) {
-            loglevel_1.default.error(error);
-            throw new Error(error);
+            loglevel_1.default.error(error.message || "Currency not found");
+            return null;
         }
     }
     async getCryptoCurrencyById(id) {
@@ -49,8 +49,8 @@ class TenantApis extends base_api_services_1.default {
             return data;
         }
         catch (error) {
-            loglevel_1.default.error(error);
-            throw new Error(error);
+            loglevel_1.default.error(error.message || "Currency not found");
+            return null;
         }
     }
     createBid() { }
@@ -66,8 +66,8 @@ class TenantApis extends base_api_services_1.default {
             return data;
         }
         catch (error) {
-            loglevel_1.default.error(error);
-            throw new Error(error);
+            loglevel_1.default.error(error.message || "Collection not found");
+            return null;
         }
     }
 }
