@@ -1,13 +1,12 @@
-import { HyperEndpoints } from 'src/interfaces';
 import * as headers from './headers.services';
 declare class BaseApi {
     axios: import("axios").AxiosStatic;
     baseUrl: string;
-    endpoints: HyperEndpoints;
+    endpoints: Record<string, string>;
     headers: typeof headers;
     constructor({ baseUrl, endpoints, }: {
         baseUrl: string;
-        endpoints: HyperEndpoints;
+        endpoints: Record<string, string>;
     });
     post: <T = any>({ data, header, endpoint, q, }: {
         data: T;

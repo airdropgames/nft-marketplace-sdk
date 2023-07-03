@@ -17,7 +17,7 @@ export class TenantApis extends BaseApi {
   async getNftItem(id: string): Promise<NftItem> {
     try {
       const data = await this.get<NftItem>({
-        endpoint: this.endpoints.getItems(id),
+        endpoint: `${this.endpoints.getItems}/${id}`,
         header: this.headers.Header()
       })
       return data

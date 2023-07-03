@@ -18,7 +18,7 @@ class TenantApis extends base_api_services_1.default {
     async getNftItem(id) {
         try {
             const data = await this.get({
-                endpoint: this.endpoints.getItems(id),
+                endpoint: `${this.endpoints.getItems}/${id}`,
                 header: this.headers.Header()
             });
             return data;

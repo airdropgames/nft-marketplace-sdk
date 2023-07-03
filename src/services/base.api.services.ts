@@ -1,4 +1,3 @@
-import { HyperEndpoints } from 'src/interfaces';
 import * as headers from './headers.services';
 import axios from 'axios';
 
@@ -14,7 +13,7 @@ class BaseApi {
     endpoints,
   }: {
     baseUrl: string;
-    endpoints: HyperEndpoints;
+    endpoints: Record<string, string>;
   }) {
     this.axios = axios;
     this.baseUrl = baseUrl;

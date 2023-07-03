@@ -21,7 +21,7 @@
     "build": "tsc",
     "prebuild": "yarn clean",
     "prepublishOnly": "yarn test",
-    "build:watch": "tsc --watch",
+    "dev": "tsc --watch",
     "test": "jest",
     "clean": "rm -rf dist",
     "prepare": "husky install",

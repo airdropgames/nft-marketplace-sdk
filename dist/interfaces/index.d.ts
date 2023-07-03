@@ -1,9 +1,4 @@
 import { TenantApis } from "src/apis/tenant";
-export type HyperEndpoints = {
-    getItems: (id: string) => string;
-    currency: string;
-    collection: string;
-};
 export type CollectionIncludesRequest = 'items';
 export type Collection = {
     id: string;

@@ -1,3 +1,2 @@
-import { HyperEndpoints } from "src/interfaces";
-declare const hyprEndpoints: HyperEndpoints;
+declare const hyprEndpoints: Record<string, string>;
 export default hyprEndpoints;
