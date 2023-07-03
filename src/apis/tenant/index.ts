@@ -10,7 +10,7 @@ export class TenantApis extends BaseApi {
     super({
       baseUrl: hyperPlazaSdk.getUrl(),
       endpoints: hyprEndpoints
-    })
+    });
     this.hyperPlazaSdk = hyperPlazaSdk;
   }
 
@@ -19,11 +19,11 @@ export class TenantApis extends BaseApi {
       const data = await this.get<NftItem>({
         endpoint: `${this.endpoints.getItems}/${id}`,
         header: this.headers.Header()
-      })
-      return data
+      });
+      return data;
     } catch (error: any) {
-      log.error(error.message || "Item not found")
-      return null
+      log.error(error.message || "Item not found");
+      throw error?.response?.data || String(error);
     }
   }
 
@@ -32,11 +32,11 @@ export class TenantApis extends BaseApi {
       const data = await this.get<CryptoCurrency>({
         endpoint: this.endpoints.currency,
         q: `contractAddress=${contractAddress}`
-      })
-      return data
+      });
+      return data;
     } catch (error: any) {
-      log.error(error.message || "Currency not found")
-      return null
+      log.error(error.message || "Currency not found");
+      throw error?.response?.data || String(error);
     }
   }
 
@@ -44,11 +44,11 @@ export class TenantApis extends BaseApi {
     try {
       const data = await this.get<CryptoCurrency>({
         endpoint: `${this.endpoints.currency}/${id}`,
-      })
-      return data
+      });
+      return data;
     } catch (error: any) {
-      log.error(error.message || "Currency not found")
-      return null
+      log.error(error.message || "Currency not found");
+      throw error?.response?.data || String(error);
     }
   }
 
@@ -61,12 +61,12 @@ export class TenantApis extends BaseApi {
     try {
       const data = await this.get<Collection>({
         endpoint: `${this.endpoints.collection}/${id}`,
-        q: `includes=${includes.join(',')}`
-      })
-      return data
+        q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined
+      });
+      return data;
     } catch (error: any) {
-      log.error(error.message || "Collection not found")
-      return null
+      log.error(error.message || "Collection not found");
+      throw error?.response?.data || String(error);
     }
   }
 }
