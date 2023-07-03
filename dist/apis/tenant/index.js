@@ -25,7 +25,7 @@ class TenantApis extends base_api_services_1.default {
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Item not found");
-            throw error?.response?.data || error;
+            throw error?.response?.data || String(error);
         }
     }
     async getCryptoCurrencyByContractAddress(contractAddress) {
@@ -38,7 +38,7 @@ class TenantApis extends base_api_services_1.default {
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Currency not found");
-            throw error?.response?.data || error;
+            throw error?.response?.data || String(error);
         }
     }
     async getCryptoCurrencyById(id) {
@@ -50,7 +50,7 @@ class TenantApis extends base_api_services_1.default {
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Currency not found");
-            throw error?.response?.data || error;
+            throw error?.response?.data || String(error);
         }
     }
     createBid() { }
@@ -67,7 +67,7 @@ class TenantApis extends base_api_services_1.default {
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Collection not found");
-            throw error?.response?.data || error;
+            throw error?.response?.data || String(error);
         }
     }
 }

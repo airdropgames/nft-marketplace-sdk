@@ -23,7 +23,7 @@ export class TenantApis extends BaseApi {
       return data;
     } catch (error: any) {
       log.error(error.message || "Item not found");
-      throw error?.response?.data || error;
+      throw error?.response?.data || String(error);
     }
   }
 
@@ -36,7 +36,7 @@ export class TenantApis extends BaseApi {
       return data;
     } catch (error: any) {
       log.error(error.message || "Currency not found");
-      throw error?.response?.data || error;
+      throw error?.response?.data || String(error);
     }
   }
 
@@ -48,7 +48,7 @@ export class TenantApis extends BaseApi {
       return data;
     } catch (error: any) {
       log.error(error.message || "Currency not found");
-      throw error?.response?.data || error;
+      throw error?.response?.data || String(error);
     }
   }
 
@@ -66,7 +66,7 @@ export class TenantApis extends BaseApi {
       return data;
     } catch (error: any) {
       log.error(error.message || "Collection not found");
-      throw error?.response?.data || error;
+      throw error?.response?.data || String(error);
     }
   }
 }
