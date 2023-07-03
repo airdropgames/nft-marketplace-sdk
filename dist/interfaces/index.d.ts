@@ -25,7 +25,10 @@ export type Collection = {
     createdAt: string;
     updatedAt: string;
     deletedAt: null;
-    items: NftItem[] | null | undefined;
+    items: null | undefined | {
+        total: number;
+        data: NftItem[];
+    };
 };
 export type HyprTenantApis = {
     tenant: TenantApis;

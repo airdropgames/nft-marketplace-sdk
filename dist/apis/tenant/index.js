@@ -25,7 +25,7 @@ class TenantApis extends base_api_services_1.default {
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Item not found");
-            return null;
+            throw error?.response?.data || error;
         }
     }
     async getCryptoCurrencyByContractAddress(contractAddress) {
@@ -38,7 +38,7 @@ class TenantApis extends base_api_services_1.default {
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Currency not found");
-            return null;
+            throw error?.response?.data || error;
         }
     }
     async getCryptoCurrencyById(id) {
@@ -50,7 +50,7 @@ class TenantApis extends base_api_services_1.default {
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Currency not found");
-            return null;
+            throw error?.response?.data || error;
         }
     }
     createBid() { }
@@ -61,13 +61,13 @@ class TenantApis extends base_api_services_1.default {
         try {
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}/${id}`,
-                q: `includes=${includes.join(',')}`
+                q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined
             });
             return data;
         }
         catch (error) {
             loglevel_1.default.error(error.message || "Collection not found");
-            return null;
+            throw error?.response?.data || error;
         }
     }
 }
