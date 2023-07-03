@@ -1,2 +1,2 @@
-export {default as HyperSDK} from './HyperSdk';
+export {default} from './HyperSdk';
 export * from './constants';

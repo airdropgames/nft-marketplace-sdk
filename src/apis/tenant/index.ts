@@ -1,20 +1,20 @@
-import BaseApi from "src/services/base.api.services";
+import BaseApi from "../../services/base.api.services";
 import NftMarketplaceSdk from "../../HyperSdk";
-import hyprEndpoints from "src/config/endpoints";
-import { Collection, CollectionIncludesRequest, CryptoCurrency, NftItem } from "src/interfaces";
-import log from "src/utils/loglevel";
+import hyprEndpoints from "../../config/endpoints";
+import { Collection, CollectionIncludesRequest, CryptoCurrency, NftItem } from "../../interfaces";
+import log from "../../utils/loglevel";
 export class TenantApis extends BaseApi {
   hyperPlazaSdk: NftMarketplaceSdk;
 
   constructor(hyperPlazaSdk: NftMarketplaceSdk) {
     super({
-      baseUrl: hyperPlazaSdk.url,
+      baseUrl: hyperPlazaSdk.getUrl(),
       endpoints: hyprEndpoints
     })
     this.hyperPlazaSdk = hyperPlazaSdk;
   }
 
-  async getNftItem(id: string): Promise<NftItem> {
+  async getNftItem(id: string): Promise<NftItem | null> {
     try {
       const data = await this.get<NftItem>({
         endpoint: `${this.endpoints.getItems}/${id}`,
@@ -22,12 +22,12 @@ export class TenantApis extends BaseApi {
       })
       return data
     } catch (error: any) {
-      log.error(error)
-      throw new Error(error)
+      log.error(error.message || "Item not found")
+      return null
     }
   }
 
-  async getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency> {
+  async getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency | null> {
     try {
       const data = await this.get<CryptoCurrency>({
         endpoint: this.endpoints.currency,
@@ -35,20 +35,20 @@ export class TenantApis extends BaseApi {
       })
       return data
     } catch (error: any) {
-      log.error(error)
-      throw new Error(error)
+      log.error(error.message || "Currency not found")
+      return null
     }
   }
 
-  async getCryptoCurrencyById(id: string): Promise<CryptoCurrency> {
+  async getCryptoCurrencyById(id: string): Promise<CryptoCurrency | null> {
     try {
       const data = await this.get<CryptoCurrency>({
         endpoint: `${this.endpoints.currency}/${id}`,
       })
       return data
     } catch (error: any) {
-      log.error(error)
-      throw new Error(error)
+      log.error(error.message || "Currency not found")
+      return null
     }
   }
 
@@ -57,7 +57,7 @@ export class TenantApis extends BaseApi {
   cancelTransaction() { }
   getCollections() { }
 
-  async getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection> {
+  async getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection | null> {
     try {
       const data = await this.get<Collection>({
         endpoint: `${this.endpoints.collection}/${id}`,
@@ -65,8 +65,8 @@ export class TenantApis extends BaseApi {
       })
       return data
     } catch (error: any) {
-      log.error(error)
-      throw new Error(error)
+      log.error(error.message || "Collection not found")
+      return null
     }
   }
 }
