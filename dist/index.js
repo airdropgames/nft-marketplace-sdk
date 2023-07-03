@@ -1,30 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const tenant_1 = require("./apis/tenant");
-/**
- * @class NftMarketplaceSdk
- * Handles all the interactions with the HyperPlaza API and intermidiate operations
- */
-class NftMarketplaceSdk {
-    /**
-     *
-     * @param {string} url HyperPlaza API url
-     * @param {string} key HyperPlaza API key
-     * @param {string} network HyperPlaza network
-     */
-    constructor(url, key, network) {
-        this.url = '';
-        this.key = '';
-        this.network = '';
-        this.apis = {
-            tenant: new tenant_1.TenantApis(this),
-        };
-        this.url = url;
-        this.key = key;
-        this.network = network;
-    }
-    log() {
-        console.log('Hello world');
-    }
-}
-exports.default = NftMarketplaceSdk;
+exports.HyperSDK = void 0;
+var HyperSdk_1 = require("./HyperSdk");
+Object.defineProperty(exports, "HyperSDK", { enumerable: true, get: function () { return __importDefault(HyperSdk_1).default; } });
+__exportStar(require("./constants"), exports);

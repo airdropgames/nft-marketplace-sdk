@@ -1,21 +1,55 @@
-import NftMarketplaceSdk from "../..";
-import axios from "axios";
-export class TenantApis {
+import BaseApi from "src/services/base.api.services";
+import NftMarketplaceSdk from "../../HyperSdk";
+import hyprEndpoints from "src/config/endpoints";
+import { Collection, CollectionIncludesRequest, CryptoCurrency, NftItem } from "src/interfaces";
+import log from "src/utils/loglevel";
+export class TenantApis extends BaseApi {
   hyperPlazaSdk: NftMarketplaceSdk;
 
   constructor(hyperPlazaSdk: NftMarketplaceSdk) {
+    super({
+      baseUrl: hyperPlazaSdk.url,
+      endpoints: hyprEndpoints
+    })
     this.hyperPlazaSdk = hyperPlazaSdk;
   }
 
-  getNftItem(id: string): Promise<NftItem> {
-    return axios.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/items/${id}`).then((res) => res.data);
+  async getNftItem(id: string): Promise<NftItem> {
+    try {
+      const data = await this.get<NftItem>({
+        endpoint: `${this.endpoints.getItems}/${id}`,
+        header: this.headers.Header()
+      })
+      return data
+    } catch (error: any) {
+      log.error(error)
+      throw new Error(error)
+    }
   }
 
-  getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency> {
-    return axios.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/currencies?contractAddress=${contractAddress}`).then((res) => res.data);
+  async getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency> {
+    try {
+      const data = await this.get<CryptoCurrency>({
+        endpoint: this.endpoints.currency,
+        q: `contractAddress=${contractAddress}`
+      })
+      return data
+    } catch (error: any) {
+      log.error(error)
+      throw new Error(error)
+    }
   }
-  getCryptoCurrencyById(id: string): Promise<CryptoCurrency> {
-    return axios.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/currencies/${id}`).then((res) => res.data);
+
+  async getCryptoCurrencyById(id: string): Promise<CryptoCurrency> {
+    try {
+      const data = await this.get<CryptoCurrency>({
+        endpoint: `${this.endpoints.currency}/${id}`,
+      })
+      return data
+    } catch (error: any) {
+      log.error(error)
+      throw new Error(error)
+    }
   }
 
   createBid() { }
@@ -23,7 +57,16 @@ export class TenantApis {
   cancelTransaction() { }
   getCollections() { }
 
-  getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection> {
-    return axios.get(`${this.hyperPlazaSdk.url}/api/v1/tenant/collections/${id}?includes=${includes.join(',')}`).then((res) => res.data);
+  async getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection> {
+    try {
+      const data = await this.get<Collection>({
+        endpoint: `${this.endpoints.collection}/${id}`,
+        q: `includes=${includes.join(',')}`
+      })
+      return data
+    } catch (error: any) {
+      log.error(error)
+      throw new Error(error)
+    }
   }
 }

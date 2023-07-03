@@ -1,5 +1,5 @@
-import NftMarketplaceSdk from "../../src";
-import { Order } from "../../src/order/Order";
+import NftMarketplaceSdk from "../../src/HyperSdk";
+import { Order } from "../../src/lib/order/Order";
 
 class OrderImpl extends Order {
     arrayify(): Promise<string[]> {
@@ -21,20 +21,21 @@ describe('Order', () => {
 
     it('checks fetchRequiredData', async () => {
         const nftMarketplaceSdk = new NftMarketplaceSdk('', '', '');
-        const sdkGetItemApiMock = jest.spyOn(nftMarketplaceSdk.apis.tenant, 'getItem').mockImplementation(async () => {
+        const sdkGetItemApiMock = jest.spyOn(nftMarketplaceSdk.apis.tenant, 'getNftItem').mockImplementation(async () => {
             return {
                 type: 'ERC721',
                 contractAddress: '0xItemContractAddress',
                 tokenId: '1',
             };
         });
-        const sdkGetCryptoCurrencyApiMock = jest.spyOn(nftMarketplaceSdk.apis.tenant, 'getCryptoCurrency').mockImplementation(async () => {
+        const sdkGetCryptoCurrencyApiMock = jest.spyOn(nftMarketplaceSdk.apis.tenant, 'getCryptoCurrencyById').mockImplementation(async () => {
             return {
                 contractAddress: '0xCryptoCurrencyAddress',
             };
         });
         const order = new OrderImpl(nftMarketplaceSdk, 'itemId', 'itemAmount', 'cryptoCurrencyId', 'cryptoCurrencyAmount', 'userWallet', 'startTimeUtc', 'endTimeUtc');
         await order.fetchRequiredData();
+        
         expect(order.itemData).toEqual({ "contractAddress": "0xItemContractAddress", "tokenId": "1", "type": "ERC721" });
         expect(order.cryptoCurrencyData).toEqual({ "contractAddress": "0xCryptoCurrencyAddress" });
         expect(sdkGetItemApiMock).toBeCalledTimes(1);

@@ -1,6 +1,6 @@
-import NftMarketplaceSdk from '../../src';
-import { BidOrder } from '../../src/order/BidOrder';
-import { OfferOrder } from '../../src/order/OfferOrder';
+import NftMarketplaceSdk from '../../src/HyperSdk';
+import { BidOrder } from '../../src/lib/order/BidOrder';
+import { OfferOrder } from '../../src/lib/order/OfferOrder';
 const {
   OffchainMatchOrdersTransaction,
 } = require('../../src/transaction/OffchainMatchOrders');

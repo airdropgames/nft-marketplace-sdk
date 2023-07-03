@@ -1,5 +1,7 @@
-import NftMarketplaceSdk from "../..";
-export declare class TenantApis {
+import BaseApi from "src/services/base.api.services";
+import NftMarketplaceSdk from "../../HyperSdk";
+import { Collection, CollectionIncludesRequest, CryptoCurrency, NftItem } from "src/interfaces";
+export declare class TenantApis extends BaseApi {
     hyperPlazaSdk: NftMarketplaceSdk;
     constructor(hyperPlazaSdk: NftMarketplaceSdk);
     getNftItem(id: string): Promise<NftItem>;
