@@ -7,7 +7,7 @@ exports.Order = void 0;
  *
  */
 class Order {
-    constructor(nftMarketplaceSdk, itemId, itemAmount, cryptoCurrencyId, cryptoCurrencyAmount, userWallet, startTimeUtc, endTimeUtc) {
+    constructor(nftMarketplaceSdk, itemId, itemAmount, cryptoCurrencyId, cryptoCurrencyAmount, userWallet, startTimeUtc, endTimeUtc, item, currency) {
         this.itemId = '';
         this.itemAmount = '';
         this.cryptoCurrencyId = '';
@@ -27,6 +27,12 @@ class Order {
         this.userWallet = userWallet;
         this.startTimeUtc = startTimeUtc;
         this.endTimeUtc = endTimeUtc;
+        if (item) {
+            this.itemData = item;
+        }
+        if (currency) {
+            this.cryptoCurrencyData = currency;
+        }
     }
     setSignature(signature) {
         this.signature = signature;
@@ -44,7 +50,7 @@ class Order {
         // get item & currency data from amount
         const dataPromises = [];
         dataPromises.push(this.itemData == null
-            ? this.nftMarketplaceSdk.apis.tenant.getNftItem(this.itemId)
+            ? this.nftMarketplaceSdk.apis.tenant.getNftItemById(this.itemId)
             : this.itemData);
         dataPromises.push(this.cryptoCurrencyData == null
             ? this.nftMarketplaceSdk.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyId)

@@ -1,4 +1,4 @@
-import { CryptoCurrency, NftItem } from "src/interfaces";
+import { CryptoCurrency, NftItem, OrderCurrency, OrderItem } from "src/interfaces";
 import NftMarketplaceSdk from "../../HyperSdk";
 
 /**
@@ -16,7 +16,7 @@ export abstract class Order {
   endTimeUtc = '';
 
   nftMarketplaceSdk: NftMarketplaceSdk | null = null;
-  itemData: NftItem | null = null;
+  itemData: Partial<NftItem> | null = null;
   cryptoCurrencyData: CryptoCurrency | null = null;
   signature: string | null = null;
 
@@ -28,7 +28,9 @@ export abstract class Order {
     cryptoCurrencyAmount: string,
     userWallet: string,
     startTimeUtc: string,
-    endTimeUtc: string
+    endTimeUtc: string,
+    item?: OrderItem,
+    currency?: OrderCurrency
   ) {
     this.nftMarketplaceSdk = nftMarketplaceSdk;
     this.itemId = itemId;
@@ -38,6 +40,13 @@ export abstract class Order {
     this.userWallet = userWallet;
     this.startTimeUtc = startTimeUtc;
     this.endTimeUtc = endTimeUtc;
+
+    if (item) {
+      this.itemData = item;
+    }
+    if (currency) {
+      this.cryptoCurrencyData = currency;
+    }
   }
 
   setSignature(signature: string) {
@@ -59,7 +68,7 @@ export abstract class Order {
     const dataPromises = [];
     dataPromises.push(
       this.itemData == null
-        ? this.nftMarketplaceSdk!.apis.tenant.getNftItem(this.itemId)
+        ? this.nftMarketplaceSdk!.apis.tenant.getNftItemById(this.itemId)
         : this.itemData
     );
     dataPromises.push(

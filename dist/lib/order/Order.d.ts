@@ -1,4 +1,4 @@
-import { CryptoCurrency, NftItem } from "src/interfaces";
+import { CryptoCurrency, NftItem, OrderCurrency, OrderItem } from "src/interfaces";
 import NftMarketplaceSdk from "../../HyperSdk";
 /**
  * @class Order
@@ -14,10 +14,10 @@ export declare abstract class Order {
     startTimeUtc: string;
     endTimeUtc: string;
     nftMarketplaceSdk: NftMarketplaceSdk | null;
-    itemData: NftItem | null;
+    itemData: Partial<NftItem> | null;
     cryptoCurrencyData: CryptoCurrency | null;
     signature: string | null;
-    constructor(nftMarketplaceSdk: NftMarketplaceSdk, itemId: string, itemAmount: string, cryptoCurrencyId: string, cryptoCurrencyAmount: string, userWallet: string, startTimeUtc: string, endTimeUtc: string);
+    constructor(nftMarketplaceSdk: NftMarketplaceSdk, itemId: string, itemAmount: string, cryptoCurrencyId: string, cryptoCurrencyAmount: string, userWallet: string, startTimeUtc: string, endTimeUtc: string, item?: OrderItem, currency?: OrderCurrency);
     setSignature(signature: string): void;
     getSignature(): string;
     fetchRequiredData(): Promise<void>;
