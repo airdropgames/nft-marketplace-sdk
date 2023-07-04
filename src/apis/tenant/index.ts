@@ -16,6 +16,9 @@ import {
   ListTransactionsResponse,
   ListTransactionsSort,
   NftItem,
+  CreateTransactionRequestParameters,
+  CreateTransactionResponse,
+  BidOfferRequestParameters,
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
@@ -91,12 +94,7 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async listNftItems(
-    filter: ListItemsFilter,
-    page: number,
-    limit: number,
-    sort: ListItemsSort[],
-    includes: string[]) {
+  async listNftItems(filter: ListItemsFilter, page: number, limit: number, sort: ListItemsSort[], includes: string[]) {
     try {
       const query = qs.stringify(
         {
@@ -210,7 +208,36 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  createBid() { }
-  createOffer() { }
-  cancelTransaction() { }
+  async createTranscaction(params: CreateTransactionRequestParameters) {
+    try {
+      const data = await this.post<CreateTransactionRequestParameters, CreateTransactionResponse>({
+        endpoint: `${this.endpoints.transaction}`,
+        data: params,
+      });
+      return data;
+    } catch (error: any) {
+      log.error(error.message || 'Transaction not found');
+      throw error?.response?.data || String(error);
+    }
+  }
+
+  async createBid(params: BidOfferRequestParameters) {
+    return this.createTranscaction({ ...params, type: 'BID' });
+  }
+
+  async createOffer(params: BidOfferRequestParameters) {
+    return this.createTranscaction({ ...params, type: 'OFFER' });
+  }
+
+  async cancelTransaction(id: string) {
+    try {
+      const data = await this.delete({
+        endpoint: `${this.endpoints.transaction}/${id}`,
+      });
+      return data;
+    } catch (error: any) {
+      log.error(error.message || 'Transaction not found');
+      throw error?.response?.data || String(error);
+    }
+  }
 }

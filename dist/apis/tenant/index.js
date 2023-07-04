@@ -161,8 +161,36 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    createBid() { }
-    createOffer() { }
-    cancelTransaction() { }
+    async createTranscaction(params) {
+        try {
+            const data = await this.post({
+                endpoint: `${this.endpoints.transaction}`,
+                data: params,
+            });
+            return data;
+        }
+        catch (error) {
+            loglevel_1.default.error(error.message || 'Transaction not found');
+            throw error?.response?.data || String(error);
+        }
+    }
+    async createBid(params) {
+        return this.createTranscaction({ ...params, type: 'BID' });
+    }
+    async createOffer(params) {
+        return this.createTranscaction({ ...params, type: 'OFFER' });
+    }
+    async cancelTransaction(id) {
+        try {
+            const data = await this.delete({
+                endpoint: `${this.endpoints.transaction}/${id}`,
+            });
+            return data;
+        }
+        catch (error) {
+            loglevel_1.default.error(error.message || 'Transaction not found');
+            throw error?.response?.data || String(error);
+        }
+    }
 }
 exports.TenantApis = TenantApis;

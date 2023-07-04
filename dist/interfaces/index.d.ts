@@ -1,4 +1,4 @@
-import { TenantApis } from "src/apis/tenant";
+import { TenantApis } from '../apis/tenant';
 export type CollectionIncludesRequest = 'items';
 export type Collection = {
     id: string;
@@ -146,17 +146,58 @@ export type ListTransactionsResponse = {
     limit: number;
     data: Transaction[];
 };
-export type Transaction = {};
 export type OrderItem = {
     collection: {
         contractAddress: string;
         protocolType: string;
     };
     tokenId: string;
-    transaferData?: string;
+    transferData?: string;
 };
 export type OrderCurrency = {
     contractAddress: string;
-    transaferData?: string;
+    transferData?: string;
+};
+export type CreateTransactionResponse = {
+    userAddress: string;
+    itemId: string;
+    itemValue: string;
+    currencyId: string;
+    currencyValue: string;
+    startTimestamp: number;
+    endTimestamp: number;
+    networkSymbol: string;
+    data: string;
+};
+export type CreateTransactionRequestParameters = {
+    type: 'BID' | 'OFFER';
+} & BidOfferRequestParameters;
+export type BidOfferRequestParameters = {
+    userAddress: string;
+    itemId: string;
+    itemValue: string;
+    currencyId: string;
+    currencyValue: string;
+    startTimestamp: number;
+    endTimestamp: number;
+    networkSymbol: string;
+    data: string;
+    signature: string;
+};
+export type Transaction = {
+    id: String;
+    type: TransactionTypes;
+    currencyValue: string;
+    itemValue: string;
+    startTimestampUtc: number;
+    endTimestampUtc: number;
+    status: TransactionStatus;
+    createdAt: string;
+    data: string;
+    signature: string;
+    network: string;
+    userId: string;
+    currency: CryptoCurrency;
+    item: NftItem;
 };
 export {};

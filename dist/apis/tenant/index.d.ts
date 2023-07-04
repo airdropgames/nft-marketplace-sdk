@@ -1,6 +1,6 @@
 import BaseApi from '../../services/base.api.services';
 import NftMarketplaceSdk from '../../HyperSdk';
-import { Collection, CollectionIncludesRequest, CryptoCurrency, ListCollectionsFilter, ListCollectionsResponse, ListCollectionsSort, ListItemsFilter, ListItemsResponse, ListItemsSort, ListTransactionsFilter, ListTransactionsResponse, ListTransactionsSort, NftItem } from '../../interfaces';
+import { Collection, CollectionIncludesRequest, CryptoCurrency, ListCollectionsFilter, ListCollectionsResponse, ListCollectionsSort, ListItemsFilter, ListItemsResponse, ListItemsSort, ListTransactionsFilter, ListTransactionsResponse, ListTransactionsSort, NftItem, CreateTransactionRequestParameters, CreateTransactionResponse, BidOfferRequestParameters } from '../../interfaces';
 import { Transaction } from 'ethers';
 export declare class TenantApis extends BaseApi {
     hyperPlazaSdk: NftMarketplaceSdk;
@@ -17,7 +17,8 @@ export declare class TenantApis extends BaseApi {
     getCryptoCurrencyById(id: string): Promise<CryptoCurrency | null>;
     listTransactions(filter: ListTransactionsFilter, page: number, limit: number, sort: ListTransactionsSort[], includes: string[]): Promise<ListTransactionsResponse>;
     getTransaction(id: string, includes: string[]): Promise<Transaction | null>;
-    createBid(): void;
-    createOffer(): void;
-    cancelTransaction(): void;
+    createTranscaction(params: CreateTransactionRequestParameters): Promise<CreateTransactionResponse>;
+    createBid(params: BidOfferRequestParameters): Promise<CreateTransactionResponse>;
+    createOffer(params: BidOfferRequestParameters): Promise<CreateTransactionResponse>;
+    cancelTransaction(id: string): Promise<any>;
 }
