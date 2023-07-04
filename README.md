@@ -5,7 +5,7 @@ This SDK is to make integration with our NFT marketplace easier
 ## Installation
 
 ```bash
-yarn add github:airdropgames/nft-marketplace-sdk#dev
+yarn add https://github.com/airdropgames/nft-marketplace-sdk.git
 ```
 
 ## Sample Usage

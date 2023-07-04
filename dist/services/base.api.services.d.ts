@@ -8,12 +8,12 @@ declare class BaseApi {
         baseUrl: string;
         endpoints: Record<string, string>;
     });
-    post: <T = any>({ data, header, endpoint, q, }: {
+    post: <T = any, U = any>({ data, header, endpoint, q, }: {
         data: T;
         header: any;
         endpoint: string;
         q: string;
-    }) => Promise<T>;
+    }) => Promise<U>;
     get: <T = any>({ q, header, endpoint, params, }: {
         q?: string | undefined;
         header?: {
