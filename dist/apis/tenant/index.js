@@ -51,7 +51,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async getCollectionByContractAddress(network, contractAddress, includes) {
         try {
-            const query = qs_1.default.stringify({ filter: { network, contractAddress }, includes }, { allowDots: true });
+            const query = qs_1.default.stringify({ filter: { network, contractAddress }, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,
                 q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined,
@@ -98,7 +98,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async getNftItemByTokenId(network, contractAddress, tokenId, { includes }) {
         try {
-            const query = qs_1.default.stringify({ filter: { network, contractAddress, tokenId }, includes }, { allowDots: true });
+            const query = qs_1.default.stringify({ filter: { network, contractAddress, tokenId }, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.getItems}?${query}`,
                 header: this.headers.Header(),
@@ -137,7 +137,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async listTransactions(filter, page, limit, sort, includes) {
         try {
-            const query = qs_1.default.stringify({ filter, page, limit, sort, includes }, { allowDots: true });
+            const query = qs_1.default.stringify({ filter, page, limit, sort, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.transaction}?${query}`,
             });
@@ -150,7 +150,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async getTransaction(id, includes) {
         try {
-            const query = qs_1.default.stringify({ includes }, { allowDots: true });
+            const query = qs_1.default.stringify({ includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.transaction}/${id}?${query}`,
             });

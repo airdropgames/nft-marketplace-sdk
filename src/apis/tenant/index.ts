@@ -79,7 +79,7 @@ export class TenantApis extends BaseApi {
     includes: CollectionIncludesRequest[]
   ): Promise<Collection | null> {
     try {
-      const query = qs.stringify({ filter: { network, contractAddress }, includes }, { allowDots: true });
+      const query = qs.stringify({ filter: { network, contractAddress }, includes });
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
         q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined,
@@ -140,7 +140,7 @@ export class TenantApis extends BaseApi {
     { includes }: { includes: string[]; }
   ): Promise<NftItem | null> {
     try {
-      const query = qs.stringify({ filter: { network, contractAddress, tokenId }, includes }, { allowDots: true });
+      const query = qs.stringify({ filter: { network, contractAddress, tokenId }, includes });
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.getItems}?${query}`,
         header: this.headers.Header(),
@@ -186,7 +186,7 @@ export class TenantApis extends BaseApi {
     includes: string[]
   ): Promise<ListTransactionsResponse> {
     try {
-      const query = qs.stringify({ filter, page, limit, sort, includes }, { allowDots: true });
+      const query = qs.stringify({ filter, page, limit, sort, includes });
       const data = await this.get({
         endpoint: `${this.endpoints.transaction}?${query}`,
       });
@@ -199,7 +199,7 @@ export class TenantApis extends BaseApi {
 
   async getTransaction(id: string, includes: string[]): Promise<Transaction | null> {
     try {
-      const query = qs.stringify({ includes }, { allowDots: true });
+      const query = qs.stringify({ includes });
       const data = await this.get<Transaction>({
         endpoint: `${this.endpoints.transaction}/${id}?${query}`,
       });

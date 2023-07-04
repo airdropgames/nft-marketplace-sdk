@@ -101,10 +101,9 @@ export type ListCollectionsFilter = {
   }[];
 };
 
-export type ListCollectionsSort = {
-  totalVolume: SortCriteria;
-  createdAt: SortCriteria;
-};
+export type ListCollectionsSort =
+  { totalVolume: SortCriteria; } |
+  { createdAt: SortCriteria; };
 
 export type ListItemsFilter = {
   collectionContracts: {
@@ -115,13 +114,12 @@ export type ListItemsFilter = {
   userAddress: string;
 };
 
-export type ListItemsSort = {
-  totalVolume: SortCriteria;
-  amount: SortCriteria;
-  lastTransactiondate: SortCriteria;
-  activeBidPrice: SortCriteria;
-  activeOfferPrice: SortCriteria;
-};
+export type ListItemsSort =
+  { totalVolume: SortCriteria; } |
+  { amount: SortCriteria; } |
+  { lastTransactiondate: SortCriteria; } |
+  { activeBidPrice: SortCriteria; } |
+  { activeOfferPrice: SortCriteria; };
 
 export type TransactionTypes = 'BID' | 'OFFER';
 export type TransactionStatus = 'SUBMITTED' | 'MATCHED' | 'CANCELLED';
@@ -141,14 +139,13 @@ export type ListTransactionsFilter = {
   userAddress: string;
 };
 
-export type ListTransactionsSort = {
-  createdAt: SortCriteria;
-  currencyValue: SortCriteria;
-  price: SortCriteria;
-  itemValue: SortCriteria;
-  startTime: SortCriteria;
-  endTime: SortCriteria;
-};
+export type ListTransactionsSort =
+  { createdAt: SortCriteria; } |
+  { currencyValue: SortCriteria; } |
+  { price: SortCriteria; } |
+  { itemValue: SortCriteria; } |
+  { startTime: SortCriteria; } |
+  { endTime: SortCriteria; };
 
 export type ListTransactionsResponse = {
   total: number;

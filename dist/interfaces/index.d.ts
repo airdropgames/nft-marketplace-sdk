@@ -85,6 +85,7 @@ export type ListCollectionsFilter = {
 };
 export type ListCollectionsSort = {
     totalVolume: SortCriteria;
+} | {
     createdAt: SortCriteria;
 };
 export type ListItemsFilter = {
@@ -97,9 +98,13 @@ export type ListItemsFilter = {
 };
 export type ListItemsSort = {
     totalVolume: SortCriteria;
+} | {
     amount: SortCriteria;
+} | {
     lastTransactiondate: SortCriteria;
+} | {
     activeBidPrice: SortCriteria;
+} | {
     activeOfferPrice: SortCriteria;
 };
 export type TransactionTypes = 'BID' | 'OFFER';
@@ -124,10 +129,15 @@ export type ListTransactionsFilter = {
 };
 export type ListTransactionsSort = {
     createdAt: SortCriteria;
+} | {
     currencyValue: SortCriteria;
+} | {
     price: SortCriteria;
+} | {
     itemValue: SortCriteria;
+} | {
     startTime: SortCriteria;
+} | {
     endTime: SortCriteria;
 };
 export type ListTransactionsResponse = {
