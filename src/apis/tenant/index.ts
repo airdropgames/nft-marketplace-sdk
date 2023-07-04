@@ -16,6 +16,10 @@ import {
   ListTransactionsResponse,
   ListTransactionsSort,
   NftItem,
+  CreateTransactionRequestParameters,
+  CreateTransactionResponse,
+  BidOfferRequestParameters,
+  PlatformDataSignature,
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
@@ -91,12 +95,7 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async listNftItems(
-    filter: ListItemsFilter,
-    page: number,
-    limit: number,
-    sort: ListItemsSort[],
-    includes: string[]) {
+  async listNftItems(filter: ListItemsFilter, page: number, limit: number, sort: ListItemsSort[], includes: string[]) {
     try {
       const query = qs.stringify(
         {
@@ -110,7 +109,7 @@ export class TenantApis extends BaseApi {
       );
 
       const data = await this.get<ListItemsResponse>({
-        endpoint: `${this.endpoints.getItems}?${query}}`,
+        endpoint: `${this.endpoints.item}?${query}}`,
         header: this.headers.Header(),
       });
       return data;
@@ -123,7 +122,7 @@ export class TenantApis extends BaseApi {
   async getNftItemById(id: string): Promise<NftItem | null> {
     try {
       const data = await this.get<NftItem>({
-        endpoint: `${this.endpoints.getItems}/${id}`,
+        endpoint: `${this.endpoints.item}/${id}`,
         header: this.headers.Header(),
       });
       return data;
@@ -142,7 +141,7 @@ export class TenantApis extends BaseApi {
     try {
       const query = qs.stringify({ filter: { network, contractAddress, tokenId }, includes });
       const data = await this.get<ListItemsResponse>({
-        endpoint: `${this.endpoints.getItems}?${query}`,
+        endpoint: `${this.endpoints.item}?${query}`,
         header: this.headers.Header(),
       });
 
@@ -197,7 +196,7 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async getTransaction(id: string, includes: string[]): Promise<Transaction | null> {
+  async getTransactionById(id: string, includes: string[]): Promise<Transaction | null> {
     try {
       const query = qs.stringify({ includes });
       const data = await this.get<Transaction>({
@@ -210,7 +209,48 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  createBid() { }
-  createOffer() { }
-  cancelTransaction() { }
+  async createTranscaction(params: CreateTransactionRequestParameters) {
+    try {
+      const data = await this.post<CreateTransactionRequestParameters, CreateTransactionResponse>({
+        endpoint: `${this.endpoints.transaction}`,
+        data: params,
+      });
+      return data;
+    } catch (error: any) {
+      log.error(error.message || 'Transaction not found');
+      throw error?.response?.data || String(error);
+    }
+  }
+
+  async createBid(params: BidOfferRequestParameters) {
+    return this.createTranscaction({ ...params, type: 'BID' });
+  }
+
+  async createOffer(params: BidOfferRequestParameters) {
+    return this.createTranscaction({ ...params, type: 'OFFER' });
+  }
+
+  async cancelTransaction(id: string) {
+    try {
+      const data = await this.delete({
+        endpoint: `${this.endpoints.transaction}/${id}`,
+      });
+      return data;
+    } catch (error: any) {
+      log.error(error.message || 'Transaction not found');
+      throw error?.response?.data || String(error);
+    }
+  }
+
+  async getTransactionPlatformData(transactionId: string): Promise<PlatformDataSignature> {
+    try {
+      const data = await this.get({
+        endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}`,
+      });
+      return data;
+    } catch (error: any) {
+      log.error(error.message || 'Transaction not found');
+      throw error?.response?.data || String(error);
+    }
+  }
 }

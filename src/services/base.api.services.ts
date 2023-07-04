@@ -21,19 +21,19 @@ class BaseApi {
     this.headers = headers;
   }
 
-  post = async <T = any>({
+  post = async <T = any, U = any>({
     data,
     header = this.headers.HeaderAuth(),
     endpoint,
     q = '',
   }: {
-    data: T;
-    header: any;
     endpoint: string;
-    q: string;
-  }): Promise<T> => {
+    data: T;
+    header?: any;
+    q?: string;
+  }): Promise<U> => {
     try {
-      const res = await this.axios.post<T>(
+      const res = await this.axios.post<U>(
         `${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`,
         data,
         header

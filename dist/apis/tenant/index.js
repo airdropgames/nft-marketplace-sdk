@@ -73,7 +73,7 @@ class TenantApis extends base_api_services_1.default {
                 includes,
             }, { allowDots: true });
             const data = await this.get({
-                endpoint: `${this.endpoints.getItems}?${query}}`,
+                endpoint: `${this.endpoints.item}?${query}}`,
                 header: this.headers.Header(),
             });
             return data;
@@ -86,7 +86,7 @@ class TenantApis extends base_api_services_1.default {
     async getNftItemById(id) {
         try {
             const data = await this.get({
-                endpoint: `${this.endpoints.getItems}/${id}`,
+                endpoint: `${this.endpoints.item}/${id}`,
                 header: this.headers.Header(),
             });
             return data;
@@ -100,7 +100,7 @@ class TenantApis extends base_api_services_1.default {
         try {
             const query = qs_1.default.stringify({ filter: { network, contractAddress, tokenId }, includes });
             const data = await this.get({
-                endpoint: `${this.endpoints.getItems}?${query}`,
+                endpoint: `${this.endpoints.item}?${query}`,
                 header: this.headers.Header(),
             });
             return data?.data?.length > 0 ? data?.data[0] : null;
@@ -148,7 +148,7 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    async getTransaction(id, includes) {
+    async getTransactionById(id, includes) {
         try {
             const query = qs_1.default.stringify({ includes });
             const data = await this.get({
@@ -161,8 +161,48 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    createBid() { }
-    createOffer() { }
-    cancelTransaction() { }
+    async createTranscaction(params) {
+        try {
+            const data = await this.post({
+                endpoint: `${this.endpoints.transaction}`,
+                data: params,
+            });
+            return data;
+        }
+        catch (error) {
+            loglevel_1.default.error(error.message || 'Transaction not found');
+            throw error?.response?.data || String(error);
+        }
+    }
+    async createBid(params) {
+        return this.createTranscaction({ ...params, type: 'BID' });
+    }
+    async createOffer(params) {
+        return this.createTranscaction({ ...params, type: 'OFFER' });
+    }
+    async cancelTransaction(id) {
+        try {
+            const data = await this.delete({
+                endpoint: `${this.endpoints.transaction}/${id}`,
+            });
+            return data;
+        }
+        catch (error) {
+            loglevel_1.default.error(error.message || 'Transaction not found');
+            throw error?.response?.data || String(error);
+        }
+    }
+    async getTransactionPlatformData(transactionId) {
+        try {
+            const data = await this.get({
+                endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}`,
+            });
+            return data;
+        }
+        catch (error) {
+            loglevel_1.default.error(error.message || 'Transaction not found');
+            throw error?.response?.data || String(error);
+        }
+    }
 }
 exports.TenantApis = TenantApis;

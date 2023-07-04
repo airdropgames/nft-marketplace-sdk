@@ -50,9 +50,9 @@ export class OffchainMatchOrdersTransaction {
         platformData!.feePermyriad,
       ],
       [
-        platformDataSignature!.channel,
+        platformDataSignature!.nonceChannel,
         platformDataSignature!.nonce,
-        platformDataSignature!.signature,
+        platformDataSignature!.dataSignature,
       ],
       txInitiatorId,
     ];

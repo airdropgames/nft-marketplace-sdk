@@ -3,7 +3,7 @@ import { BidOrder } from '../../src/lib/order/BidOrder';
 import { OfferOrder } from '../../src/lib/order/OfferOrder';
 const {
   OffchainMatchOrdersTransaction,
-} = require('../../src/transaction/OffchainMatchOrders');
+} = require('../../src/lib/transaction/OffchainMatchOrders');
 
 describe('OffchainMatchOrdersTransaction', () => {
   // Initialize test data
@@ -13,9 +13,13 @@ describe('OffchainMatchOrdersTransaction', () => {
     feePermyriad: 200,
   };
   const platformDataSignature = {
-    channel: 'channel',
+    royaltyReceiver: "0xroyaltyReceiver",
+    royaltyPermyriad: 1000, // 10%
+    platformFeePermyriad: 500, // 5%
+    txInitiatorId: "abcdefg",
+    nonceChannel: 'channel',
     nonce: 'nonce',
-    signature: 'platformDataSignature',
+    dataSignature: 'platformDataSignature',
   };
   const txInitiatorId = 'initiatorId';
 
@@ -25,7 +29,7 @@ describe('OffchainMatchOrdersTransaction', () => {
     const mockBidOrderSignature = 'bidOrderSignature';
     const mockOfferOrderSignature = 'offerOrderSignature';
 
-    const nftMarketplaceSdk = new NftMarketplaceSdk('', '', '');
+    const nftMarketplaceSdk = new NftMarketplaceSdk('a', 'a', 'a');
     const bidOrder = new BidOrder(nftMarketplaceSdk, '', '', '', '', '', '', '');
     bidOrder.setSignature(mockBidOrderSignature);
     const offerOrder = new OfferOrder(nftMarketplaceSdk, '', '', '', '', '', '', '');
@@ -49,9 +53,9 @@ describe('OffchainMatchOrdersTransaction', () => {
         platformData.feePermyriad,
       ],
       [
-        platformDataSignature.channel,
+        platformDataSignature.nonceChannel,
         platformDataSignature.nonce,
-        platformDataSignature.signature,
+        platformDataSignature.dataSignature,
       ],
       txInitiatorId,
     ];

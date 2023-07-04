@@ -1,4 +1,4 @@
-import { TenantApis } from "src/apis/tenant";
+import { TenantApis } from '../apis/tenant';
 
 // Collection
 export type CollectionIncludesRequest = 'items';
@@ -27,7 +27,10 @@ export type Collection = {
   createdAt: string;
   updatedAt: string;
   deletedAt: null;
-  items: null | undefined | {
+  items:
+  | null
+  | undefined
+  | {
     total: number;
     data: NftItem[];
   };
@@ -57,20 +60,20 @@ export type CryptoCurrency = {
 
 // Items
 export type NftItem = {
-  id: string,
-  tokenId: string,
-  metadata: string | null,
-  name: string | null,
-  description: string | null,
-  image: string | null,
-  tokenUri: string | null,
-  collectionId: string,
+  id: string;
+  tokenId: string;
+  metadata: string | null;
+  name: string | null;
+  description: string | null;
+  image: string | null;
+  tokenUri: string | null;
+  collectionId: string;
 
-  createdAt: string,
-  updatedAt: string,
-  deletedAt: string | null,
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 
-  collection: Partial<Collection> | null | undefined,
+  collection: Partial<Collection> | null | undefined;
 };
 
 export type ListItemsResponse = {
@@ -87,9 +90,13 @@ export type PlatformData = {
 };
 
 export type PlatformDataSignature = {
-  channel: string;
+  royaltyReceiver: string;
+  royaltyPermyriad: number;
+  platformFeePermyriad: number;
+  txInitiatorId: string;
+  dataSignature: string;
+  nonceChannel: string;
   nonce: string;
-  signature: string;
 };
 
 type SortCriteria = 'ASC' | 'DESC';
@@ -101,9 +108,7 @@ export type ListCollectionsFilter = {
   }[];
 };
 
-export type ListCollectionsSort =
-  { totalVolume: SortCriteria; } |
-  { createdAt: SortCriteria; };
+export type ListCollectionsSort = { totalVolume: SortCriteria; } | { createdAt: SortCriteria; };
 
 export type ListItemsFilter = {
   collectionContracts: {
@@ -115,37 +120,41 @@ export type ListItemsFilter = {
 };
 
 export type ListItemsSort =
-  { totalVolume: SortCriteria; } |
-  { amount: SortCriteria; } |
-  { lastTransactiondate: SortCriteria; } |
-  { activeBidPrice: SortCriteria; } |
-  { activeOfferPrice: SortCriteria; };
+  | { totalVolume: SortCriteria; }
+  | { amount: SortCriteria; }
+  | { lastTransactiondate: SortCriteria; }
+  | { activeBidPrice: SortCriteria; }
+  | { activeOfferPrice: SortCriteria; };
 
 export type TransactionTypes = 'BID' | 'OFFER';
 export type TransactionStatus = 'SUBMITTED' | 'MATCHED' | 'CANCELLED';
 
 export type ListTransactionsFilter = {
-  collectionContracts: [{
-    contractAddress: string,
-    network: string,
-    tokenId: string;
-  }],
-  currencies: [{
-    contractAddress: string,
-    network: string;
-  }];
-  type: TransactionTypes,
-  status: TransactionStatus,
+  collectionContracts: [
+    {
+      contractAddress: string;
+      network: string;
+      tokenId: string;
+    }
+  ];
+  currencies: [
+    {
+      contractAddress: string;
+      network: string;
+    }
+  ];
+  type: TransactionTypes;
+  status: TransactionStatus;
   userAddress: string;
 };
 
 export type ListTransactionsSort =
-  { createdAt: SortCriteria; } |
-  { currencyValue: SortCriteria; } |
-  { price: SortCriteria; } |
-  { itemValue: SortCriteria; } |
-  { startTime: SortCriteria; } |
-  { endTime: SortCriteria; };
+  | { createdAt: SortCriteria; }
+  | { currencyValue: SortCriteria; }
+  | { price: SortCriteria; }
+  | { itemValue: SortCriteria; }
+  | { startTime: SortCriteria; }
+  | { endTime: SortCriteria; };
 
 export type ListTransactionsResponse = {
   total: number;
@@ -154,19 +163,64 @@ export type ListTransactionsResponse = {
   data: Transaction[];
 };
 
-export type Transaction = {
-};
-
 export type OrderItem = {
   collection: {
-    contractAddress: string,
-    protocolType: string,
+    contractAddress: string;
+    protocolType: string;
   };
-  tokenId: string,
-  transaferData?: string,
+  tokenId: string;
+  transferData?: string;
 };
 
 export type OrderCurrency = {
-  contractAddress: string,
-  transaferData?: string,
+  contractAddress: string;
+  transferData?: string;
+};
+
+export type CreateTransactionResponse = {
+  userAddress: string;
+  itemId: string;
+  itemValue: string;
+  currencyId: string;
+  currencyValue: string;
+  startTimestamp: number;
+  endTimestamp: number;
+  networkSymbol: string;
+  // data: stringified data.values from prepare call before
+  data: string;
+};
+
+export type CreateTransactionRequestParameters = {
+  type: 'BID' | 'OFFER';
+} & BidOfferRequestParameters;
+
+export type BidOfferRequestParameters = {
+  userAddress: string;
+  itemId: string;
+  itemValue: string;
+  currencyId: string;
+  currencyValue: string;
+  startTimestamp: number;
+  endTimestamp: number;
+  networkSymbol: string;
+  // data: stringified data.values from prepare call before
+  data: string;
+  signature: string;
+};
+
+export type Transaction = {
+  id: String;
+  type: TransactionTypes;
+  currencyValue: string;
+  itemValue: string;
+  startTimestampUtc: number;
+  endTimestampUtc: number;
+  status: TransactionStatus;
+  createdAt: string;
+  data: string;
+  signature: string;
+  network: string;
+  userId: string;
+  currency: CryptoCurrency;
+  item: NftItem;
 };
