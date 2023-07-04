@@ -3,7 +3,7 @@ import { BidOrder } from '../../src/lib/order/BidOrder';
 import { OfferOrder } from '../../src/lib/order/OfferOrder';
 const {
   OffchainMatchOrdersTransaction,
-} = require('../../src/transaction/OffchainMatchOrders');
+} = require('../../src/lib/transaction/OffchainMatchOrders');
 
 describe('OffchainMatchOrdersTransaction', () => {
   // Initialize test data
@@ -25,7 +25,7 @@ describe('OffchainMatchOrdersTransaction', () => {
     const mockBidOrderSignature = 'bidOrderSignature';
     const mockOfferOrderSignature = 'offerOrderSignature';
 
-    const nftMarketplaceSdk = new NftMarketplaceSdk('', '', '');
+    const nftMarketplaceSdk = new NftMarketplaceSdk('a', 'a', 'a');
     const bidOrder = new BidOrder(nftMarketplaceSdk, '', '', '', '', '', '', '');
     bidOrder.setSignature(mockBidOrderSignature);
     const offerOrder = new OfferOrder(nftMarketplaceSdk, '', '', '', '', '', '', '');
