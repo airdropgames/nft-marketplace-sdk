@@ -13,9 +13,13 @@ describe('OffchainMatchOrdersTransaction', () => {
     feePermyriad: 200,
   };
   const platformDataSignature = {
-    channel: 'channel',
+    royaltyReceiver: "0xroyaltyReceiver",
+    royaltyPermyriad: 1000, // 10%
+    platformFeePermyriad: 500, // 5%
+    txInitiatorId: "abcdefg",
+    nonceChannel: 'channel',
     nonce: 'nonce',
-    signature: 'platformDataSignature',
+    dataSignature: 'platformDataSignature',
   };
   const txInitiatorId = 'initiatorId';
 
@@ -49,9 +53,9 @@ describe('OffchainMatchOrdersTransaction', () => {
         platformData.feePermyriad,
       ],
       [
-        platformDataSignature.channel,
+        platformDataSignature.nonceChannel,
         platformDataSignature.nonce,
-        platformDataSignature.signature,
+        platformDataSignature.dataSignature,
       ],
       txInitiatorId,
     ];

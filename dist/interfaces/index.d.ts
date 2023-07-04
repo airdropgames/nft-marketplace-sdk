@@ -72,9 +72,13 @@ export type PlatformData = {
     feePermyriad: string;
 };
 export type PlatformDataSignature = {
-    channel: string;
+    royaltyReceiver: string;
+    royaltyPermyriad: number;
+    platformFeePermyriad: number;
+    txInitiatorId: string;
+    dataSignature: string;
+    nonceChannel: string;
     nonce: string;
-    signature: string;
 };
 type SortCriteria = 'ASC' | 'DESC';
 export type ListCollectionsFilter = {
