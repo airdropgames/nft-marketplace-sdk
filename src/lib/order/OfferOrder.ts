@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import NftMarketplaceSdk from "../../HyperSdk";
 import { ENUM_ASSET_TYPE } from "../../constants";
 import { Order } from './Order';
+import { OrderCurrency, OrderItem } from "src/interfaces";
 
 /**
  *
@@ -18,7 +19,9 @@ export class OfferOrder extends Order {
     cryptoCurrencyAmount: string,
     userWallet: string,
     startTimeUtc: string,
-    endTimeUtc: string
+    endTimeUtc: string,
+    item?: OrderItem,
+    currency?: OrderCurrency
   ) {
     super(
       nftMarketplaceSdk,
@@ -29,6 +32,8 @@ export class OfferOrder extends Order {
       userWallet,
       startTimeUtc,
       endTimeUtc,
+      item,
+      currency
     );
   }
 
@@ -87,7 +92,7 @@ export class OfferOrder extends Order {
     }
     return [
       this.userWallet,
-      this.itemData.collection.contractAddress,
+      this.itemData.collection.contractAddress as string,
       this.cryptoCurrencyData.contractAddress,
       this.startTimeUtc,
       this.endTimeUtc,

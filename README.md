@@ -17,7 +17,7 @@ This sample initialize the sdk with the needed parameters. Please replace the pa
 ```js
 // module (export & import)
 import hyprSDK from 'nft-marketplace-sdk';
-const { NftMarketplaceSdk } = hyprSDK
+const { NftMarketplaceSdk } = hyprSDK;
 
 const baseUrl = 'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/';
 const apiKey = 'kcFC6w3^h7LDbqBz';
@@ -29,18 +29,18 @@ const sdk = new NftMarketplaceSdk(baseUrl, apiKey, network, {
 ```
 
 ```js
-const { NftMarketplaceSdk } = require('../../dist/index.js')
+const { NftMarketplaceSdk } = require('../../dist/index.js');
 
 async function main() {
-  const url = `https://bamal2gltj.execute-api.eu-west-2.amazonaws.com`
-  const key = `kcFC6w3^h7LDbqBz`
+  const url = `https://bamal2gltj.execute-api.eu-west-2.amazonaws.com`;
+  const key = `kcFC6w3^h7LDbqBz`;
   const network = 'mumbai';
   const hyperSdk = new NftMarketplaceSdk(url, key, network, {
     enableLogging: true,
     // ... any config needed
-  })
+  });
 
-  const data = await hyperSdk.apis.tenant.getCryptoCurrencyByContractAddress('<contract_address>')
+  const data = await hyperSdk.apis.tenant.getCryptoCurrencyByContractAddress('<contract_address>');
 }
 ```
 
@@ -50,13 +50,13 @@ Methods under `api` object will bridge the communication with Hypr API
 
 ```js
 const nftItemId = '004de4df-2f74-4b50-944b-ace304f9b605';
-const nftItemData = await sdk.api.tenant.getNftItem(itemId);
+const nftItemData = await sdk.apis.tenant.getNftItem(itemId);
 
 const collectionId = '3aeb2227-6914-4f92-8784-c8b4aaf51bb5';
-const collection = await sdk.api.tenant.getCollectionById(collectionId);
+const collection = await sdk.apis.tenant.getCollectionById(collectionId);
 
 const cryptoContractAddress = '0x0d787a4a1548f673ed375445535a6c7a1ee56180';
-const crypto = await sdk.api.tenant.getCryptoCurrencyByContractAddress(cryptoContractAddress);
+const crypto = await sdk.apis.tenant.getCryptoCurrencyByContractAddress(cryptoContractAddress);
 ```
 
 ### Matching order transaction
@@ -85,7 +85,7 @@ const signature = signTypedData(domain, valueTypes, values); // your own typed d
 bidOrder.setSignature(signature);
 
 // creating blockchain transaction
-const { platformData, platformDataSignature } = await sdk.api.tenant.getPlatformDataForTransaction(txInitiatorId);
+const { platformData, platformDataSignature } = await sdk.apis.tenant.getPlatformDataForTransaction(txInitiatorId);
 const transaction = new sdk.transaction.MatchOrdersTransaction(
   bidOrder,
   offerOrder, // create it like we create bid order
