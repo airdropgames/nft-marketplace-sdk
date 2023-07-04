@@ -30,7 +30,7 @@
     "serve:doc": "http-server docs -p 8080"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=12"
   },
   "jest": {
     "preset": "ts-jest",
