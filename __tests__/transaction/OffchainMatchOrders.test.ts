@@ -6,22 +6,17 @@ const {
 } = require('../../src/lib/transaction/OffchainMatchOrders');
 
 describe('OffchainMatchOrdersTransaction', () => {
-  // Initialize test data
+  // Initialize test data 
+  const txInitiatorId = 'initiatorId';
   const platformData = {
-    royaltyReceiver: 'royaltyReceiver',
-    royaltyPermyriad: 100,
-    feePermyriad: 200,
-  };
-  const platformDataSignature = {
     royaltyReceiver: "0xroyaltyReceiver",
     royaltyPermyriad: 1000, // 10%
     platformFeePermyriad: 500, // 5%
-    txInitiatorId: "abcdefg",
     nonceChannel: 'channel',
     nonce: 'nonce',
     dataSignature: 'platformDataSignature',
+    txInitiatorId,
   };
-  const txInitiatorId = 'initiatorId';
 
   test('buildMatchOrderParams returns the correct parameters', async () => {
     const mockBidOrderArrayify = ['1', '2', '3', '4', '5'];
@@ -29,10 +24,10 @@ describe('OffchainMatchOrdersTransaction', () => {
     const mockBidOrderSignature = 'bidOrderSignature';
     const mockOfferOrderSignature = 'offerOrderSignature';
 
-    const nftMarketplaceSdk = new NftMarketplaceSdk('a', 'a', 'a');
-    const bidOrder = new BidOrder(nftMarketplaceSdk, '', '', '', '', '', '', '');
+    const nftMarketplaceSdk = new NftMarketplaceSdk('a', 'a', 'mumbai');
+    const bidOrder = new BidOrder(nftMarketplaceSdk, { id: 'a', value: '123' }, { id: 'a', value: '321' }, '', 1688561419, 1688561419);
     bidOrder.setSignature(mockBidOrderSignature);
-    const offerOrder = new OfferOrder(nftMarketplaceSdk, '', '', '', '', '', '', '');
+    const offerOrder = new OfferOrder(nftMarketplaceSdk, { id: 'a', value: '123' }, { id: 'a', value: '321' }, '', 1688561419, 1688561419);
     offerOrder.setSignature(mockOfferOrderSignature);
 
     // mocking arrayify function, the function will be tested separately
@@ -50,12 +45,12 @@ describe('OffchainMatchOrdersTransaction', () => {
       [
         platformData.royaltyReceiver,
         platformData.royaltyPermyriad,
-        platformData.feePermyriad,
+        platformData.platformFeePermyriad,
       ],
       [
-        platformDataSignature.nonceChannel,
-        platformDataSignature.nonce,
-        platformDataSignature.dataSignature,
+        platformData.nonceChannel,
+        platformData.nonce,
+        platformData.dataSignature,
       ],
       txInitiatorId,
     ];
@@ -64,7 +59,6 @@ describe('OffchainMatchOrdersTransaction', () => {
       bidOrder,
       offerOrder,
       platformData,
-      platformDataSignature,
       txInitiatorId
     );
     const params = await transaction.buildMatchOrderParams();

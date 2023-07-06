@@ -44,6 +44,7 @@ export type HyprSDKOptions = {
 };
 export type CryptoCurrency = {
     contractAddress: string;
+    network: string;
     transferData?: string;
 };
 export type NftItem = {
@@ -66,12 +67,7 @@ export type ListItemsResponse = {
     limit: number;
     data: NftItem[];
 };
-export type PlatformData = {
-    royaltyReceiver: string;
-    royaltyPermyriad: string;
-    feePermyriad: string;
-};
-export type PlatformDataSignature = {
+export type PlatformDataResponse = {
     royaltyReceiver: string;
     royaltyPermyriad: number;
     platformFeePermyriad: number;
@@ -79,6 +75,7 @@ export type PlatformDataSignature = {
     dataSignature: string;
     nonceChannel: string;
     nonce: string;
+    transaction: Transaction;
 };
 type SortCriteria = 'ASC' | 'DESC';
 export type ListCollectionsFilter = {
@@ -103,7 +100,7 @@ export type ListItemsFilter = {
 export type ListItemsSort = {
     totalVolume: SortCriteria;
 } | {
-    amount: SortCriteria;
+    transactionPrice: SortCriteria;
 } | {
     lastTransactiondate: SortCriteria;
 } | {
@@ -173,28 +170,47 @@ export type CreateTransactionResponse = {
     networkSymbol: string;
     data: string;
 };
-export type CreateTransactionRequestParameters = {
-    type: 'BID' | 'OFFER';
-} & BidOfferRequestParameters;
+export type NftProtocolType = 'ERC721' | 'ERC1155';
+export type ItemBidOfferMainParams = {
+    value: string;
+    transferData?: string;
+};
+export type ItemBidOfferParams = ItemBidOfferMainParams & ({
+    id: string;
+} | {
+    contractAddress: string;
+    tokenId: string;
+    protocolType: NftProtocolType;
+});
+export type CurrencyBidOfferMainParams = {
+    value: string;
+    transferData?: string;
+};
+export type CurrencyBidOfferParams = CurrencyBidOfferMainParams & ({
+    id: string;
+} | {
+    contractAddress: string;
+});
 export type BidOfferRequestParameters = {
     userAddress: string;
-    itemId: string;
-    itemValue: string;
-    currencyId: string;
-    currencyValue: string;
+    item: ItemBidOfferParams;
+    currency: CurrencyBidOfferParams;
     startTimestamp: number;
     endTimestamp: number;
     networkSymbol: string;
     data: string;
     signature: string;
 };
+export type CreateTransactionRequestParameters = {
+    type: 'BID' | 'OFFER';
+} & BidOfferRequestParameters;
 export type Transaction = {
     id: String;
     type: TransactionTypes;
     currencyValue: string;
     itemValue: string;
-    startTimestampUtc: number;
-    endTimestampUtc: number;
+    startTimestamp: string;
+    endTimestamp: string;
     status: TransactionStatus;
     createdAt: string;
     data: string;

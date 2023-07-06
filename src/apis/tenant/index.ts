@@ -19,7 +19,7 @@ import {
   CreateTransactionRequestParameters,
   CreateTransactionResponse,
   BidOfferRequestParameters,
-  PlatformDataSignature,
+  PlatformDataResponse,
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
@@ -136,7 +136,7 @@ export class TenantApis extends BaseApi {
     network: string,
     contractAddress: string,
     tokenId: string,
-    { includes }: { includes: string[]; }
+    { includes }: { includes?: string[]; } = {}
   ): Promise<NftItem | null> {
     try {
       const query = qs.stringify({ filter: { network, contractAddress, tokenId }, includes });
@@ -242,7 +242,7 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async getTransactionPlatformData(transactionId: string): Promise<PlatformDataSignature> {
+  async getTransactionPlatformData(transactionId: string): Promise<PlatformDataResponse> {
     try {
       const data = await this.get({
         endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}`,

@@ -2,7 +2,8 @@ import { ethers } from "ethers";
 import NftMarketplaceSdk from "../../HyperSdk";
 import { ENUM_ASSET_TYPE } from "../../constants";
 import { Order } from './Order';
-import { OrderCurrency, OrderItem } from "src/interfaces";
+import { CurrencyBidOfferParams, ItemBidOfferParams, NftProtocolType, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
+import { getDateTimestampFromString } from "../../utils/date";
 
 /**
  *
@@ -13,27 +14,19 @@ import { OrderCurrency, OrderItem } from "src/interfaces";
 export class BidOrder extends Order {
   constructor(
     nftMarketplaceSdk: NftMarketplaceSdk,
-    itemId: string,
-    itemAmount: string,
-    cryptoCurrencyId: string,
-    cryptoCurrencyAmount: string,
+    item: ItemBidOfferParams,
+    currency: CurrencyBidOfferParams,
     userWallet: string,
-    startTimeUtc: string,
-    endTimeUtc: string,
-    item?: OrderItem,
-    currency?: OrderCurrency
+    startTimeUtc: number,
+    endTimeUtc: number,
   ) {
     super(
       nftMarketplaceSdk,
-      itemId,
-      itemAmount,
-      cryptoCurrencyId,
-      cryptoCurrencyAmount,
+      item,
+      currency,
       userWallet,
       startTimeUtc,
       endTimeUtc,
-      item,
-      currency
     );
   }
 
@@ -49,29 +42,32 @@ export class BidOrder extends Order {
     if (!this.cryptoCurrencyData) {
       throw new Error('cryptoCurrencyData is not set');
     }
-    if (!this.itemData.collection) {
-      throw new Error('itemData.collection is not set');
-    }
 
-    return {
+
+    const values = {
       makerAddress: this.userWallet,
       offeredAsset: {
         assetType: ENUM_ASSET_TYPE.ERC20,
-        assetAddress: this.cryptoCurrencyData.contractAddress,
+        assetAddress: this.cryptoCurrencyData["contractAddress" as keyof typeof this.cryptoCurrencyData],
         data: this.cryptoCurrencyData.transferData,
-        value: this.cryptoCurrencyAmount,
+        value: this.cryptoCurrencyData.value,
       },
       askedAsset: {
-        assetType: ENUM_ASSET_TYPE[this.itemData.collection.protocolType as keyof typeof ENUM_ASSET_TYPE],
-        assetAddress: this.itemData.collection.contractAddress,
+        assetType: ENUM_ASSET_TYPE[this.itemData["protocolType" as keyof typeof this.itemData] as keyof typeof ENUM_ASSET_TYPE],
+        assetAddress: this.itemData["contractAddress" as keyof typeof this.itemData],
         data: ethers.utils.solidityPack(
           ['uint256', 'bytes'],
-          [this.itemData.tokenId, additionalData]
+          [this.itemData["tokenId" as keyof typeof this.itemData], additionalData]
         ),
-        value: this.itemAmount,
+        value: this.itemData.value,
       },
       start: this.startTimeUtc,
       end: this.endTimeUtc,
+    };
+
+    return {
+      ...this.getEip712Constants(),
+      values
     };
   }
 
@@ -79,7 +75,7 @@ export class BidOrder extends Order {
    * 
    * @inheritdoc Order.arrayify
    */
-  async arrayify(): Promise<Array<string>> {
+  async arrayify(): Promise<Array<string | number>> {
     await this.fetchRequiredData();
     if (!this.itemData) {
       throw new Error('itemData is not set');
@@ -87,16 +83,46 @@ export class BidOrder extends Order {
     if (!this.cryptoCurrencyData) {
       throw new Error('cryptoCurrencyData is not set');
     }
-    if (!this.itemData.collection) {
-      throw new Error('itemData.collection is not set');
-    }
     return [
       this.userWallet,
-      this.cryptoCurrencyData.contractAddress,
-      this.itemData.collection.contractAddress as string,
+      this.cryptoCurrencyData["contractAddress" as keyof typeof this.cryptoCurrencyData] as string,
+      this.itemData["contractAddress" as keyof typeof this.itemData] as string,
       this.startTimeUtc,
       this.endTimeUtc,
     ];
+  }
+
+  async submit(): Promise<any> {
+    this.validateOrderBeforeSubmit();
+    return this.nftMarketplaceSdk!.apis.tenant.createBid({
+      userAddress: this.userWallet,
+      item: this.itemData,
+      currency: this.cryptoCurrencyData,
+      startTimestamp: this.startTimeUtc,
+      endTimestamp: this.endTimeUtc,
+      networkSymbol: this.nftMarketplaceSdk!.network,
+      data: JSON.stringify(await this.buildEip712Data('')),
+      signature: this.signature as string,
+    });
+  }
+
+  fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
+    return new BidOrder(
+      nftMarketplaceSdk,
+      {
+        protocolType: transaction.item.collection?.protocolType as NftProtocolType,
+        contractAddress: transaction.item.collection?.contractAddress as string,
+        tokenId: transaction.item.tokenId,
+        value: transaction.itemValue
+      },
+      {
+        contractAddress: transaction.currency.contractAddress,
+        value: transaction.currencyValue,
+      },
+      transaction.userId,
+      getDateTimestampFromString(transaction.startTimestamp),
+      getDateTimestampFromString(transaction.endTimestamp),
+    );
   }
 }
 

@@ -4,12 +4,10 @@ export declare const NETWORKS: {
     GOERLI: string;
     MUMBAI: string;
 };
-export declare const CHAIN_ID: {
-    [x: string]: number;
-};
-export declare const CONTRACT_ADDRESSES: {
-    MARKETPLACE_BASIC_EXCHANGE: {
-        [x: string]: string;
+export declare const NETWORK_CONFIG: {
+    [x: string]: {
+        chainId: string;
+        marketplaceContractAddress: string;
     };
 };
 export declare const ENUM_ASSET_TYPE: {

@@ -1,6 +1,6 @@
 import NftMarketplaceSdk from "../../HyperSdk";
 import { Order } from './Order';
-import { OrderCurrency, OrderItem } from "src/interfaces";
+import { CurrencyBidOfferParams, ItemBidOfferParams, Transaction } from "src/interfaces";
 /**
  *
  *
@@ -8,7 +8,7 @@ import { OrderCurrency, OrderItem } from "src/interfaces";
  * @augments {Order}
  */
 export declare class OfferOrder extends Order {
-    constructor(nftMarketplaceSdk: NftMarketplaceSdk, itemId: string, itemAmount: string, cryptoCurrencyId: string, cryptoCurrencyAmount: string, userWallet: string, startTimeUtc: string, endTimeUtc: string, item?: OrderItem, currency?: OrderCurrency);
+    constructor(nftMarketplaceSdk: NftMarketplaceSdk, item: ItemBidOfferParams, currency: CurrencyBidOfferParams, userWallet: string, startTimeUtc: number, endTimeUtc: number);
     /**
      *
      * @inheritdoc Order.buildEip712Data
@@ -18,5 +18,7 @@ export declare class OfferOrder extends Order {
      *
      * @inheritdoc Order.arrayify
      */
-    arrayify(): Promise<Array<string>>;
+    arrayify(): Promise<Array<string | number>>;
+    submit(): Promise<any>;
+    fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

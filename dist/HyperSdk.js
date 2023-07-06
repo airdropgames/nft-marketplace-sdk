@@ -33,6 +33,12 @@ class NftMarketplaceSdk {
         const validatedKey = this._validateKey(key);
         this.key = validatedKey;
         this.network = network || constants_1.NETWORKS.MUMBAI;
+        const networkConfig = constants_1.NETWORK_CONFIG[this.network];
+        if (!networkConfig) {
+            throw new Error(`Network ${this.network} is not supported`);
+        }
+        this.chainId = networkConfig.chainId;
+        this.exchangeContractAddress = networkConfig.marketplaceContractAddress;
         if (opts) {
             this.options = {
                 ...this.options,

@@ -1,4 +1,4 @@
-import { CryptoCurrency, NftItem, OrderCurrency, OrderItem } from "src/interfaces";
+import { CurrencyBidOfferParams, ItemBidOfferParams, Transaction } from "src/interfaces";
 import NftMarketplaceSdk from "../../HyperSdk";
 /**
  * @class Order
@@ -6,27 +6,51 @@ import NftMarketplaceSdk from "../../HyperSdk";
  *
  */
 export declare abstract class Order {
-    itemId: string;
-    itemAmount: string;
-    cryptoCurrencyId: string;
-    cryptoCurrencyAmount: string;
+    itemData: ItemBidOfferParams;
+    cryptoCurrencyData: CurrencyBidOfferParams;
     userWallet: string;
-    startTimeUtc: string;
-    endTimeUtc: string;
-    nftMarketplaceSdk: NftMarketplaceSdk | null;
-    itemData: Partial<NftItem> | null;
-    cryptoCurrencyData: CryptoCurrency | null;
+    startTimeUtc: number;
+    endTimeUtc: number;
+    nftMarketplaceSdk: NftMarketplaceSdk;
     signature: string | null;
-    constructor(nftMarketplaceSdk: NftMarketplaceSdk, itemId: string, itemAmount: string, cryptoCurrencyId: string, cryptoCurrencyAmount: string, userWallet: string, startTimeUtc: string, endTimeUtc: string, item?: OrderItem, currency?: OrderCurrency);
+    eip712Domain: {
+        name: string;
+        version: string;
+        chainId: string;
+        verifyingContract: string;
+    };
+    eip712DataTypes: {
+        PlatformData: {
+            name: string;
+            type: string;
+        }[];
+    };
+    constructor(nftMarketplaceSdk: NftMarketplaceSdk, item: ItemBidOfferParams, currency: CurrencyBidOfferParams, userWallet: string, startTimeUtc: number, endTimeUtc: number);
+    getEip712Constants(): {
+        domain: {
+            name: string;
+            version: string;
+            chainId: string;
+            verifyingContract: string;
+        };
+        dataTypes: {
+            PlatformData: {
+                name: string;
+                type: string;
+            }[];
+        };
+    };
+    validateOrderBeforeSubmit(): void;
     setSignature(signature: string): void;
     getSignature(): string;
     fetchRequiredData(): Promise<void>;
     /**
      * returns the arrified order data
      */
-    abstract arrayify(): Promise<Array<string>>;
+    abstract arrayify(): Promise<Array<string | number>>;
     /**
      * returns the order data in EIP712 required data format
      */
     abstract buildEip712Data(additionalData: string): Promise<Object>;
+    abstract fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

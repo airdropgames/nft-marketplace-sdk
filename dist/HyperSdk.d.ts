@@ -8,6 +8,8 @@ export default class NftMarketplaceSdk {
     url: string;
     key: string;
     network: string;
+    chainId: string;
+    exchangeContractAddress: string;
     apis: {
         tenant: TenantApis;
     };

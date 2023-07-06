@@ -8,22 +8,24 @@ export const NETWORKS = {
   MUMBAI: 'mumbai',
 };
 
-export const CHAIN_ID = {
-  [NETWORKS.ETHEREUM]: 1,
-  [NETWORKS.POLYGON]: 137,
-
-  [NETWORKS.GOERLI]: 5,
-  [NETWORKS.MUMBAI]: 80001,
-};
-
-export const CONTRACT_ADDRESSES = {
-  MARKETPLACE_BASIC_EXCHANGE: {
-    [NETWORKS.ETHEREUM]: '0x',
-    [NETWORKS.POLYGON]: '0x',
-
-    [NETWORKS.GOERLI]: '0x',
-    [NETWORKS.MUMBAI]: '0x',
+export const NETWORK_CONFIG = {
+  [NETWORKS.ETHEREUM]: {
+    chainId: '1',
+    marketplaceContractAddress: '0x',
   },
+  [NETWORKS.POLYGON]: {
+    chainId: '137',
+    marketplaceContractAddress: '0x',
+  },
+
+  [NETWORKS.GOERLI]: {
+    chainId: '5',
+    marketplaceContractAddress: '0x',
+  },
+  [NETWORKS.MUMBAI]: {
+    chainId: '80001',
+    marketplaceContractAddress: '0x0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
+  }
 };
 
 export const ENUM_ASSET_TYPE = {

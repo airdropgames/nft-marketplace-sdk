@@ -1,4 +1,4 @@
-import { CryptoCurrency, NftItem, OrderCurrency, OrderItem } from "src/interfaces";
+import { CryptoCurrency, CurrencyBidOfferParams, ItemBidOfferParams, NftItem, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
 import NftMarketplaceSdk from "../../HyperSdk";
 
 /**
@@ -7,45 +7,65 @@ import NftMarketplaceSdk from "../../HyperSdk";
  *
  */
 export abstract class Order {
-  itemId = '';
-  itemAmount = '';
-  cryptoCurrencyId = '';
-  cryptoCurrencyAmount = '';
-  userWallet = '';
-  startTimeUtc = '';
-  endTimeUtc = '';
+  itemData: ItemBidOfferParams;
+  cryptoCurrencyData: CurrencyBidOfferParams;
+  userWallet: string;
+  startTimeUtc: number;
+  endTimeUtc: number;
 
-  nftMarketplaceSdk: NftMarketplaceSdk | null = null;
-  itemData: Partial<NftItem> | null = null;
-  cryptoCurrencyData: CryptoCurrency | null = null;
+  nftMarketplaceSdk: NftMarketplaceSdk;
   signature: string | null = null;
+
+  eip712Domain = {
+    name: 'NftMarketplace',
+    version: '1.0.0',
+    chainId: '',
+    verifyingContract: '',
+  };
+  eip712DataTypes = {
+    PlatformData: [
+      { name: 'royaltyReceiver', type: 'address' },
+      { name: 'royaltyPermyriad', type: 'uint256' },
+      { name: 'feePermyriad', type: 'uint256' },
+      { name: 'nonceChannel', type: 'uint8' },
+      { name: 'nonce', type: 'uint256' },
+      { name: 'txInitiatorId', type: 'string' },
+    ],
+  };
 
   constructor(
     nftMarketplaceSdk: NftMarketplaceSdk,
-    itemId: string,
-    itemAmount: string,
-    cryptoCurrencyId: string,
-    cryptoCurrencyAmount: string,
+    item: ItemBidOfferParams,
+    currency: CurrencyBidOfferParams,
     userWallet: string,
-    startTimeUtc: string,
-    endTimeUtc: string,
-    item?: OrderItem,
-    currency?: OrderCurrency
+    startTimeUtc: number,
+    endTimeUtc: number,
   ) {
     this.nftMarketplaceSdk = nftMarketplaceSdk;
-    this.itemId = itemId;
-    this.itemAmount = itemAmount;
-    this.cryptoCurrencyId = cryptoCurrencyId;
-    this.cryptoCurrencyAmount = cryptoCurrencyAmount;
     this.userWallet = userWallet;
     this.startTimeUtc = startTimeUtc;
     this.endTimeUtc = endTimeUtc;
 
-    if (item) {
-      this.itemData = item;
+    this.eip712Domain.chainId = nftMarketplaceSdk.chainId;
+    this.eip712Domain.verifyingContract = nftMarketplaceSdk.exchangeContractAddress;
+
+    this.itemData = item;
+    this.cryptoCurrencyData = currency;
+  }
+
+  getEip712Constants() {
+    if (!this.eip712Domain.chainId || !this.eip712Domain.verifyingContract) {
+      throw new Error('chainId or verifyingContract is not set');
     }
-    if (currency) {
-      this.cryptoCurrencyData = currency;
+    return {
+      domain: this.eip712Domain,
+      dataTypes: this.eip712DataTypes
+    };
+  }
+
+  validateOrderBeforeSubmit() {
+    if (!this.signature) {
+      throw new Error('Order signature is not set');
     }
   }
 
@@ -67,28 +87,41 @@ export abstract class Order {
     // get item & currency data from amount
     const dataPromises = [];
     dataPromises.push(
-      this.itemData == null
-        ? this.nftMarketplaceSdk!.apis.tenant.getNftItemById(this.itemId)
-        : this.itemData
+      !("contractAddress" in this.itemData) || !("tokenId" in this.itemData) || !("network" in this.itemData)
+        ? this.nftMarketplaceSdk!.apis.tenant.getNftItemById(this.itemData["id" as keyof typeof this.itemData] as string)
+        : null
     );
     dataPromises.push(
-      this.cryptoCurrencyData == null
-        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyId)
-        : this.cryptoCurrencyData
+      !("contractAddress" in this.cryptoCurrencyData) || !("network" in this.cryptoCurrencyData)
+        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyData["id" as keyof typeof this.cryptoCurrencyData] as string)
+        : null
     );
 
-    const [itemData, cryptoCurrencyData] = await Promise.all(dataPromises);
-    this.itemData = itemData as NftItem;
-    this.cryptoCurrencyData = cryptoCurrencyData as CryptoCurrency;
+    const [fetchedItemData, fetchedCryptoCurrencyData] = await Promise.all(dataPromises);
+    if (fetchedItemData != null) {
+      this.itemData = {
+        ...this.itemData,
+        contractAddress: (fetchedItemData as NftItem)?.collection?.contractAddress as string,
+        tokenId: (fetchedItemData as NftItem)?.tokenId,
+      };
+    }
+    if (fetchedCryptoCurrencyData != null) {
+      this.cryptoCurrencyData = {
+        ...this.cryptoCurrencyData,
+        contractAddress: (fetchedCryptoCurrencyData as CryptoCurrency)?.contractAddress,
+      };
+    }
   }
 
   /**
    * returns the arrified order data
    */
-  abstract arrayify(): Promise<Array<string>>;
+  abstract arrayify(): Promise<Array<string | number>>;
 
   /**
    * returns the order data in EIP712 required data format
    */
   abstract buildEip712Data(additionalData: string): Promise<Object>;
+
+  abstract fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

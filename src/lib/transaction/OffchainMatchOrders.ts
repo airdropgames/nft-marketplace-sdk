@@ -1,13 +1,12 @@
-import { PlatformData, PlatformDataSignature } from "src/interfaces";
+import { PlatformDataResponse } from "src/interfaces";
 import { BidOrder } from "src/lib/order/BidOrder";
 import { OfferOrder } from "src/lib/order/OfferOrder";
 
 export class OffchainMatchOrdersTransaction {
-  bidOrder: BidOrder | null = null;
-  offerOrder: OfferOrder | null = null;
-  platformData: PlatformData | null = null;
-  platformDataSignature: PlatformDataSignature | null = null;
-  txInitiatorId: string | null = null;
+  bidOrder: BidOrder;
+  offerOrder: OfferOrder;
+  platformData: PlatformDataResponse;
+  txInitiatorId: string;
 
   /**
    * Creates an instance of OffchainMatchOrdersTransaction.
@@ -20,14 +19,12 @@ export class OffchainMatchOrdersTransaction {
   constructor(
     bidOrder: BidOrder,
     offerOrder: OfferOrder,
-    platformData: PlatformData,
-    platformDataSignature: PlatformDataSignature,
+    platformData: PlatformDataResponse,
     txInitiatorId: string
   ) {
     this.bidOrder = bidOrder;
     this.offerOrder = offerOrder;
     this.platformData = platformData;
-    this.platformDataSignature = platformDataSignature;
     this.txInitiatorId = txInitiatorId;
   }
 
@@ -35,8 +32,14 @@ export class OffchainMatchOrdersTransaction {
     const {
       bidOrder,
       offerOrder,
-      platformData,
-      platformDataSignature,
+      platformData: {
+        royaltyReceiver,
+        royaltyPermyriad,
+        platformFeePermyriad,
+        dataSignature,
+        nonceChannel,
+        nonce,
+      },
       txInitiatorId,
     } = this;
     const params = [
@@ -45,14 +48,14 @@ export class OffchainMatchOrdersTransaction {
       await offerOrder!.arrayify(),
       offerOrder!.getSignature(),
       [
-        platformData!.royaltyReceiver,
-        platformData!.royaltyPermyriad,
-        platformData!.feePermyriad,
+        royaltyReceiver,
+        royaltyPermyriad,
+        platformFeePermyriad,
       ],
       [
-        platformDataSignature!.nonceChannel,
-        platformDataSignature!.nonce,
-        platformDataSignature!.dataSignature,
+        nonceChannel,
+        nonce,
+        dataSignature,
       ],
       txInitiatorId,
     ];

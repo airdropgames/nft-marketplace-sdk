@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MAX_NONCE_CHANNEL = exports.ENUM_ASSET_TYPE = exports.CONTRACT_ADDRESSES = exports.CHAIN_ID = exports.NETWORKS = void 0;
+exports.MAX_NONCE_CHANNEL = exports.ENUM_ASSET_TYPE = exports.NETWORK_CONFIG = exports.NETWORKS = void 0;
 exports.NETWORKS = {
     // mainnet
     ETHEREUM: 'ethereum',
@@ -9,19 +9,23 @@ exports.NETWORKS = {
     GOERLI: 'goerli',
     MUMBAI: 'mumbai',
 };
-exports.CHAIN_ID = {
-    [exports.NETWORKS.ETHEREUM]: 1,
-    [exports.NETWORKS.POLYGON]: 137,
-    [exports.NETWORKS.GOERLI]: 5,
-    [exports.NETWORKS.MUMBAI]: 80001,
-};
-exports.CONTRACT_ADDRESSES = {
-    MARKETPLACE_BASIC_EXCHANGE: {
-        [exports.NETWORKS.ETHEREUM]: '0x',
-        [exports.NETWORKS.POLYGON]: '0x',
-        [exports.NETWORKS.GOERLI]: '0x',
-        [exports.NETWORKS.MUMBAI]: '0x',
+exports.NETWORK_CONFIG = {
+    [exports.NETWORKS.ETHEREUM]: {
+        chainId: '1',
+        marketplaceContractAddress: '0x',
     },
+    [exports.NETWORKS.POLYGON]: {
+        chainId: '137',
+        marketplaceContractAddress: '0x',
+    },
+    [exports.NETWORKS.GOERLI]: {
+        chainId: '5',
+        marketplaceContractAddress: '0x',
+    },
+    [exports.NETWORKS.MUMBAI]: {
+        chainId: '80001',
+        marketplaceContractAddress: '0x0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
+    }
 };
 exports.ENUM_ASSET_TYPE = {
     ERC721: '0',
