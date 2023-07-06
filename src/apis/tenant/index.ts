@@ -85,7 +85,7 @@ export class TenantApis extends BaseApi {
     { includes = [] }: { includes?: CollectionIncludesRequest[]; }
   ): Promise<Collection | null> {
     try {
-      const query = qs.stringify({ filter: { network, contractAddress }, includes });
+      const query = qs.stringify({ filter: { network, contractAddress }, limit: 1, includes });
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
       });
@@ -139,7 +139,7 @@ export class TenantApis extends BaseApi {
     { includes }: { includes?: string[]; } = {}
   ): Promise<NftItem | null> {
     try {
-      const query = qs.stringify({ filter: { network, contractAddress, tokenId }, includes });
+      const query = qs.stringify({ filter: { network, contractAddress, tokenId }, limit: 1, includes });
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.item}?${query}`,
         header: this.headers.Header(),
@@ -154,7 +154,7 @@ export class TenantApis extends BaseApi {
 
   async getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency | null> {
     try {
-      const query = qs.stringify({ filter: { contractAddress }, });
+      const query = qs.stringify({ filter: { contractAddress }, limit: 1 });
       const data = await this.get<CryptoCurrency>({
         endpoint: `${this.endpoints.currency}?${query}`,
       });
