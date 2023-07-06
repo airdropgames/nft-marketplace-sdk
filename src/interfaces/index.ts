@@ -59,7 +59,15 @@ export type CryptoCurrency = {
   transferData?: string;
 };
 
-// Items
+export type ItemTransaction = {
+  id: string;
+  userAddress: string;
+  nftAmount: string;
+  tokenAmount: string;
+  startTime: string;
+  endTime: string;
+};
+
 export type NftItem = {
   id: string;
   tokenId: string;
@@ -69,12 +77,16 @@ export type NftItem = {
   image: string | null;
   tokenUri: string | null;
   collectionId: string;
+  owners: string[];
 
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
 
   collection: Partial<Collection> | null | undefined;
+  activeTransactions: null | undefined | ItemTransaction[];
+  highestBidTransaction: null | undefined | ItemTransaction;
+  lowestOfferTransaction: null | undefined | ItemTransaction;
 };
 
 export type ListItemsResponse = {
@@ -145,27 +157,27 @@ export type ListTransactionsFilter = {
 };
 
 export type ListCollectionsRequestParams = {
-  filter: ListCollectionsFilter;
-  page: number;
-  limit: number;
-  sort: ListCollectionsSort[];
-  includes: string[];
+  filter?: ListCollectionsFilter;
+  page?: number;
+  limit?: number;
+  sort?: ListCollectionsSort[];
+  includes?: string[];
 };
 
 export type ListItemsRequestParams = {
-  filter: ListItemsFilter;
-  page: number;
-  limit: number;
-  sort: ListItemsSort[];
-  includes: string[];
+  filter?: ListItemsFilter;
+  page?: number;
+  limit?: number;
+  sort?: ListItemsSort[];
+  includes?: string[];
 };
 
 export type ListTransactionsRequestParams = {
-  filter: ListTransactionsFilter,
-  page: number,
-  limit: number,
-  sort: ListTransactionsSort[],
-  includes: string[];
+  filter?: ListTransactionsFilter,
+  page?: number,
+  limit?: number,
+  sort?: ListTransactionsSort[],
+  includes?: string[];
 };
 
 export type ListTransactionsSort =

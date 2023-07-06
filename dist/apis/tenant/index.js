@@ -73,7 +73,7 @@ class TenantApis extends base_api_services_1.default {
                 includes,
             });
             const data = await this.get({
-                endpoint: `${this.endpoints.item}?${query}}`,
+                endpoint: `${this.endpoints.item}?${query}`,
                 header: this.headers.Header(),
             });
             return data;
