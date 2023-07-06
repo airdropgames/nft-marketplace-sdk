@@ -1,5 +1,5 @@
 import { TenantApis } from '../apis/tenant';
-export type CollectionIncludesRequest = 'items';
+export type CollectionIncludesRequest = 'items' | 'transactions';
 export type Collection = {
     id: string;
     name: string;

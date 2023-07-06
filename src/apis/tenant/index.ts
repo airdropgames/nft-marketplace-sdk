@@ -68,9 +68,9 @@ export class TenantApis extends BaseApi {
 
   async getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection | null> {
     try {
+      const query = qs.stringify({ includes });
       const data = await this.get<Collection>({
-        endpoint: `${this.endpoints.collection}/${id}`,
-        q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined,
+        endpoint: `${this.endpoints.collection}/${id}?${query}`,
       });
       return data;
     } catch (error: any) {
@@ -82,13 +82,12 @@ export class TenantApis extends BaseApi {
   async getCollectionByContractAddress(
     network: string,
     contractAddress: string,
-    includes: CollectionIncludesRequest[]
+    { includes = [] }: { includes?: CollectionIncludesRequest[]; }
   ): Promise<Collection | null> {
     try {
       const query = qs.stringify({ filter: { network, contractAddress }, includes });
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
-        q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined,
       });
       return data?.data?.length > 0 ? data?.data[0] : null;
     } catch (error: any) {
@@ -155,9 +154,9 @@ export class TenantApis extends BaseApi {
 
   async getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency | null> {
     try {
+      const query = qs.stringify({ filter: { contractAddress }, });
       const data = await this.get<CryptoCurrency>({
-        endpoint: this.endpoints.currency,
-        q: `contractAddress=${contractAddress}`,
+        endpoint: `${this.endpoints.currency}?${query}`,
       });
       return data;
     } catch (error: any) {

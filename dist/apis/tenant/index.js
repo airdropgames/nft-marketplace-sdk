@@ -38,9 +38,9 @@ class TenantApis extends base_api_services_1.default {
     }
     async getCollectionById(id, includes) {
         try {
+            const query = qs_1.default.stringify({ includes });
             const data = await this.get({
-                endpoint: `${this.endpoints.collection}/${id}`,
-                q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined,
+                endpoint: `${this.endpoints.collection}/${id}?${query}`,
             });
             return data;
         }
@@ -49,12 +49,11 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    async getCollectionByContractAddress(network, contractAddress, includes) {
+    async getCollectionByContractAddress(network, contractAddress, { includes = [] }) {
         try {
             const query = qs_1.default.stringify({ filter: { network, contractAddress }, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,
-                q: Array.isArray(includes) && includes.length > 0 ? `includes=${includes.join(',')}` : undefined,
             });
             return data?.data?.length > 0 ? data?.data[0] : null;
         }
@@ -112,9 +111,9 @@ class TenantApis extends base_api_services_1.default {
     }
     async getCryptoCurrencyByContractAddress(contractAddress) {
         try {
+            const query = qs_1.default.stringify({ filter: { contractAddress }, });
             const data = await this.get({
-                endpoint: this.endpoints.currency,
-                q: `contractAddress=${contractAddress}`,
+                endpoint: `${this.endpoints.currency}?${query}`,
             });
             return data;
         }
