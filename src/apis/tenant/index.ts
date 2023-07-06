@@ -54,7 +54,6 @@ export class TenantApis extends BaseApi {
           sort,
           includes,
         },
-        { allowDots: true }
       );
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
@@ -108,7 +107,6 @@ export class TenantApis extends BaseApi {
           sort,
           includes,
         },
-        { allowDots: true }
       );
 
       const data = await this.get<ListItemsResponse>({

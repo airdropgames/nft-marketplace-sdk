@@ -24,7 +24,7 @@ class TenantApis extends base_api_services_1.default {
                 limit,
                 sort,
                 includes,
-            }, { allowDots: true });
+            });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,
                 header: this.headers.Header(),
@@ -71,7 +71,7 @@ class TenantApis extends base_api_services_1.default {
                 limit,
                 sort,
                 includes,
-            }, { allowDots: true });
+            });
             const data = await this.get({
                 endpoint: `${this.endpoints.item}?${query}}`,
                 header: this.headers.Header(),
