@@ -20,6 +20,9 @@ import {
   CreateTransactionResponse,
   BidOfferRequestParameters,
   PlatformDataResponse,
+  ListCollectionsRequestParams,
+  ListItemsRequestParams,
+  ListTransactionsRequestParams,
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
@@ -35,13 +38,13 @@ export class TenantApis extends BaseApi {
     this.hyperPlazaSdk = hyperPlazaSdk;
   }
 
-  async listCollections(
-    filter: ListCollectionsFilter,
-    page: number,
-    limit: number,
-    sort: ListCollectionsSort[],
-    includes: string[]
-  ): Promise<ListCollectionsResponse> {
+  async listCollections({
+    filter,
+    page,
+    limit,
+    sort,
+    includes = [],
+  }: ListCollectionsRequestParams): Promise<ListCollectionsResponse> {
     try {
       const query = qs.stringify(
         {
@@ -95,7 +98,7 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async listNftItems(filter: ListItemsFilter, page: number, limit: number, sort: ListItemsSort[], includes: string[]) {
+  async listNftItems({ filter, page, limit, sort, includes = [] }: ListItemsRequestParams) {
     try {
       const query = qs.stringify(
         {
@@ -177,13 +180,13 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async listTransactions(
-    filter: ListTransactionsFilter,
-    page: number,
-    limit: number,
-    sort: ListTransactionsSort[],
-    includes: string[]
-  ): Promise<ListTransactionsResponse> {
+  async listTransactions({
+    filter,
+    page,
+    limit,
+    sort,
+    includes = [],
+  }: ListTransactionsRequestParams): Promise<ListTransactionsResponse> {
     try {
       const query = qs.stringify({ filter, page, limit, sort, includes });
       const data = await this.get({

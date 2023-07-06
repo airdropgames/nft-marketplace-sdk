@@ -16,7 +16,7 @@ class TenantApis extends base_api_services_1.default {
         });
         this.hyperPlazaSdk = hyperPlazaSdk;
     }
-    async listCollections(filter, page, limit, sort, includes) {
+    async listCollections({ filter, page, limit, sort, includes = [], }) {
         try {
             const query = qs_1.default.stringify({
                 filter,
@@ -63,7 +63,7 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    async listNftItems(filter, page, limit, sort, includes) {
+    async listNftItems({ filter, page, limit, sort, includes = [] }) {
         try {
             const query = qs_1.default.stringify({
                 filter,
@@ -135,7 +135,7 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    async listTransactions(filter, page, limit, sort, includes) {
+    async listTransactions({ filter, page, limit, sort, includes = [], }) {
         try {
             const query = qs_1.default.stringify({ filter, page, limit, sort, includes });
             const data = await this.get({

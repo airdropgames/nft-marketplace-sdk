@@ -1,21 +1,21 @@
 import BaseApi from '../../services/base.api.services';
 import NftMarketplaceSdk from '../../HyperSdk';
-import { Collection, CollectionIncludesRequest, CryptoCurrency, ListCollectionsFilter, ListCollectionsResponse, ListCollectionsSort, ListItemsFilter, ListItemsResponse, ListItemsSort, ListTransactionsFilter, ListTransactionsResponse, ListTransactionsSort, NftItem, CreateTransactionRequestParameters, CreateTransactionResponse, BidOfferRequestParameters, PlatformDataResponse } from '../../interfaces';
+import { Collection, CollectionIncludesRequest, CryptoCurrency, ListCollectionsResponse, ListItemsResponse, ListTransactionsResponse, NftItem, CreateTransactionRequestParameters, CreateTransactionResponse, BidOfferRequestParameters, PlatformDataResponse, ListCollectionsRequestParams, ListItemsRequestParams, ListTransactionsRequestParams } from '../../interfaces';
 import { Transaction } from 'ethers';
 export declare class TenantApis extends BaseApi {
     hyperPlazaSdk: NftMarketplaceSdk;
     constructor(hyperPlazaSdk: NftMarketplaceSdk);
-    listCollections(filter: ListCollectionsFilter, page: number, limit: number, sort: ListCollectionsSort[], includes: string[]): Promise<ListCollectionsResponse>;
+    listCollections({ filter, page, limit, sort, includes, }: ListCollectionsRequestParams): Promise<ListCollectionsResponse>;
     getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection | null>;
     getCollectionByContractAddress(network: string, contractAddress: string, includes: CollectionIncludesRequest[]): Promise<Collection | null>;
-    listNftItems(filter: ListItemsFilter, page: number, limit: number, sort: ListItemsSort[], includes: string[]): Promise<ListItemsResponse>;
+    listNftItems({ filter, page, limit, sort, includes }: ListItemsRequestParams): Promise<ListItemsResponse>;
     getNftItemById(id: string): Promise<NftItem | null>;
     getNftItemByTokenId(network: string, contractAddress: string, tokenId: string, { includes }?: {
         includes?: string[];
     }): Promise<NftItem | null>;
     getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency | null>;
     getCryptoCurrencyById(id: string): Promise<CryptoCurrency | null>;
-    listTransactions(filter: ListTransactionsFilter, page: number, limit: number, sort: ListTransactionsSort[], includes: string[]): Promise<ListTransactionsResponse>;
+    listTransactions({ filter, page, limit, sort, includes, }: ListTransactionsRequestParams): Promise<ListTransactionsResponse>;
     getTransactionById(id: string, includes: string[]): Promise<Transaction | null>;
     createTranscaction(params: CreateTransactionRequestParameters): Promise<CreateTransactionResponse>;
     createBid(params: BidOfferRequestParameters): Promise<CreateTransactionResponse>;

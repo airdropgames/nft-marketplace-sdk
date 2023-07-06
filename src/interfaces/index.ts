@@ -144,6 +144,30 @@ export type ListTransactionsFilter = {
   userAddress: string;
 };
 
+export type ListCollectionsRequestParams = {
+  filter: ListCollectionsFilter;
+  page: number;
+  limit: number;
+  sort: ListCollectionsSort[];
+  includes: string[];
+};
+
+export type ListItemsRequestParams = {
+  filter: ListItemsFilter;
+  page: number;
+  limit: number;
+  sort: ListItemsSort[];
+  includes: string[];
+};
+
+export type ListTransactionsRequestParams = {
+  filter: ListTransactionsFilter,
+  page: number,
+  limit: number,
+  sort: ListTransactionsSort[],
+  includes: string[];
+};
+
 export type ListTransactionsSort =
   | { createdAt: SortCriteria; }
   | { currencyValue: SortCriteria; }
@@ -193,7 +217,8 @@ export type ItemBidOfferMainParams = {
   transferData?: string;
 };
 
-export type ItemBidOfferParams = ItemBidOfferMainParams & ({ id: string; } | { contractAddress: string; tokenId: string; protocolType: NftProtocolType; });
+export type ItemBidOfferParams = ItemBidOfferMainParams &
+  ({ id: string; } | { contractAddress: string; tokenId: string; protocolType: NftProtocolType; });
 
 export type CurrencyBidOfferMainParams = {
   value: string;
