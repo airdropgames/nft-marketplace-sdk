@@ -23,13 +23,18 @@ export abstract class Order {
     verifyingContract: '',
   };
   eip712DataTypes = {
-    PlatformData: [
-      { name: 'royaltyReceiver', type: 'address' },
-      { name: 'royaltyPermyriad', type: 'uint256' },
-      { name: 'feePermyriad', type: 'uint256' },
-      { name: 'nonceChannel', type: 'uint8' },
-      { name: 'nonce', type: 'uint256' },
-      { name: 'txInitiatorId', type: 'string' },
+    BaseOrder: [
+      { name: 'makerAddress', type: 'address' },
+      { name: 'offeredAsset', type: 'AssetOrder' },
+      { name: 'askedAsset', type: 'AssetOrder' },
+      { name: 'start', type: 'uint256' },
+      { name: 'end', type: 'uint256' },
+    ],
+    AssetOrder: [
+      { name: 'assetType', type: 'int256' },
+      { name: 'assetAddress', type: 'address' },
+      { name: 'data', type: 'bytes' },
+      { name: 'value', type: 'uint256' },
     ],
   };
 
@@ -121,7 +126,7 @@ export abstract class Order {
   /**
    * returns the order data in EIP712 required data format
    */
-  abstract buildEip712Data(additionalData: string): Promise<Object>;
+  abstract buildEip712Data(): Promise<Object>;
 
   abstract fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

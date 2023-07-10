@@ -34,7 +34,7 @@ export class OfferOrder extends Order {
    * 
    * @inheritdoc Order.buildEip712Data
    */
-  async buildEip712Data(additionalData: string): Promise<Object> {
+  async buildEip712Data(): Promise<Object> {
     await this.fetchRequiredData();
     if (!this.itemData) {
       throw new Error('itemData is not set');
@@ -51,14 +51,14 @@ export class OfferOrder extends Order {
         assetAddress: this.itemData["contractAddress" as keyof typeof this.itemData],
         data: ethers.utils.solidityPack(
           ['uint256', 'bytes'],
-          [this.itemData["tokenId" as keyof typeof this.itemData], additionalData]
+          [this.itemData["tokenId" as keyof typeof this.itemData], this.itemData.transferData || '0x']
         ),
         value: this.itemData.value,
       },
       askedAsset: {
         assetType: ENUM_ASSET_TYPE.ERC20,
         assetAddress: this.cryptoCurrencyData["contractAddress" as keyof typeof this.cryptoCurrencyData],
-        data: this.cryptoCurrencyData.transferData,
+        data: this.cryptoCurrencyData.transferData || '0x',
         value: this.cryptoCurrencyData.value,
       },
       start: this.startTimeUtc,
@@ -101,7 +101,7 @@ export class OfferOrder extends Order {
       startTimestamp: this.startTimeUtc,
       endTimestamp: this.endTimeUtc,
       networkSymbol: this.nftMarketplaceSdk!.network,
-      data: JSON.stringify(await this.buildEip712Data('')),
+      data: JSON.stringify(await this.buildEip712Data()),
       signature: this.signature as string,
     });
   }

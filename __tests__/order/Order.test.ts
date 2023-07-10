@@ -9,7 +9,7 @@ class OrderImpl extends Order {
         throw new Error("Method not implemented.");
     }
 
-    buildEip712Data(additionalData: string): Promise<Object> {
+    buildEip712Data(): Promise<Object> {
         throw new Error("Method not implemented.");
     }
 

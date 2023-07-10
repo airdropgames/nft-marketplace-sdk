@@ -13,7 +13,7 @@ export declare class BidOrder extends Order {
      *
      * @inheritdoc Order.buildEip712Data
      */
-    buildEip712Data(additionalData: string): Promise<Object>;
+    buildEip712Data(): Promise<Object>;
     /**
      *
      * @inheritdoc Order.arrayify

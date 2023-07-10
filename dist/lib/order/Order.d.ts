@@ -20,7 +20,11 @@ export declare abstract class Order {
         verifyingContract: string;
     };
     eip712DataTypes: {
-        PlatformData: {
+        BaseOrder: {
+            name: string;
+            type: string;
+        }[];
+        AssetOrder: {
             name: string;
             type: string;
         }[];
@@ -34,7 +38,11 @@ export declare abstract class Order {
             verifyingContract: string;
         };
         dataTypes: {
-            PlatformData: {
+            BaseOrder: {
+                name: string;
+                type: string;
+            }[];
+            AssetOrder: {
                 name: string;
                 type: string;
             }[];
@@ -51,6 +59,6 @@ export declare abstract class Order {
     /**
      * returns the order data in EIP712 required data format
      */
-    abstract buildEip712Data(additionalData: string): Promise<Object>;
+    abstract buildEip712Data(): Promise<Object>;
     abstract fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

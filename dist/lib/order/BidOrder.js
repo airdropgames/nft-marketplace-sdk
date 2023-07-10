@@ -19,7 +19,7 @@ class BidOrder extends Order_1.Order {
      *
      * @inheritdoc Order.buildEip712Data
      */
-    async buildEip712Data(additionalData) {
+    async buildEip712Data() {
         await this.fetchRequiredData();
         if (!this.itemData) {
             throw new Error('itemData is not set');
@@ -32,13 +32,13 @@ class BidOrder extends Order_1.Order {
             offeredAsset: {
                 assetType: constants_1.ENUM_ASSET_TYPE.ERC20,
                 assetAddress: this.cryptoCurrencyData["contractAddress"],
-                data: this.cryptoCurrencyData.transferData,
+                data: this.cryptoCurrencyData.transferData || '0x',
                 value: this.cryptoCurrencyData.value,
             },
             askedAsset: {
                 assetType: constants_1.ENUM_ASSET_TYPE[this.itemData["protocolType"]],
                 assetAddress: this.itemData["contractAddress"],
-                data: ethers_1.ethers.utils.solidityPack(['uint256', 'bytes'], [this.itemData["tokenId"], additionalData]),
+                data: ethers_1.ethers.utils.solidityPack(['uint256', 'bytes'], [this.itemData["tokenId"], this.itemData.transferData || '0x']),
                 value: this.itemData.value,
             },
             start: this.startTimeUtc,
@@ -78,7 +78,7 @@ class BidOrder extends Order_1.Order {
             startTimestamp: this.startTimeUtc,
             endTimestamp: this.endTimeUtc,
             networkSymbol: this.nftMarketplaceSdk.network,
-            data: JSON.stringify(await this.buildEip712Data('')),
+            data: JSON.stringify(await this.buildEip712Data()),
             signature: this.signature,
         });
     }
