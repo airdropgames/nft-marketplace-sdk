@@ -123,22 +123,22 @@ export type ListItemsSort = {
 export type TransactionTypes = 'BID' | 'OFFER';
 export type TransactionStatus = 'SUBMITTED' | 'MATCHED' | 'CANCELLED';
 export type ListTransactionsFilter = {
-    collectionContracts: [
+    collectionContracts?: [
+        {
+            contractAddress?: string;
+            network?: string;
+            tokenId?: string;
+        }
+    ];
+    currencies?: [
         {
             contractAddress: string;
             network: string;
-            tokenId: string;
         }
     ];
-    currencies: [
-        {
-            contractAddress: string;
-            network: string;
-        }
-    ];
-    type: TransactionTypes;
-    status: TransactionStatus;
-    userAddress: string;
+    type?: TransactionTypes;
+    status?: TransactionStatus;
+    userAddress?: string;
 };
 export type ListCollectionsRequestParams = {
     filter?: ListCollectionsFilter;
