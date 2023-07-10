@@ -21,3 +21,7 @@ exports.NftMarketplaceSdk = void 0;
 var HyperSdk_1 = require("./HyperSdk");
 Object.defineProperty(exports, "NftMarketplaceSdk", { enumerable: true, get: function () { return __importDefault(HyperSdk_1).default; } });
 __exportStar(require("./constants"), exports);
+__exportStar(require("./lib/order/Order"), exports);
+__exportStar(require("./lib/order/BidOrder"), exports);
+__exportStar(require("./lib/order/OfferOrder"), exports);
+__exportStar(require("./lib/transaction/OffchainMatchOrders"), exports);

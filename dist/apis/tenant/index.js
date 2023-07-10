@@ -51,7 +51,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async getCollectionByContractAddress(network, contractAddress, { includes = [] }) {
         try {
-            const query = qs_1.default.stringify({ filter: { network, contractAddress }, includes });
+            const query = qs_1.default.stringify({ filter: { network, contractAddress }, limit: 1, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,
             });
@@ -97,7 +97,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async getNftItemByTokenId(network, contractAddress, tokenId, { includes } = {}) {
         try {
-            const query = qs_1.default.stringify({ filter: { network, contractAddress, tokenId }, includes });
+            const query = qs_1.default.stringify({ filter: { network, contractAddress, tokenId }, limit: 1, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.item}?${query}`,
                 header: this.headers.Header(),
@@ -111,7 +111,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async getCryptoCurrencyByContractAddress(contractAddress) {
         try {
-            const query = qs_1.default.stringify({ filter: { contractAddress }, });
+            const query = qs_1.default.stringify({ filter: { contractAddress }, limit: 1 });
             const data = await this.get({
                 endpoint: `${this.endpoints.currency}?${query}`,
             });
