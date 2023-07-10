@@ -79,7 +79,7 @@ export class TenantApis extends BaseApi {
     { includes = [] }: { includes?: CollectionIncludesRequest[]; }
   ): Promise<Collection | null> {
     try {
-      const query = qs.stringify({ filter: { network, contractAddress }, limit: 1, includes });
+      const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress }] }, limit: 1, includes });
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
       });
@@ -133,7 +133,7 @@ export class TenantApis extends BaseApi {
     { includes }: { includes?: string[]; } = {}
   ): Promise<NftItem | null> {
     try {
-      const query = qs.stringify({ filter: { network, contractAddress, tokenId }, limit: 1, includes });
+      const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes });
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.item}?${query}`,
         header: this.headers.Header(),

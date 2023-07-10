@@ -1,15 +1,11 @@
-import NftMarketplaceSdk from "../src/HyperSdk";
+import NftMarketplaceSdk from '../src/HyperSdk';
 
-
-const instance = new NftMarketplaceSdk(
-    'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/',
-    'abc',
-    'mumbai',
-    { enableLogging: true }
-);
+const instance = new NftMarketplaceSdk('https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/', 'abc', 'mumbai', {
+    enableLogging: true,
+});
 
 instance.apis.tenant
-    .getNftItemByTokenId('mumbai', '0x19d723c4de507ced21377f1e22ae89a2ba795c97', '101', { includes: ['transactions'] })
+    .getNftItemByTokenId('goerli', '0xdD7B235B7835072351B991f144eeFE92255236cc', '12', { includes: ['transactions'] })
     .then((result) => {
         console.log('result', result);
     });
