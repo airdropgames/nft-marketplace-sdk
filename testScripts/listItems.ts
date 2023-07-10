@@ -9,7 +9,18 @@ const instance = new NftMarketplaceSdk(
 );
 
 instance.apis.tenant
-    .listNftItems({ includes: ['transactions'] })
+    .listNftItems({
+        filter: {
+            collectionContracts: [
+                {
+                    contractAddress: '0xdD7B235B7835072351B991f144eeFE92255236cc',
+                    network: 'goerli'
+                }
+            ]
+        }, includes: ['transactions']
+    })
     .then((result) => {
         console.log('result', result);
+    }).catch((error) => {
+        console.log('error', error);
     });

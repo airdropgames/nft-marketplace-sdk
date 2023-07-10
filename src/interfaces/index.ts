@@ -110,7 +110,7 @@ export type PlatformDataResponse = {
 type SortCriteria = 'ASC' | 'DESC';
 
 export type ListCollectionsFilter = {
-  collectionContracts: {
+  collectionContracts?: {
     network: string;
     contractAddress: string;
   }[];
@@ -119,12 +119,12 @@ export type ListCollectionsFilter = {
 export type ListCollectionsSort = { totalVolume: SortCriteria; } | { createdAt: SortCriteria; };
 
 export type ListItemsFilter = {
-  collectionContracts: {
+  collectionContracts?: {
     network: string;
-    contractAddress: string;
-    tokenId: string;
+    contractAddress?: string;
+    tokenId?: string;
   }[];
-  userAddress: string;
+  userAddress?: string;
 };
 
 export type ListItemsSort =
