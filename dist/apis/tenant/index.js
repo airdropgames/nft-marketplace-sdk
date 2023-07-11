@@ -160,7 +160,7 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    async createTranscaction(params) {
+    async createTransaction(params) {
         try {
             const data = await this.post({
                 endpoint: `${this.endpoints.transaction}`,
@@ -174,10 +174,10 @@ class TenantApis extends base_api_services_1.default {
         }
     }
     async createBid(params) {
-        return this.createTranscaction({ ...params, type: 'BID' });
+        return this.createTransaction({ ...params, type: 'BID' });
     }
     async createOffer(params) {
-        return this.createTranscaction({ ...params, type: 'OFFER' });
+        return this.createTransaction({ ...params, type: 'OFFER' });
     }
     async cancelTransaction(id) {
         try {

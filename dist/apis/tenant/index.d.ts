@@ -19,7 +19,7 @@ export declare class TenantApis extends BaseApi {
     getCryptoCurrencyById(id: string): Promise<CryptoCurrency | null>;
     listTransactions({ filter, page, limit, sort, includes, }: ListTransactionsRequestParams): Promise<ListTransactionsResponse>;
     getTransactionById(id: string, includes: string[]): Promise<Transaction | null>;
-    createTranscaction(params: CreateTransactionRequestParameters): Promise<CreateTransactionResponse>;
+    createTransaction(params: CreateTransactionRequestParameters): Promise<CreateTransactionResponse>;
     createBid(params: BidOfferRequestParameters): Promise<CreateTransactionResponse>;
     createOffer(params: BidOfferRequestParameters): Promise<CreateTransactionResponse>;
     cancelTransaction(id: string): Promise<any>;

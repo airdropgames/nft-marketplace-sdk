@@ -203,7 +203,7 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async createTranscaction(params: CreateTransactionRequestParameters) {
+  async createTransaction(params: CreateTransactionRequestParameters) {
     try {
       const data = await this.post<CreateTransactionRequestParameters, CreateTransactionResponse>({
         endpoint: `${this.endpoints.transaction}`,
@@ -217,11 +217,11 @@ export class TenantApis extends BaseApi {
   }
 
   async createBid(params: BidOfferRequestParameters) {
-    return this.createTranscaction({ ...params, type: 'BID' });
+    return this.createTransaction({ ...params, type: 'BID' });
   }
 
   async createOffer(params: BidOfferRequestParameters) {
-    return this.createTranscaction({ ...params, type: 'OFFER' });
+    return this.createTransaction({ ...params, type: 'OFFER' });
   }
 
   async cancelTransaction(id: string) {

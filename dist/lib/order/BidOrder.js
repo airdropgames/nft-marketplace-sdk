@@ -78,7 +78,7 @@ class BidOrder extends Order_1.Order {
             startTimestamp: this.startTimeUtc,
             endTimestamp: this.endTimeUtc,
             networkSymbol: this.nftMarketplaceSdk.network,
-            data: JSON.stringify(await this.buildEip712Data()),
+            data: JSON.stringify({ data: await this.buildEip712Data() }),
             signature: this.signature,
         });
     }
