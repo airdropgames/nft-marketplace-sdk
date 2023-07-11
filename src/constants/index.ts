@@ -20,11 +20,11 @@ export const NETWORK_CONFIG = {
 
   [NETWORKS.GOERLI]: {
     chainId: '5',
-    marketplaceContractAddress: '0x',
+    marketplaceContractAddress: '0xFf2184A4041f4B93dBb6E7A87Bf6ddB76A845551',
   },
   [NETWORKS.MUMBAI]: {
     chainId: '80001',
-    marketplaceContractAddress: '0x0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
+    marketplaceContractAddress: '0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
   }
 };
 
