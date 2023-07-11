@@ -203,5 +203,18 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
+    async registerCollection(collectionData) {
+        try {
+            const data = await this.post({
+                endpoint: `${this.endpoints.collection}`,
+                data: collectionData,
+            });
+            return data;
+        }
+        catch (error) {
+            loglevel_1.default.error(error.message || 'registerCollections failed');
+            throw error?.response?.data || String(error);
+        }
+    }
 }
 exports.TenantApis = TenantApis;

@@ -17,6 +17,7 @@ import {
   ListCollectionsRequestParams,
   ListItemsRequestParams,
   ListTransactionsRequestParams,
+  RegisterCollectionParams,
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
@@ -247,4 +248,18 @@ export class TenantApis extends BaseApi {
       throw error?.response?.data || String(error);
     }
   }
+
+  async registerCollection(collectionData: RegisterCollectionParams) {
+    try {
+      const data = await this.post<RegisterCollectionParams, any>({
+        endpoint: `${this.endpoints.collection}`,
+        data: collectionData,
+      });
+      return data;
+    } catch (error: any) {
+      log.error(error.message || 'registerCollections failed');
+      throw error?.response?.data || String(error);
+    }
+  }
 }
+

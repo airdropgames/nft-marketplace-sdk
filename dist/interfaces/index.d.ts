@@ -253,4 +253,11 @@ export type Transaction = {
     currency: CryptoCurrency;
     item: NftItem;
 };
+export type RegisterCollectionParams = {
+    contractAddress: string;
+    network: string;
+    collectionFeePermyriad: number;
+    royaltyReceiver: string;
+    royaltyPermyriad: number;
+};
 export {};
