@@ -37,7 +37,7 @@ export declare abstract class Order {
             chainId: string;
             verifyingContract: string;
         };
-        dataTypes: {
+        valueTypes: {
             BaseOrder: {
                 name: string;
                 type: string;

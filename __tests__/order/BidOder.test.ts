@@ -39,7 +39,7 @@ describe('BidOrder', () => {
         chainId: '80001',
         verifyingContract: '0x0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
       },
-      dataTypes: {
+      valueTypes: {
         BaseOrder: [
           { name: 'makerAddress', type: 'address' },
           { name: 'offeredAsset', type: 'AssetOrder' },
@@ -109,7 +109,7 @@ describe('BidOrder', () => {
         chainId: '80001',
         verifyingContract: '0x0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
       },
-      dataTypes: {
+      valueTypes: {
         BaseOrder: [
           { name: 'makerAddress', type: 'address' },
           { name: 'offeredAsset', type: 'AssetOrder' },

@@ -64,7 +64,7 @@ export abstract class Order {
     }
     return {
       domain: this.eip712Domain,
-      dataTypes: this.eip712DataTypes
+      valueTypes: this.eip712DataTypes
     };
   }
 
