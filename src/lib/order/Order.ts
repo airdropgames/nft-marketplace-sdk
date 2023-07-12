@@ -92,12 +92,12 @@ export abstract class Order {
     // get item & currency data from amount
     const dataPromises = [];
     dataPromises.push(
-      !("contractAddress" in this.itemData) || !("tokenId" in this.itemData) || !("network" in this.itemData)
+      !("contractAddress" in this.itemData) || !("tokenId" in this.itemData)
         ? this.nftMarketplaceSdk!.apis.tenant.getNftItemById(this.itemData["id" as keyof typeof this.itemData] as string)
         : null
     );
     dataPromises.push(
-      !("contractAddress" in this.cryptoCurrencyData) || !("network" in this.cryptoCurrencyData)
+      !("contractAddress" in this.cryptoCurrencyData)
         ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyData["id" as keyof typeof this.cryptoCurrencyData] as string)
         : null
     );

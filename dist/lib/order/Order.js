@@ -68,10 +68,10 @@ class Order {
         }
         // get item & currency data from amount
         const dataPromises = [];
-        dataPromises.push(!("contractAddress" in this.itemData) || !("tokenId" in this.itemData) || !("network" in this.itemData)
+        dataPromises.push(!("contractAddress" in this.itemData) || !("tokenId" in this.itemData)
             ? this.nftMarketplaceSdk.apis.tenant.getNftItemById(this.itemData["id"])
             : null);
-        dataPromises.push(!("contractAddress" in this.cryptoCurrencyData) || !("network" in this.cryptoCurrencyData)
+        dataPromises.push(!("contractAddress" in this.cryptoCurrencyData)
             ? this.nftMarketplaceSdk.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyData["id"])
             : null);
         const [fetchedItemData, fetchedCryptoCurrencyData] = await Promise.all(dataPromises);
