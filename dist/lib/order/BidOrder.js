@@ -82,7 +82,7 @@ class BidOrder extends Order_1.Order {
             signature: this.signature,
         });
     }
-    fromTransaction(nftMarketplaceSdk, transaction) {
+    static fromTransaction(nftMarketplaceSdk, transaction) {
         return new BidOrder(nftMarketplaceSdk, {
             protocolType: transaction.item.collection?.protocolType,
             contractAddress: transaction.item.collection?.contractAddress,

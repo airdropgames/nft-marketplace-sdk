@@ -82,7 +82,7 @@ class OfferOrder extends Order_1.Order {
             signature: this.signature,
         });
     }
-    fromTransaction(nftMarketplaceSdk, transaction) {
+    static fromTransaction(nftMarketplaceSdk, transaction) {
         return new OfferOrder(nftMarketplaceSdk, {
             protocolType: transaction.item.collection?.protocolType,
             contractAddress: transaction.item.collection?.contractAddress,

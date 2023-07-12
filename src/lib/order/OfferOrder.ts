@@ -106,7 +106,7 @@ export class OfferOrder extends Order {
     });
   }
 
-  fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
+  static fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
     return new OfferOrder(
       nftMarketplaceSdk,
       {

@@ -20,5 +20,5 @@ export declare class BidOrder extends Order {
      */
     arrayify(): Promise<Array<string | number>>;
     submit(): Promise<CreateTransactionResponse>;
-    fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
+    static fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

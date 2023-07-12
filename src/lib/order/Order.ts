@@ -127,6 +127,4 @@ export abstract class Order {
    * returns the order data in EIP712 required data format
    */
   abstract buildEip712Data(): Promise<Object>;
-
-  abstract fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

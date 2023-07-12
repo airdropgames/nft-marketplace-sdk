@@ -106,7 +106,7 @@ export class BidOrder extends Order {
     });
   }
 
-  fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
+  static fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
     return new BidOrder(
       nftMarketplaceSdk,
       {

@@ -37,7 +37,7 @@ describe('OfferOrder', () => {
         name: 'NftMarketplace',
         version: '1.0.0',
         chainId: '80001',
-        verifyingContract: '0x0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
+        verifyingContract: '0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
       },
       valueTypes: {
         BaseOrder: [
@@ -107,7 +107,7 @@ describe('OfferOrder', () => {
         name: 'NftMarketplace',
         version: '1.0.0',
         chainId: '80001',
-        verifyingContract: '0x0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
+        verifyingContract: '0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
       },
       valueTypes: {
         BaseOrder: [
