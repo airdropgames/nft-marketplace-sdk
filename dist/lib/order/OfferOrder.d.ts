@@ -1,6 +1,6 @@
 import NftMarketplaceSdk from "../../HyperSdk";
 import { Order } from './Order';
-import { CurrencyBidOfferParams, ItemBidOfferParams, Transaction } from "src/interfaces";
+import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams, Transaction } from "src/interfaces";
 /**
  *
  *
@@ -19,6 +19,6 @@ export declare class OfferOrder extends Order {
      * @inheritdoc Order.arrayify
      */
     arrayify(): Promise<Array<string | number>>;
-    submit(): Promise<any>;
+    submit(): Promise<CreateTransactionResponse>;
     fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order;
 }

@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import NftMarketplaceSdk from "../../HyperSdk";
 import { ENUM_ASSET_TYPE } from "../../constants";
 import { Order } from './Order';
-import { CurrencyBidOfferParams, ItemBidOfferParams, NftProtocolType, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
+import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams, NftProtocolType, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
 import { getDateTimestampFromString } from "../../utils/date";
 
 /**
@@ -92,7 +92,7 @@ export class OfferOrder extends Order {
     ];
   }
 
-  async submit(): Promise<any> {
+  async submit(): Promise<CreateTransactionResponse> {
     this.validateOrderBeforeSubmit();
     return this.nftMarketplaceSdk!.apis.tenant.createOffer({
       userAddress: this.userWallet,
