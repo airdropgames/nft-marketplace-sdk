@@ -107,7 +107,7 @@ export class BidOrder extends Order {
   }
 
   static fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
-    return new BidOrder(
+    const bidOrder = new BidOrder(
       nftMarketplaceSdk,
       {
         protocolType: transaction.item.collection?.protocolType as NftProtocolType,
@@ -123,6 +123,8 @@ export class BidOrder extends Order {
       getDateTimestampFromString(transaction.startTimestamp),
       getDateTimestampFromString(transaction.endTimestamp),
     );
+    bidOrder.setSignature(transaction.signature);
+    return bidOrder;
   }
 }
 

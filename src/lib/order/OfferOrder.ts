@@ -107,7 +107,7 @@ export class OfferOrder extends Order {
   }
 
   static fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
-    return new OfferOrder(
+    const offerOrder = new OfferOrder(
       nftMarketplaceSdk,
       {
         protocolType: transaction.item.collection?.protocolType as NftProtocolType,
@@ -123,6 +123,8 @@ export class OfferOrder extends Order {
       getDateTimestampFromString(transaction.startTimestamp),
       getDateTimestampFromString(transaction.endTimestamp),
     );
+    offerOrder.setSignature(transaction.signature);
+    return offerOrder;
   }
 }
 

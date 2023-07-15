@@ -83,7 +83,7 @@ class OfferOrder extends Order_1.Order {
         });
     }
     static fromTransaction(nftMarketplaceSdk, transaction) {
-        return new OfferOrder(nftMarketplaceSdk, {
+        const offerOrder = new OfferOrder(nftMarketplaceSdk, {
             protocolType: transaction.item.collection?.protocolType,
             contractAddress: transaction.item.collection?.contractAddress,
             tokenId: transaction.item.tokenId,
@@ -92,6 +92,8 @@ class OfferOrder extends Order_1.Order {
             contractAddress: transaction.currency.contractAddress,
             value: transaction.currencyValue,
         }, transaction.userId, (0, date_1.getDateTimestampFromString)(transaction.startTimestamp), (0, date_1.getDateTimestampFromString)(transaction.endTimestamp));
+        offerOrder.setSignature(transaction.signature);
+        return offerOrder;
     }
 }
 exports.OfferOrder = OfferOrder;
