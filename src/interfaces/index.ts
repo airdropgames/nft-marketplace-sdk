@@ -278,3 +278,13 @@ export type RegisterCollectionParams = {
   royaltyReceiver: string;
   royaltyPermyriad: number;
 };
+
+export type UpdateCollectionParams = {
+  displayName?: string,
+  description?: string,
+  displayImage?: string,
+  coverImage?: string,
+  collectionFeePermyriad?: number,
+  royaltyReceiver?: string,
+  royaltyPermyriad?: number;
+};

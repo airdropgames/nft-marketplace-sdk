@@ -43,15 +43,10 @@ declare class BaseApi {
         data?: null | undefined;
         endpoint?: string | undefined;
     }) => Promise<T>;
-    patch: <T = any>({ header, data, endpoint, }: {
-        header?: {
-            headers: {
-                "Content-Type": string;
-                Authorization: string;
-            };
-        } | undefined;
-        data?: null | undefined;
-        endpoint?: string | undefined;
-    }) => Promise<T>;
+    patch: <T = any, U = any>({ header, data, endpoint, }: {
+        endpoint: string;
+        data: T | undefined;
+        header?: any;
+    }) => Promise<U>;
 }
 export default BaseApi;

@@ -18,6 +18,7 @@ import {
   ListItemsRequestParams,
   ListTransactionsRequestParams,
   RegisterCollectionParams,
+  UpdateCollectionParams,
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
@@ -261,5 +262,17 @@ export class TenantApis extends BaseApi {
       throw error?.response?.data || String(error);
     }
   }
-}
 
+  async updateCollection(id: string, collectionData: UpdateCollectionParams) {
+    try {
+      const data = await this.patch<UpdateCollectionParams, Collection>({
+        endpoint: `${this.endpoints.collection}/${id}`,
+        data: collectionData,
+      });
+      return data;
+    } catch (error: any) {
+      log.error(error.message || 'updateCollection failed');
+      throw error?.response?.data || String(error);
+    }
+  }
+}

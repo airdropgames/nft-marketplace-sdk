@@ -216,5 +216,18 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
+    async updateCollection(id, collectionData) {
+        try {
+            const data = await this.patch({
+                endpoint: `${this.endpoints.collection}/${id}`,
+                data: collectionData,
+            });
+            return data;
+        }
+        catch (error) {
+            loglevel_1.default.error(error.message || 'updateCollection failed');
+            throw error?.response?.data || String(error);
+        }
+    }
 }
 exports.TenantApis = TenantApis;

@@ -70,7 +70,7 @@ class BaseApi {
                 throw error;
             }
         };
-        this.patch = async ({ header = this.headers.HeaderAuth(), data = null, endpoint = '', }) => {
+        this.patch = async ({ header = this.headers.HeaderAuth(), data, endpoint = '', }) => {
             try {
                 const res = await this.axios.patch(`${this.baseUrl}${endpoint}`, data, header);
                 return res.data;

@@ -1,6 +1,6 @@
 import BaseApi from '../../services/base.api.services';
 import NftMarketplaceSdk from '../../HyperSdk';
-import { Collection, CollectionIncludesRequest, CryptoCurrency, ListCollectionsResponse, ListItemsResponse, ListTransactionsResponse, NftItem, CreateTransactionRequestParameters, CreateTransactionResponse, BidOfferRequestParameters, PlatformDataResponse, ListCollectionsRequestParams, ListItemsRequestParams, ListTransactionsRequestParams, RegisterCollectionParams } from '../../interfaces';
+import { Collection, CollectionIncludesRequest, CryptoCurrency, ListCollectionsResponse, ListItemsResponse, ListTransactionsResponse, NftItem, CreateTransactionRequestParameters, CreateTransactionResponse, BidOfferRequestParameters, PlatformDataResponse, ListCollectionsRequestParams, ListItemsRequestParams, ListTransactionsRequestParams, RegisterCollectionParams, UpdateCollectionParams } from '../../interfaces';
 import { Transaction } from 'ethers';
 export declare class TenantApis extends BaseApi {
     hyperPlazaSdk: NftMarketplaceSdk;
@@ -25,4 +25,5 @@ export declare class TenantApis extends BaseApi {
     cancelTransaction(id: string): Promise<any>;
     getTransactionPlatformData(transactionId: string): Promise<PlatformDataResponse>;
     registerCollection(collectionData: RegisterCollectionParams): Promise<any>;
+    updateCollection(id: string, collectionData: UpdateCollectionParams): Promise<Collection>;
 }

@@ -90,13 +90,17 @@ class BaseApi {
     }
   };
 
-  patch = async <T = any>({
+  patch = async <T = any, U = any>({
     header = this.headers.HeaderAuth(),
-    data = null,
+    data,
     endpoint = '',
-  }): Promise<T> => {
+  }: {
+    endpoint: string;
+    data: T | undefined;
+    header?: any;
+  }): Promise<U> => {
     try {
-      const res = await this.axios.patch<T>(
+      const res = await this.axios.patch<U>(
         `${this.baseUrl}${endpoint}`,
         data,
         header
