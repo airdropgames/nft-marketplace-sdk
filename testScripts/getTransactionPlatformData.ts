@@ -9,12 +9,13 @@ const sdk = new NftMarketplaceSdk('https://bamal2gltj.execute-api.eu-west-2.amaz
 });
 
 const main = async () => {
-    const txInitiatorId = '8a84612d-b0f3-44de-bab1-30f324567358'; // for example this is a bid transaction to accept
+    const txInitiatorId = '94e6c6f1-a230-4f1d-80a1-82ab48265e3a'; // for example this is a bid transaction to accept
     const wallet = ethers.Wallet.createRandom();
     let userWallet = wallet.address;
 
     const transactionPlatformData = await sdk.apis.tenant.getTransactionPlatformData(txInitiatorId);
     const offerOrder = OfferOrder.fromTransaction(sdk, transactionPlatformData.transaction);
+    console.log('offerOrder', transactionPlatformData.transaction);
     const bidOrder = new BidOrder(
         sdk,
         offerOrder.itemData,

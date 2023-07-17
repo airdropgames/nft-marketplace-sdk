@@ -100,7 +100,7 @@ class BidOrder extends Order_1.Order {
         }, {
             contractAddress: transaction?.currency?.contractAddress,
             value: transaction?.currencyValue,
-        }, transaction?.userId, (0, date_1.getUnixTimestampFromMysqlDateTime)(transaction?.startTimestamp), (0, date_1.getUnixTimestampFromMysqlDateTime)(transaction?.endTimestamp));
+        }, transaction?.userId, (0, date_1.getUnixTimestampFromDateString)(transaction?.startTimestamp), (0, date_1.getUnixTimestampFromDateString)(transaction?.endTimestamp));
         bidOrder.setSignature(transaction.signature);
         return bidOrder;
     }

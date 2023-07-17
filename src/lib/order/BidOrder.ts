@@ -3,7 +3,7 @@ import NftMarketplaceSdk from "../../HyperSdk";
 import { ENUM_ASSET_TYPE } from "../../constants";
 import { Order } from './Order';
 import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams, NftProtocolType, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
-import { getUnixTimestampFromMysqlDateTime, getMysqlDateTimeString } from "../../utils/date";
+import { getUnixTimestampFromDateString, getMysqlDateTimeString } from "../../utils/date";
 
 /**
  *
@@ -129,8 +129,8 @@ export class BidOrder extends Order {
         value: transaction?.currencyValue,
       },
       transaction?.userId,
-      getUnixTimestampFromMysqlDateTime(transaction?.startTimestamp),
-      getUnixTimestampFromMysqlDateTime(transaction?.endTimestamp),
+      getUnixTimestampFromDateString(transaction?.startTimestamp),
+      getUnixTimestampFromDateString(transaction?.endTimestamp),
     );
     bidOrder.setSignature(transaction.signature);
     return bidOrder;
