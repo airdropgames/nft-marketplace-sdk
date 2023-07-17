@@ -1,4 +1,4 @@
-import { CryptoCurrency, CurrencyBidOfferParams, ItemBidOfferParams, NftItem, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
+import { CreateTransactionResponse, CryptoCurrency, CurrencyBidOfferParams, ItemBidOfferParams, NftItem, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
 import NftMarketplaceSdk from "../../HyperSdk";
 
 /**
@@ -127,4 +127,6 @@ export abstract class Order {
    * returns the order data in EIP712 required data format
    */
   abstract buildEip712Data(): Promise<Object>;
+
+  abstract submit(): Promise<CreateTransactionResponse>;
 }

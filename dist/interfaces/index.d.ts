@@ -50,8 +50,8 @@ export type CryptoCurrency = {
 export type ItemTransaction = {
     id: string;
     userAddress: string;
-    nftAmount: string;
-    tokenAmount: string;
+    itemValue: string;
+    currencyValue: string;
     startTime: string;
     endTime: string;
 };
@@ -93,7 +93,7 @@ type SortCriteria = 'ASC' | 'DESC';
 export type ListCollectionsFilter = {
     collectionContracts?: {
         network: string;
-        contractAddress: string;
+        contractAddress?: string;
     }[];
 };
 export type ListCollectionsSort = {

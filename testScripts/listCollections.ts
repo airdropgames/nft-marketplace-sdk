@@ -4,12 +4,12 @@ import NftMarketplaceSdk from "../src/HyperSdk";
 const instance = new NftMarketplaceSdk(
     'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/',
     'abc',
-    'mumbai',
+    'goerli',
     { enableLogging: true }
 );
 
 instance.apis.tenant
-    .listCollections({ includes: ['transactions'] })
+    .listCollections({ filter: { collectionContracts: [{ network: 'goerli' }] }, includes: ['transactions'] })
     .then((result) => {
         console.log('result', result);
     });

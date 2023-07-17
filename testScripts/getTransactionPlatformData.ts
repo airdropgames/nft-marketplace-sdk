@@ -1,19 +1,42 @@
 import { BidOrder } from '../src/lib/order/BidOrder';
+import { OfferOrder } from '../src/lib/order/OfferOrder';
+import { OffchainMatchOrdersTransaction } from '../src/lib/transaction/OffchainMatchOrders';
 import NftMarketplaceSdk from '../src/HyperSdk';
+import { ethers } from 'ethers';
 
-const sdk = new NftMarketplaceSdk('https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/', 'abc', 'mumbai', {
+const sdk = new NftMarketplaceSdk('https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/', 'abc', 'goerli', {
     enableLogging: true,
 });
 
 const main = async () => {
-    const txInitiatorId = '3510411a-ddaa-4ef0-a9ea-5b37d261096b'; // for example this is a bid transaction to accept
+    const txInitiatorId = '8a84612d-b0f3-44de-bab1-30f324567358'; // for example this is a bid transaction to accept
+    const wallet = ethers.Wallet.createRandom();
+    let userWallet = wallet.address;
+
     const transactionPlatformData = await sdk.apis.tenant.getTransactionPlatformData(txInitiatorId);
-    const bidOrder = BidOrder.fromTransaction(sdk, transactionPlatformData.transaction);
-    return bidOrder.buildEip712Data();
+    const offerOrder = OfferOrder.fromTransaction(sdk, transactionPlatformData.transaction);
+    const bidOrder = new BidOrder(
+        sdk,
+        offerOrder.itemData,
+        offerOrder.cryptoCurrencyData,
+        userWallet,
+        offerOrder.startTimeUtc,
+        offerOrder.endTimeUtc
+    );
+    const { domain, valueTypes, values } = await bidOrder.buildEip712Data() as any;
+    const signature = await wallet._signTypedData(domain, valueTypes, values);
+    bidOrder.setSignature(signature);
+    const transaction = new OffchainMatchOrdersTransaction(
+        bidOrder,
+        offerOrder, // create it like we create bid order
+        transactionPlatformData,
+        txInitiatorId // the id of the initial transaction
+    );
+    return transaction.buildMatchOrderParams();
 };
 
 main().then(async (result) => {
-    console.log('res', result);
+    console.log('res', JSON.stringify(result, null, 2));
 }).catch((error) => {
     console.log('error', error);
 });

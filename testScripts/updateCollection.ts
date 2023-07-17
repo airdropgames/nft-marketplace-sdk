@@ -1,6 +1,5 @@
 import NftMarketplaceSdk from "../src/HyperSdk";
 
-
 const sdk = new NftMarketplaceSdk(
     'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/',
     'abc',
