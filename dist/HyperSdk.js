@@ -54,6 +54,9 @@ class NftMarketplaceSdk {
     getUrl() {
         return this.url;
     }
+    getKey() {
+        return this.key;
+    }
     _setLogLevel() {
         if (this.options.enableLogging)
             loglevel_1.default.enableAll();
