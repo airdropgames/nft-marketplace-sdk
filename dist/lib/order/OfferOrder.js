@@ -54,7 +54,7 @@ class OfferOrder extends Order_1.Order {
      * @inheritdoc Order.arrayify
      */
     async arrayify() {
-        await this.fetchRequiredData();
+        const { values } = await this.buildEip712Data();
         if (!this.itemData) {
             throw new Error('itemData is not set');
         }
@@ -62,11 +62,20 @@ class OfferOrder extends Order_1.Order {
             throw new Error('cryptoCurrencyData is not set');
         }
         return [
-            this.userWallet,
-            this.itemData["contractAddress"],
-            this.cryptoCurrencyData["contractAddress"],
-            this.startTimeUtc,
-            this.endTimeUtc,
+            values.makerAddress,
+            [
+                values.offeredAsset.assetType,
+                values.offeredAsset.assetAddress,
+                values.offeredAsset.data,
+                values.offeredAsset.value,
+            ], [
+                values.askedAsset.assetType,
+                values.askedAsset.assetAddress,
+                values.askedAsset.data,
+                values.askedAsset.value,
+            ],
+            values.start,
+            values.end,
         ];
     }
     async submit() {
