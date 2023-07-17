@@ -110,18 +110,18 @@ export class BidOrder extends Order {
     const bidOrder = new BidOrder(
       nftMarketplaceSdk,
       {
-        protocolType: transaction.item.collection?.protocolType as NftProtocolType,
-        contractAddress: transaction.item.collection?.contractAddress as string,
-        tokenId: transaction.item.tokenId,
-        value: transaction.itemValue
+        protocolType: transaction?.item?.collection?.protocolType as NftProtocolType,
+        contractAddress: transaction?.item.collection?.contractAddress as string,
+        tokenId: transaction?.item?.tokenId,
+        value: transaction?.itemValue
       },
       {
-        contractAddress: transaction.currency.contractAddress,
-        value: transaction.currencyValue,
+        contractAddress: transaction?.currency?.contractAddress,
+        value: transaction?.currencyValue,
       },
-      transaction.userId,
-      getDateTimestampFromString(transaction.startTimestamp),
-      getDateTimestampFromString(transaction.endTimestamp),
+      transaction?.userId,
+      getDateTimestampFromString(transaction?.startTimestamp),
+      getDateTimestampFromString(transaction?.endTimestamp),
     );
     bidOrder.setSignature(transaction.signature);
     return bidOrder;
