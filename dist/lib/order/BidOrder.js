@@ -84,8 +84,8 @@ class BidOrder extends Order_1.Order {
             userAddress: this.userWallet,
             item: this.itemData,
             currency: this.cryptoCurrencyData,
-            startTimestamp: this.startTimeUtc,
-            endTimestamp: this.endTimeUtc,
+            startTimestamp: (0, date_1.getMysqlDateTimeString)(this.startTimeUtc),
+            endTimestamp: (0, date_1.getMysqlDateTimeString)(this.endTimeUtc),
             networkSymbol: this.nftMarketplaceSdk.network,
             data: JSON.stringify({ data: await this.buildEip712Data() }),
             signature: this.signature,
@@ -100,7 +100,7 @@ class BidOrder extends Order_1.Order {
         }, {
             contractAddress: transaction?.currency?.contractAddress,
             value: transaction?.currencyValue,
-        }, transaction?.userId, (0, date_1.getDateTimestampFromString)(transaction?.startTimestamp), (0, date_1.getDateTimestampFromString)(transaction?.endTimestamp));
+        }, transaction?.userId, (0, date_1.getUnixTimestampFromMysqlDateTime)(transaction?.startTimestamp), (0, date_1.getUnixTimestampFromMysqlDateTime)(transaction?.endTimestamp));
         bidOrder.setSignature(transaction.signature);
         return bidOrder;
     }

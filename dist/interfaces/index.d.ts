@@ -228,8 +228,8 @@ export type BidOfferRequestParameters = {
     userAddress: string;
     item: ItemBidOfferParams;
     currency: CurrencyBidOfferParams;
-    startTimestamp: number;
-    endTimestamp: number;
+    startTimestamp: string;
+    endTimestamp: string;
     networkSymbol: string;
     data: string;
     signature: string;
