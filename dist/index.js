@@ -25,3 +25,4 @@ __exportStar(require("./lib/order/Order"), exports);
 __exportStar(require("./lib/order/BidOrder"), exports);
 __exportStar(require("./lib/order/OfferOrder"), exports);
 __exportStar(require("./lib/transaction/OffchainMatchOrders"), exports);
+__exportStar(require("./utils/date"), exports);
