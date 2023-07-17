@@ -1,3 +1,3 @@
 export const getDateTimestampFromString = (date: string): number => {
-    return new Date(date).getTime();
+    return Math.floor(new Date(date).getTime() / 1000);
 };
