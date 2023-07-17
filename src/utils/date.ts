@@ -1,3 +1,7 @@
+export const getUnixTimestampFromDateString = (date: string): number => {
+    return Math.floor(new Date(date).getTime() / 1000);
+};
+
 export const getUnixTimestampFromMysqlDateTime = (mysqlDateTime: string): number => {
     return Math.floor(new Date(`${mysqlDateTime}Z`).getTime() / 1000);
 };
