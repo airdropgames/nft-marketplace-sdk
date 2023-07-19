@@ -259,6 +259,7 @@ export type RegisterCollectionParams = {
     collectionFeePermyriad: number;
     royaltyReceiver: string;
     royaltyPermyriad: number;
+    tenantId: string;
 };
 export type UpdateCollectionParams = {
     displayName?: string;

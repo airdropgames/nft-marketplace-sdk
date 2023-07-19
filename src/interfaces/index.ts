@@ -246,7 +246,6 @@ export type BidOfferRequestParameters = {
   startTimestamp: number;
   endTimestamp: number;
   networkSymbol: string;
-  // data: stringified data.values from prepare call before
   data: string;
   signature: string;
 };
@@ -272,11 +271,12 @@ export type Transaction = {
 };
 
 export type RegisterCollectionParams = {
-  contractAddress: string,
-  network: string,
-  collectionFeePermyriad: number,
+  contractAddress: string;
+  network: string;
+  collectionFeePermyriad: number;
   royaltyReceiver: string;
   royaltyPermyriad: number;
+  tenantId: string;
 };
 
 export type UpdateCollectionParams = {

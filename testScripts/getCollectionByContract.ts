@@ -11,7 +11,7 @@ const instance = new NftMarketplaceSdk(
 instance.apis.tenant
     .getCollectionByContractAddress('goerli', '0xdD7B235B7835072351B991f144eeFE92255236cc', { includes: ['transactions', 'items'] })
     .then((result) => {
-        console.log('result', JSON.stringify(result, null, 2));
+      console.log('result', JSON.stringify(result, null, 2));
     }).catch((error) => {
-        console.log('error', error);
+      console.log('error', error);
     });
