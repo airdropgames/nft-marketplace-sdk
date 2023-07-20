@@ -69,6 +69,10 @@ export default class NftMarketplaceSdk {
     return this.url;
   }
 
+  public getKey(): string {
+    return this.key;
+  }
+
   private _setLogLevel() {
     if (this.options.enableLogging) log.enableAll();
     else log.disableAll();

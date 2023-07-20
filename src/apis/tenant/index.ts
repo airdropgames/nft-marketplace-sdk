@@ -26,12 +26,15 @@ import { Transaction } from 'ethers';
 export class TenantApis extends BaseApi {
   hyperPlazaSdk: NftMarketplaceSdk;
 
+  tenantKey: string = "";
+
   constructor(hyperPlazaSdk: NftMarketplaceSdk) {
     super({
       baseUrl: hyperPlazaSdk.getUrl(),
       endpoints: hyprEndpoints,
     });
     this.hyperPlazaSdk = hyperPlazaSdk;
+    this.tenantKey = this.hyperPlazaSdk.getKey();
   }
 
   async listCollections({
@@ -53,7 +56,7 @@ export class TenantApis extends BaseApi {
       );
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
-        header: this.headers.Header(),
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -67,6 +70,7 @@ export class TenantApis extends BaseApi {
       const query = qs.stringify({ includes });
       const data = await this.get<Collection>({
         endpoint: `${this.endpoints.collection}/${id}?${query}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -84,6 +88,7 @@ export class TenantApis extends BaseApi {
       const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress }] }, limit: 1, includes });
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data?.data?.length > 0 ? data?.data[0] : null;
     } catch (error: any) {
@@ -106,7 +111,7 @@ export class TenantApis extends BaseApi {
 
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.item}?${query}`,
-        header: this.headers.Header(),
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -119,7 +124,7 @@ export class TenantApis extends BaseApi {
     try {
       const data = await this.get<NftItem>({
         endpoint: `${this.endpoints.item}/${id}`,
-        header: this.headers.Header(),
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -138,7 +143,7 @@ export class TenantApis extends BaseApi {
       const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes });
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.item}?${query}`,
-        header: this.headers.Header(),
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
 
       return data?.data?.length > 0 ? data?.data[0] : null;
@@ -153,6 +158,7 @@ export class TenantApis extends BaseApi {
       const query = qs.stringify({ filter: { contractAddress }, limit: 1 });
       const data = await this.get<CryptoCurrency>({
         endpoint: `${this.endpoints.currency}?${query}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -165,6 +171,7 @@ export class TenantApis extends BaseApi {
     try {
       const data = await this.get<CryptoCurrency>({
         endpoint: `${this.endpoints.currency}/${id}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -184,6 +191,7 @@ export class TenantApis extends BaseApi {
       const query = qs.stringify({ filter, page, limit, sort, includes });
       const data = await this.get({
         endpoint: `${this.endpoints.transaction}?${query}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -197,6 +205,7 @@ export class TenantApis extends BaseApi {
       const query = qs.stringify({ includes });
       const data = await this.get<Transaction>({
         endpoint: `${this.endpoints.transaction}/${id}?${query}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -210,6 +219,7 @@ export class TenantApis extends BaseApi {
       const data = await this.post<CreateTransactionRequestParameters, CreateTransactionResponse>({
         endpoint: `${this.endpoints.transaction}`,
         data: params,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -230,6 +240,7 @@ export class TenantApis extends BaseApi {
     try {
       const data = await this.delete({
         endpoint: `${this.endpoints.transaction}/${id}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -242,6 +253,7 @@ export class TenantApis extends BaseApi {
     try {
       const data = await this.get({
         endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}`,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -255,6 +267,7 @@ export class TenantApis extends BaseApi {
       const data = await this.post<RegisterCollectionParams, any>({
         endpoint: `${this.endpoints.collection}`,
         data: collectionData,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
@@ -268,6 +281,7 @@ export class TenantApis extends BaseApi {
       const data = await this.patch<UpdateCollectionParams, Collection>({
         endpoint: `${this.endpoints.collection}/${id}`,
         data: collectionData,
+        header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {

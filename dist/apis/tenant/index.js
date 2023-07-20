@@ -14,7 +14,9 @@ class TenantApis extends base_api_services_1.default {
             baseUrl: hyperPlazaSdk.getUrl(),
             endpoints: endpoints_1.default,
         });
+        this.tenantKey = "";
         this.hyperPlazaSdk = hyperPlazaSdk;
+        this.tenantKey = this.hyperPlazaSdk.getKey();
     }
     async listCollections({ filter, page, limit, sort, includes = [], }) {
         try {
@@ -27,7 +29,7 @@ class TenantApis extends base_api_services_1.default {
             });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,
-                header: this.headers.Header(),
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -41,6 +43,7 @@ class TenantApis extends base_api_services_1.default {
             const query = qs_1.default.stringify({ includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}/${id}?${query}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -54,6 +57,7 @@ class TenantApis extends base_api_services_1.default {
             const query = qs_1.default.stringify({ filter: { collectionContracts: [{ network, contractAddress }] }, limit: 1, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data?.data?.length > 0 ? data?.data[0] : null;
         }
@@ -73,7 +77,7 @@ class TenantApis extends base_api_services_1.default {
             });
             const data = await this.get({
                 endpoint: `${this.endpoints.item}?${query}`,
-                header: this.headers.Header(),
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -86,7 +90,7 @@ class TenantApis extends base_api_services_1.default {
         try {
             const data = await this.get({
                 endpoint: `${this.endpoints.item}/${id}`,
-                header: this.headers.Header(),
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -100,7 +104,7 @@ class TenantApis extends base_api_services_1.default {
             const query = qs_1.default.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.item}?${query}`,
-                header: this.headers.Header(),
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data?.data?.length > 0 ? data?.data[0] : null;
         }
@@ -114,6 +118,7 @@ class TenantApis extends base_api_services_1.default {
             const query = qs_1.default.stringify({ filter: { contractAddress }, limit: 1 });
             const data = await this.get({
                 endpoint: `${this.endpoints.currency}?${query}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -126,6 +131,7 @@ class TenantApis extends base_api_services_1.default {
         try {
             const data = await this.get({
                 endpoint: `${this.endpoints.currency}/${id}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -139,6 +145,7 @@ class TenantApis extends base_api_services_1.default {
             const query = qs_1.default.stringify({ filter, page, limit, sort, includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.transaction}?${query}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -152,6 +159,7 @@ class TenantApis extends base_api_services_1.default {
             const query = qs_1.default.stringify({ includes });
             const data = await this.get({
                 endpoint: `${this.endpoints.transaction}/${id}?${query}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -165,6 +173,7 @@ class TenantApis extends base_api_services_1.default {
             const data = await this.post({
                 endpoint: `${this.endpoints.transaction}`,
                 data: params,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -183,6 +192,7 @@ class TenantApis extends base_api_services_1.default {
         try {
             const data = await this.delete({
                 endpoint: `${this.endpoints.transaction}/${id}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -195,6 +205,7 @@ class TenantApis extends base_api_services_1.default {
         try {
             const data = await this.get({
                 endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}`,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -208,6 +219,7 @@ class TenantApis extends base_api_services_1.default {
             const data = await this.post({
                 endpoint: `${this.endpoints.collection}`,
                 data: collectionData,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
@@ -221,6 +233,7 @@ class TenantApis extends base_api_services_1.default {
             const data = await this.patch({
                 endpoint: `${this.endpoints.collection}/${id}`,
                 data: collectionData,
+                header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }

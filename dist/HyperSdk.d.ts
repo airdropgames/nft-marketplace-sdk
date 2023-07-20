@@ -25,6 +25,7 @@ export default class NftMarketplaceSdk {
      */
     constructor(url: string, key: string, network: string, opts?: HyprSDKOptions);
     getUrl(): string;
+    getKey(): string;
     private _setLogLevel;
     private _validateKey;
     private _validateUrl;

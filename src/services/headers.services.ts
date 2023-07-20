@@ -2,7 +2,7 @@ export function HeaderAuth(token = "") {
   return {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+      Authorization: token ?? ""
     }
   }
 }
@@ -11,7 +11,7 @@ export function HeaderFile(token = "") {
   return {
     headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: token ? `Bearer ${token}` : "",
+      Authorization: token ?? "",
       Accept: "*/*",
       responseType: "blob"
     }
