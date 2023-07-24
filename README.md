@@ -103,13 +103,13 @@ await bidOrder.submit()
 const txInitiatorId = '18b99dd7-af3e-4c3b-bc3f-a2f1927d6386'; // for example this is a bid transaction to accept
 const transactionPlatformData = await sdk.apis.getTransactionPlatformData(txInitiatorId);
 
-const bidOrder = BidOrder.fromTransaction(transactionPlatformData.transaction)
+const bidOrder = BidOrder.fromTransaction(sdk, transactionPlatformData.transaction);
 
 // create an sign it as the previous section
 const offerOrder = ...
 
 // creating blockchain transaction
-const transaction = new sdk.transaction.MatchOrdersTransaction(
+const transaction = new OffchainMatchOrdersTransaction(
   bidOrder,
   offerOrder, // create it like we create bid order
   transactionPlatformData,
