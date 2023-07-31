@@ -18,7 +18,7 @@ class TenantApis extends base_api_services_1.default {
         this.hyperPlazaSdk = hyperPlazaSdk;
         this.tenantKey = this.hyperPlazaSdk.getKey();
     }
-    async listCollections({ filter, page, limit, sort, includes = [], }) {
+    async listCollections({ filter, page, limit, sort, includes = [], search}) {
         try {
             const query = qs_1.default.stringify({
                 filter,
@@ -26,6 +26,7 @@ class TenantApis extends base_api_services_1.default {
                 limit,
                 sort,
                 includes,
+                search,
             });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,

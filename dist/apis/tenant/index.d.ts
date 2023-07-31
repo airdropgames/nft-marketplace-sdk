@@ -6,7 +6,7 @@ export declare class TenantApis extends BaseApi {
     hyperPlazaSdk: NftMarketplaceSdk;
     tenantKey: string;
     constructor(hyperPlazaSdk: NftMarketplaceSdk);
-    listCollections({ filter, page, limit, sort, includes, }: ListCollectionsRequestParams): Promise<ListCollectionsResponse>;
+    listCollections({ filter, page, limit, sort, includes, search,}: ListCollectionsRequestParams): Promise<ListCollectionsResponse>;
     getCollectionById(id: string, includes: CollectionIncludesRequest[]): Promise<Collection | null>;
     getCollectionByContractAddress(network: string, contractAddress: string, { includes }: {
         includes?: CollectionIncludesRequest[];
