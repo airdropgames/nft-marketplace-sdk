@@ -43,6 +43,7 @@ export class TenantApis extends BaseApi {
     limit,
     sort,
     includes = [],
+    search,
   }: ListCollectionsRequestParams): Promise<ListCollectionsResponse> {
     try {
       const query = qs.stringify(
@@ -52,6 +53,7 @@ export class TenantApis extends BaseApi {
           limit,
           sort,
           includes,
+          search,
         },
       );
       const data = await this.get<ListCollectionsResponse>({

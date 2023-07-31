@@ -162,6 +162,7 @@ export type ListCollectionsRequestParams = {
   limit?: number;
   sort?: ListCollectionsSort[];
   includes?: string[];
+  search?: string;
 };
 
 export type ListItemsRequestParams = {
