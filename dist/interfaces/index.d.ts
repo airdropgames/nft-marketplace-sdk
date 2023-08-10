@@ -79,6 +79,12 @@ export type ListItemsResponse = {
     limit: number;
     data: NftItem[];
 };
+export declare enum ValidatedOrder {
+    NONE = 0,
+    BID = 1,
+    OFFER = 2,
+    BOTH = 3
+}
 export type PlatformDataResponse = {
     royaltyReceiver: string;
     royaltyPermyriad: number;
@@ -88,6 +94,8 @@ export type PlatformDataResponse = {
     nonceChannel: string;
     nonce: string;
     transaction: Transaction;
+    signatureExpiryTimestamp: number;
+    validatedOrder: ValidatedOrder;
 };
 type SortCriteria = 'ASC' | 'DESC';
 export type ListCollectionsFilter = {
@@ -146,7 +154,7 @@ export type ListCollectionsRequestParams = {
     limit?: number;
     sort?: ListCollectionsSort[];
     includes?: string[];
-    search?: string
+    search?: string;
 };
 export type ListItemsRequestParams = {
     filter?: ListItemsFilter;

@@ -18,7 +18,7 @@ class TenantApis extends base_api_services_1.default {
         this.hyperPlazaSdk = hyperPlazaSdk;
         this.tenantKey = this.hyperPlazaSdk.getKey();
     }
-    async listCollections({ filter, page, limit, sort, includes = [], search}) {
+    async listCollections({ filter, page, limit, sort, includes = [], search, }) {
         try {
             const query = qs_1.default.stringify({
                 filter,
@@ -202,15 +202,20 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    async getTransactionPlatformData(transactionId) {
+    async getTransactionPlatformData(transactionId, senderAddress) {
         try {
+            if (!senderAddress) {
+                throw new Error('Sender address is required');
+            }
+            const query = qs_1.default.stringify({ senderAddress });
             const data = await this.get({
-                endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}`,
+                endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}?${query}`,
                 header: this.headers.HeaderAuth(this.tenantKey),
             });
             return data;
         }
         catch (error) {
+            console.log(error, "@error?");
             loglevel_1.default.error(error.message || 'Transaction not found');
             throw error?.response?.data || String(error);
         }

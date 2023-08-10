@@ -50,7 +50,7 @@ export declare abstract class Order {
     };
     validateOrderBeforeSubmit(): void;
     setSignature(signature: string): void;
-    getSignature(): string;
+    getSignature(): string | `0x${string}`;
     fetchRequiredData(): Promise<void>;
     /**
      * returns the arrified order data
