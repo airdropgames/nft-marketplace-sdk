@@ -16,6 +16,9 @@ class OrderImpl extends Order {
     fromTransaction(nftMarketplaceSdk: NftMarketplaceSdk, transaction: Transaction): Order {
         return this;
     }
+    submit(): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
 }
 
 describe('Order', () => {

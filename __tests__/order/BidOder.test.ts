@@ -167,7 +167,23 @@ describe('BidOrder', () => {
       };
     });
     const result = await bidOrder.arrayify();
-    expect(result).toEqual(['userWallet', '0xCryptoCurrencyAddress', '0xItemContractAddress', 1688561419, 1688561419]);
+    expect(result).toEqual([
+      'userWallet',
+      [
+        '2',
+        '0xCryptoCurrencyAddress',
+        '0x0000000000000000000000000000000000000000000000000000000000000001',
+        '321'
+      ],
+      [
+        '0',
+        '0xItemContractAddress',
+        '0x0000000000000000000000000000000000000000000000000000000000000001',
+        '123'
+      ],
+      1688561419,
+      1688561419
+    ]);
     expect(bidOrderFetchRequiredData).toBeCalledTimes(1);
   });
 });
