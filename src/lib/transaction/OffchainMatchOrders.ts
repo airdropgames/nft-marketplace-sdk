@@ -39,6 +39,8 @@ export class OffchainMatchOrdersTransaction {
         dataSignature,
         nonceChannel,
         nonce,
+        signatureExpiryTimestamp,
+        validatedOrder,
       },
       txInitiatorId,
     } = this;
@@ -51,6 +53,8 @@ export class OffchainMatchOrdersTransaction {
         royaltyReceiver,
         royaltyPermyriad,
         platformFeePermyriad,
+        signatureExpiryTimestamp,
+        validatedOrder
       ],
       [
         nonceChannel,

@@ -78,9 +78,9 @@ export abstract class Order {
     this.signature = signature;
   }
 
-  getSignature() {
+  getSignature(): string | `0x${string}` {
     if (this.signature == null) {
-      throw new Error('Order signature is not set');
+      return `0x`
     }
     return this.signature;
   }

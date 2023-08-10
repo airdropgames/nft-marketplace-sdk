@@ -16,6 +16,8 @@ describe('OffchainMatchOrdersTransaction', () => {
     nonce: 'nonce',
     dataSignature: 'platformDataSignature',
     txInitiatorId,
+    signatureExpiryTimestamp: 1691645227,
+    validatedOrder: 3
   };
 
   test('buildMatchOrderParams returns the correct parameters', async () => {
@@ -46,6 +48,8 @@ describe('OffchainMatchOrdersTransaction', () => {
         platformData.royaltyReceiver,
         platformData.royaltyPermyriad,
         platformData.platformFeePermyriad,
+        platformData.signatureExpiryTimestamp,
+        platformData.validatedOrder
       ],
       [
         platformData.nonceChannel,

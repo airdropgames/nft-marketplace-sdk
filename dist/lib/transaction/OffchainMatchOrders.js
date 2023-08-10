@@ -17,7 +17,7 @@ class OffchainMatchOrdersTransaction {
         this.txInitiatorId = txInitiatorId;
     }
     async buildMatchOrderParams() {
-        const { bidOrder, offerOrder, platformData: { royaltyReceiver, royaltyPermyriad, platformFeePermyriad, dataSignature, nonceChannel, nonce, }, txInitiatorId, } = this;
+        const { bidOrder, offerOrder, platformData: { royaltyReceiver, royaltyPermyriad, platformFeePermyriad, dataSignature, nonceChannel, nonce, signatureExpiryTimestamp, validatedOrder, }, txInitiatorId, } = this;
         const params = [
             await bidOrder.arrayify(),
             bidOrder.getSignature(),
@@ -27,6 +27,8 @@ class OffchainMatchOrdersTransaction {
                 royaltyReceiver,
                 royaltyPermyriad,
                 platformFeePermyriad,
+                signatureExpiryTimestamp,
+                validatedOrder
             ],
             [
                 nonceChannel,

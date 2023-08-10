@@ -58,7 +58,7 @@ class Order {
     }
     getSignature() {
         if (this.signature == null) {
-            throw new Error('Order signature is not set');
+            return `0x`;
         }
         return this.signature;
     }

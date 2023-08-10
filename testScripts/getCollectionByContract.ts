@@ -2,14 +2,14 @@ import NftMarketplaceSdk from "../src/HyperSdk";
 
 
 const instance = new NftMarketplaceSdk(
-    'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/',
-    'abc',
-    'goerli',
+    'http://127.0.0.1:3000',
+    'eSJ8b3APtS6esoEN2Aa70RhyMkdnh7Fy',
+    'mumbai',
     { enableLogging: true }
 );
 
 instance.apis.tenant
-    .getCollectionByContractAddress('goerli', '0xdD7B235B7835072351B991f144eeFE92255236cc', { includes: ['transactions', 'items'] })
+    .getCollectionByContractAddress('mumbai', '0x19d723c4de507ced21377f1e22ae89a2ba795c97', { includes: ['transactions', 'items'] })
     .then((result) => {
       console.log('result', JSON.stringify(result, null, 2));
     }).catch((error) => {

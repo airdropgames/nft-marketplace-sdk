@@ -251,14 +251,19 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async getTransactionPlatformData(transactionId: string): Promise<PlatformDataResponse> {
+  async getTransactionPlatformData(transactionId: string, senderAddress: string): Promise<PlatformDataResponse> {
     try {
+      if (!senderAddress) {
+        throw new Error('Sender address is required');
+      }
+      const query = qs.stringify({ senderAddress });
       const data = await this.get({
-        endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}`,
+        endpoint: `${this.endpoints.transactionPlatformData}/${transactionId}?${query}`,
         header: this.headers.HeaderAuth(this.tenantKey),
       });
       return data;
     } catch (error: any) {
+      console.log(error, "@error?")
       log.error(error.message || 'Transaction not found');
       throw error?.response?.data || String(error);
     }
