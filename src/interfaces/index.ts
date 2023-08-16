@@ -125,7 +125,7 @@ export type ListCollectionsFilter = {
   }[];
 };
 
-export type ListCollectionsSort = { totalVolume: SortCriteria; } | { createdAt: SortCriteria; };
+export type ListCollectionsSort = `totalVolume:${SortCriteria}` | `createdAt:${SortCriteria}`;
 
 export type ListItemsFilter = {
   collectionContracts?: {
@@ -136,12 +136,10 @@ export type ListItemsFilter = {
   userAddress?: string;
 };
 
-export type ListItemsSort =
-  | { totalVolume: SortCriteria; }
-  | { transactionPrice: SortCriteria; }
-  | { lastTransactiondate: SortCriteria; }
-  | { activeBidPrice: SortCriteria; }
-  | { activeOfferPrice: SortCriteria; };
+export type ListItemsSort = `lastTransactionDate:${SortCriteria}` |
+  `totalVolume:${SortCriteria}` |
+  `highestActiveBidPrice:${SortCriteria}` |
+  `lowestActiveOfferPrice:${SortCriteria}`;
 
 export type TransactionTypes = 'BID' | 'OFFER';
 export type TransactionStatus = 'SUBMITTED' | 'MATCHED' | 'CANCELLED';
@@ -191,12 +189,12 @@ export type ListTransactionsRequestParams = {
 };
 
 export type ListTransactionsSort =
-  | { createdAt: SortCriteria; }
-  | { currencyValue: SortCriteria; }
-  | { price: SortCriteria; }
-  | { itemValue: SortCriteria; }
-  | { startTime: SortCriteria; }
-  | { endTime: SortCriteria; };
+  `createdAt:${SortCriteria}` |
+  `currencyValue:${SortCriteria}` |
+  `usdValue:${SortCriteria}` |
+  `itemValue:${SortCriteria}` |
+  `startTime:${SortCriteria}` |
+  `endTime:${SortCriteria}`;
 
 export type ListTransactionsResponse = {
   total: number;
