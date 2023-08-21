@@ -136,7 +136,8 @@ export type ListItemsFilter = {
   userAddress?: string;
 };
 
-export type ListItemsSort = `lastTransactionDate:${SortCriteria}` |
+export type ListItemsSort =
+  `lastTransactionDate:${SortCriteria}` |
   `totalVolume:${SortCriteria}` |
   `highestActiveBidPrice:${SortCriteria}` |
   `lowestActiveOfferPrice:${SortCriteria}`;
@@ -178,6 +179,11 @@ export type ListItemsRequestParams = {
   limit?: number;
   sort?: ListItemsSort[];
   includes?: string[];
+  context?: ListItemsContext;
+};
+
+export type ListItemsContext = {
+  callerAddress?: string;
 };
 
 export type ListTransactionsRequestParams = {

@@ -99,7 +99,7 @@ export class TenantApis extends BaseApi {
     }
   }
 
-  async listNftItems({ filter, page, limit, sort, includes = [] }: ListItemsRequestParams) {
+  async listNftItems({ filter, page, limit, sort, includes = [], context }: ListItemsRequestParams) {
     try {
       const query = qs.stringify(
         {
@@ -108,6 +108,7 @@ export class TenantApis extends BaseApi {
           limit,
           sort,
           includes,
+          context
         },
       );
 
@@ -263,7 +264,7 @@ export class TenantApis extends BaseApi {
       });
       return data;
     } catch (error: any) {
-      console.log(error, "@error?")
+      console.log(error, "@error?");
       log.error(error.message || 'Transaction not found');
       throw error?.response?.data || String(error);
     }

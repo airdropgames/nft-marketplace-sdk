@@ -11,7 +11,7 @@ export declare class TenantApis extends BaseApi {
     getCollectionByContractAddress(network: string, contractAddress: string, { includes }: {
         includes?: CollectionIncludesRequest[];
     }): Promise<Collection | null>;
-    listNftItems({ filter, page, limit, sort, includes }: ListItemsRequestParams): Promise<ListItemsResponse>;
+    listNftItems({ filter, page, limit, sort, includes, context }: ListItemsRequestParams): Promise<ListItemsResponse>;
     getNftItemById(id: string): Promise<NftItem | null>;
     getNftItemByTokenId(network: string, contractAddress: string, tokenId: string, { includes }?: {
         includes?: string[];

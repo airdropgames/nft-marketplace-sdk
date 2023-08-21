@@ -148,6 +148,10 @@ export type ListItemsRequestParams = {
     limit?: number;
     sort?: ListItemsSort[];
     includes?: string[];
+    context?: ListItemsContext;
+};
+export type ListItemsContext = {
+    callerAddress?: string;
 };
 export type ListTransactionsRequestParams = {
     filter?: ListTransactionsFilter;
