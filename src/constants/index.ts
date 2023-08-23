@@ -11,7 +11,7 @@ export const NETWORKS = {
 export const NETWORK_CONFIG = {
   [NETWORKS.ETHEREUM]: {
     chainId: '1',
-    marketplaceContractAddress: '0x',
+    marketplaceContractAddress: '0x47Dfd9E84957CE9e880607Fb584C83ff2C3592b1',
   },
   [NETWORKS.POLYGON]: {
     chainId: '137',
@@ -25,7 +25,7 @@ export const NETWORK_CONFIG = {
   [NETWORKS.MUMBAI]: {
     chainId: '80001',
     marketplaceContractAddress: '0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
-  }
+  },
 };
 
 export const ENUM_ASSET_TYPE = {
