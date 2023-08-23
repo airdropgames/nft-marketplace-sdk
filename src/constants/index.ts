@@ -1,6 +1,6 @@
 export const NETWORKS = {
   // mainnet
-  ETHEREUM: 'ethereum',
+  ETHEREUM: 'eth',
   POLYGON: 'polygon',
 
   // testnets
