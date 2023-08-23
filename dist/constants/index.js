@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MAX_NONCE_CHANNEL = exports.ENUM_ASSET_TYPE = exports.NETWORK_CONFIG = exports.NETWORKS = void 0;
 exports.NETWORKS = {
     // mainnet
-    ETHEREUM: 'ethereum',
+    ETHEREUM: 'eth',
     POLYGON: 'polygon',
     // testnets
     GOERLI: 'goerli',
@@ -12,7 +12,7 @@ exports.NETWORKS = {
 exports.NETWORK_CONFIG = {
     [exports.NETWORKS.ETHEREUM]: {
         chainId: '1',
-        marketplaceContractAddress: '0x',
+        marketplaceContractAddress: '0x47Dfd9E84957CE9e880607Fb584C83ff2C3592b1',
     },
     [exports.NETWORKS.POLYGON]: {
         chainId: '137',
@@ -25,7 +25,7 @@ exports.NETWORK_CONFIG = {
     [exports.NETWORKS.MUMBAI]: {
         chainId: '80001',
         marketplaceContractAddress: '0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2',
-    }
+    },
 };
 exports.ENUM_ASSET_TYPE = {
     ERC721: '0',
