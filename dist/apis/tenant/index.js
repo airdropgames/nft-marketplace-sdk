@@ -101,9 +101,9 @@ class TenantApis extends base_api_services_1.default {
             throw error?.response?.data || String(error);
         }
     }
-    async getNftItemByTokenId(network, contractAddress, tokenId, { includes } = {}) {
+    async getNftItemByTokenId(network, contractAddress, tokenId, { includes, context } = {}) {
         try {
-            const query = qs_1.default.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes });
+            const query = qs_1.default.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes, context });
             const data = await this.get({
                 endpoint: `${this.endpoints.item}?${query}`,
                 header: this.headers.HeaderAuth(this.tenantKey),

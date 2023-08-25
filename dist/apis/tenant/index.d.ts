@@ -13,8 +13,11 @@ export declare class TenantApis extends BaseApi {
     }): Promise<Collection | null>;
     listNftItems({ filter, page, limit, sort, includes, context }: ListItemsRequestParams): Promise<ListItemsResponse>;
     getNftItemById(id: string): Promise<NftItem | null>;
-    getNftItemByTokenId(network: string, contractAddress: string, tokenId: string, { includes }?: {
+    getNftItemByTokenId(network: string, contractAddress: string, tokenId: string, { includes, context }?: {
         includes?: string[];
+        context?: {
+            callerAddress: string | undefined;
+        };
     }): Promise<NftItem | null>;
     getCryptoCurrencyByContractAddress(contractAddress: string): Promise<CryptoCurrency | null>;
     getCryptoCurrencyById(id: string): Promise<CryptoCurrency | null>;

@@ -140,10 +140,10 @@ export class TenantApis extends BaseApi {
     network: string,
     contractAddress: string,
     tokenId: string,
-    { includes }: { includes?: string[]; } = {}
+    { includes, context }: { includes?: string[]; context?: { callerAddress: string | undefined; }; } = {}
   ): Promise<NftItem | null> {
     try {
-      const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes });
+      const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes, context });
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.item}?${query}`,
         header: this.headers.HeaderAuth(this.tenantKey),
