@@ -243,7 +243,7 @@ export type Transaction = {
 export type RegisterCollectionParams = {
     contractAddress: string;
     network: string;
-    collectionFeePermyriad: number;
+    platformFeePermyriad: number;
     royaltyReceiver: string;
     royaltyPermyriad: number;
     tenantId: string;
@@ -253,7 +253,7 @@ export type UpdateCollectionParams = {
     description?: string;
     displayImage?: string;
     coverImage?: string;
-    collectionFeePermyriad?: number;
+    platformFeePermyriad?: number;
     royaltyReceiver?: string;
     royaltyPermyriad?: number;
 };
