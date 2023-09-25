@@ -302,21 +302,4 @@ export class TenantApis extends BaseApi {
       throw error?.response?.data || String(error);
     }
   }
-
-  async generalizeUrls(url: string) {
-    try {
-      if (!url || url === '') {
-        return null;
-      }
-
-      let _url = url;
-      if (url.endsWith('/')) {
-        _url = url.slice(0, -1);
-      }
-      return _url;
-    } catch (error: any) {
-      log.error(error.message || 'generalizeUrls failed');
-      throw error?.response?.data || String(error);
-    }
-  }
 }
