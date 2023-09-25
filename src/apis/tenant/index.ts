@@ -26,7 +26,7 @@ import { Transaction } from 'ethers';
 export class TenantApis extends BaseApi {
   hyperPlazaSdk: NftMarketplaceSdk;
 
-  tenantKey: string = "";
+  tenantKey: string = '';
 
   constructor(hyperPlazaSdk: NftMarketplaceSdk) {
     super({
@@ -46,16 +46,14 @@ export class TenantApis extends BaseApi {
     search,
   }: ListCollectionsRequestParams): Promise<ListCollectionsResponse> {
     try {
-      const query = qs.stringify(
-        {
-          filter,
-          page,
-          limit,
-          sort,
-          includes,
-          search,
-        },
-      );
+      const query = qs.stringify({
+        filter,
+        page,
+        limit,
+        sort,
+        includes,
+        search,
+      });
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
         header: this.headers.HeaderAuth(this.tenantKey),
@@ -84,10 +82,14 @@ export class TenantApis extends BaseApi {
   async getCollectionByContractAddress(
     network: string,
     contractAddress: string,
-    { includes = [] }: { includes?: CollectionIncludesRequest[]; }
+    { includes = [] }: { includes?: CollectionIncludesRequest[] }
   ): Promise<Collection | null> {
     try {
-      const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress }] }, limit: 1, includes });
+      const query = qs.stringify({
+        filter: { collectionContracts: [{ network, contractAddress }] },
+        limit: 1,
+        includes,
+      });
       const data = await this.get<ListCollectionsResponse>({
         endpoint: `${this.endpoints.collection}?${query}`,
         header: this.headers.HeaderAuth(this.tenantKey),
@@ -101,16 +103,14 @@ export class TenantApis extends BaseApi {
 
   async listNftItems({ filter, page, limit, sort, includes = [], context }: ListItemsRequestParams) {
     try {
-      const query = qs.stringify(
-        {
-          filter,
-          page,
-          limit,
-          sort,
-          includes,
-          context
-        },
-      );
+      const query = qs.stringify({
+        filter,
+        page,
+        limit,
+        sort,
+        includes,
+        context,
+      });
 
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.item}?${query}`,
@@ -140,10 +140,15 @@ export class TenantApis extends BaseApi {
     network: string,
     contractAddress: string,
     tokenId: string,
-    { includes, context }: { includes?: string[]; context?: { callerAddress: string | undefined; }; } = {}
+    { includes, context }: { includes?: string[]; context?: { callerAddress: string | undefined } } = {}
   ): Promise<NftItem | null> {
     try {
-      const query = qs.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes, context });
+      const query = qs.stringify({
+        filter: { collectionContracts: [{ network, contractAddress, tokenId }] },
+        limit: 1,
+        includes,
+        context,
+      });
       const data = await this.get<ListItemsResponse>({
         endpoint: `${this.endpoints.item}?${query}`,
         header: this.headers.HeaderAuth(this.tenantKey),
@@ -264,7 +269,7 @@ export class TenantApis extends BaseApi {
       });
       return data;
     } catch (error: any) {
-      console.log(error, "@error?");
+      console.log(error, '@error?');
       log.error(error.message || 'Transaction not found');
       throw error?.response?.data || String(error);
     }
@@ -294,6 +299,23 @@ export class TenantApis extends BaseApi {
       return data;
     } catch (error: any) {
       log.error(error.message || 'updateCollection failed');
+      throw error?.response?.data || String(error);
+    }
+  }
+
+  async generalizeUrls(url: string) {
+    try {
+      if (!url || url === '') {
+        return null;
+      }
+
+      let _url = url;
+      if (url.endsWith('/')) {
+        _url = url.slice(0, -1);
+      }
+      return _url;
+    } catch (error: any) {
+      log.error(error.message || 'generalizeUrls failed');
       throw error?.response?.data || String(error);
     }
   }
