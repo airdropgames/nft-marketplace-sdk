@@ -14,7 +14,7 @@ class TenantApis extends base_api_services_1.default {
             baseUrl: hyperPlazaSdk.getUrl(),
             endpoints: endpoints_1.default,
         });
-        this.tenantKey = "";
+        this.tenantKey = '';
         this.hyperPlazaSdk = hyperPlazaSdk;
         this.tenantKey = this.hyperPlazaSdk.getKey();
     }
@@ -55,7 +55,11 @@ class TenantApis extends base_api_services_1.default {
     }
     async getCollectionByContractAddress(network, contractAddress, { includes = [] }) {
         try {
-            const query = qs_1.default.stringify({ filter: { collectionContracts: [{ network, contractAddress }] }, limit: 1, includes });
+            const query = qs_1.default.stringify({
+                filter: { collectionContracts: [{ network, contractAddress }] },
+                limit: 1,
+                includes,
+            });
             const data = await this.get({
                 endpoint: `${this.endpoints.collection}?${query}`,
                 header: this.headers.HeaderAuth(this.tenantKey),
@@ -75,7 +79,7 @@ class TenantApis extends base_api_services_1.default {
                 limit,
                 sort,
                 includes,
-                context
+                context,
             });
             const data = await this.get({
                 endpoint: `${this.endpoints.item}?${query}`,
@@ -103,7 +107,12 @@ class TenantApis extends base_api_services_1.default {
     }
     async getNftItemByTokenId(network, contractAddress, tokenId, { includes, context } = {}) {
         try {
-            const query = qs_1.default.stringify({ filter: { collectionContracts: [{ network, contractAddress, tokenId }] }, limit: 1, includes, context });
+            const query = qs_1.default.stringify({
+                filter: { collectionContracts: [{ network, contractAddress, tokenId }] },
+                limit: 1,
+                includes,
+                context,
+            });
             const data = await this.get({
                 endpoint: `${this.endpoints.item}?${query}`,
                 header: this.headers.HeaderAuth(this.tenantKey),
@@ -216,7 +225,6 @@ class TenantApis extends base_api_services_1.default {
             return data;
         }
         catch (error) {
-            console.log(error, "@error?");
             loglevel_1.default.error(error.message || 'Transaction not found');
             throw error?.response?.data || String(error);
         }
