@@ -1,7 +1,7 @@
-import { TenantApis } from "./apis/tenant";
-import config from "./config";
-import { NETWORKS, NETWORK_CONFIG } from "./constants";
-import { HyprSDKOptions, HyprTenantApis } from "./interfaces";
+import { TenantApis } from './apis/tenant';
+import config from './config';
+import { NETWORKS, NETWORK_CONFIG } from './constants';
+import { HyprSDKOptions, HyprTenantApis } from './interfaces';
 import log from './utils/loglevel';
 
 /**
@@ -18,14 +18,14 @@ export default class NftMarketplaceSdk {
   public apis: {
     tenant: TenantApis;
   } = {
-      tenant: new TenantApis(this),
-    };
+    tenant: new TenantApis(this),
+  };
 
   /**
    * HYPRPlaza SDK options
    */
   private options: HyprSDKOptions = {
-    enableLogging: false
+    enableLogging: false,
   };
 
   /**
@@ -54,14 +54,14 @@ export default class NftMarketplaceSdk {
     if (opts) {
       this.options = {
         ...this.options,
-        ...opts
+        ...opts,
       };
     }
 
     this._setLogLevel();
     this.apis = {
       ...this.apis,
-      tenant: new TenantApis(this)
+      tenant: new TenantApis(this),
     };
   }
 

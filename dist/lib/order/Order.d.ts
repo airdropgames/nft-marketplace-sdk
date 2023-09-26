@@ -1,5 +1,5 @@
-import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams } from "src/interfaces";
-import NftMarketplaceSdk from "../../HyperSdk";
+import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams } from 'src/interfaces';
+import NftMarketplaceSdk from '../../HyperSdk';
 /**
  * @class Order
  * @description Base class for all order types

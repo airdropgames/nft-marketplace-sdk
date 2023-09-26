@@ -1,27 +1,27 @@
-export function HeaderAuth(token = "") {
+export function HeaderAuth(token = '') {
   return {
     headers: {
-      "Content-Type": "application/json",
-      Authorization: token ?? ""
-    }
-  }
+      'Content-Type': 'application/json',
+      Authorization: token ?? '',
+    },
+  };
 }
 
-export function HeaderFile(token = "") {
+export function HeaderFile(token = '') {
   return {
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: token ?? "",
-      Accept: "*/*",
-      responseType: "blob"
-    }
-  }
+      'Content-Type': 'multipart/form-data',
+      Authorization: token ?? '',
+      Accept: '*/*',
+      responseType: 'blob',
+    },
+  };
 }
 
 export function Header() {
   return {
     headers: {
-      "Content-Type": "application/json"
-    }
-  }
+      'Content-Type': 'application/json',
+    },
+  };
 }

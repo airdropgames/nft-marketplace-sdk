@@ -1,6 +1,6 @@
-import { PlatformDataResponse } from "src/interfaces";
-import { BidOrder } from "src/lib/order/BidOrder";
-import { OfferOrder } from "src/lib/order/OfferOrder";
+import { PlatformDataResponse } from 'src/interfaces';
+import { BidOrder } from 'src/lib/order/BidOrder';
+import { OfferOrder } from 'src/lib/order/OfferOrder';
 export declare class OffchainMatchOrdersTransaction {
     bidOrder: BidOrder;
     offerOrder: OfferOrder;

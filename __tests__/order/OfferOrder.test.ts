@@ -167,20 +167,10 @@ describe('OfferOrder', () => {
     const result = await offerOrder.arrayify();
     expect(result).toEqual([
       'userWallet',
-      [
-        '0',
-        '0xItemContractAddress',
-        '0x0000000000000000000000000000000000000000000000000000000000000001',
-        '123'
-      ],
-      [
-        '2',
-        '0xCryptoCurrencyAddress',
-        '0x0000000000000000000000000000000000000000000000000000000000000001',
-        '321'
-      ],
+      ['0', '0xItemContractAddress', '0x0000000000000000000000000000000000000000000000000000000000000001', '123'],
+      ['2', '0xCryptoCurrencyAddress', '0x0000000000000000000000000000000000000000000000000000000000000001', '321'],
       1688561419,
-      1688561419
+      1688561419,
     ]);
     expect(offerOrderFetchRequiredData).toBeCalledTimes(1);
   });

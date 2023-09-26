@@ -1,5 +1,5 @@
 const config = {
-  enableApiKey: false
-}
+  enableApiKey: false,
+};
 
-export default config
+export default config;

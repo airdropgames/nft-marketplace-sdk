@@ -1,3 +1,3 @@
 export const mockGetCurrencyByIdResponse = {
-    contractAddress: '0xCryptoCurrencyAddress',
+  contractAddress: '0xCryptoCurrencyAddress',
 };

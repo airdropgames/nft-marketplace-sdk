@@ -1,5 +1,5 @@
-import loglevel from "loglevel";
+import loglevel from 'loglevel';
 
-const log = loglevel.getLogger("HyperSDK");
+const log = loglevel.getLogger('HyperSDK');
 
 export default log;

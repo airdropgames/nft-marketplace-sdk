@@ -3,69 +3,79 @@ import { OfferOrder } from '../src/lib/order/OfferOrder';
 import { OffchainMatchOrdersTransaction } from '../src/lib/transaction/OffchainMatchOrders';
 import NftMarketplaceSdk from '../src/HyperSdk';
 import { Wallet, ethers } from 'ethers';
-import exchangeAbi from "./abis/exchange.json"
-import { inspect } from 'util'
+import exchangeAbi from './abis/exchange.json';
+import { inspect } from 'util';
 
-const sdk = new NftMarketplaceSdk('https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/', 'AcJunZtSKJG8rohLCowDGlQ4Jwv3rsLg', 'mumbai', {
+const sdk = new NftMarketplaceSdk(
+  'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/',
+  'AcJunZtSKJG8rohLCowDGlQ4Jwv3rsLg',
+  'mumbai',
+  {
     enableLogging: true,
-});
+  }
+);
 
 const getProvider = () => {
-  const mumbai = `https://polygon-mumbai.infura.io/v3/2abf317ac68f47b1890e187c552dcdc1`
-  return ethers.getDefaultProvider(mumbai)
-}
-
-const exchangeAddress = `0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2`
-
-const main = async () => {
-    const txInitiatorId = '0c684e00-fc5c-48c4-a6e7-fae4c7939d36'; // for example this is a bid transaction to accept
-    const wallet = new ethers.Wallet(`0x4b9fc1b6ae66fa8617b9ddad53eeb2dcb4aaa7fafa4f33e32f62ba394ae31b73`, getProvider());
-    let userWallet = wallet.address;
-
-    const transactionPlatformData = await sdk.apis.tenant.getTransactionPlatformData(txInitiatorId, wallet.address);
-    const offerOrder = OfferOrder.fromTransaction(sdk, transactionPlatformData.transaction);
-    const bidOrder = new BidOrder(
-        sdk,
-        offerOrder.itemData,
-        offerOrder.cryptoCurrencyData,
-        userWallet,
-        offerOrder.startTimeUtc,
-        offerOrder.endTimeUtc
-    );
-    const { domain, valueTypes, values } = await bidOrder.buildEip712Data() as any;
-    console.log({
-      domain,
-      valueTypes,
-      values
-    }, "@eip712")
-    const signature = await wallet._signTypedData(domain, valueTypes, values);
-    console.log(signature, "@signature")
-    bidOrder.setSignature(signature);
-    const transaction = new OffchainMatchOrdersTransaction(
-        bidOrder,
-        offerOrder, // create it like we create bid order
-        transactionPlatformData,
-        txInitiatorId // the id of the initial transaction
-    );
-    console.log(transaction.platformData, "@platformData")
-    const matchOrderParams = await transaction.buildMatchOrderParams();
-    console.log({
-      matchOrderParams,
-      address: userWallet
-    })
-    const contract = new ethers.Contract(exchangeAddress, exchangeAbi, wallet).connect(wallet)
-    const estimatedGas = await contract.estimateGas.matchOrders(...matchOrderParams, { from: wallet.address })
-    console.log(estimatedGas, "@estimatedGas")
-    // gas estimate: 0.000000000000000001
+  const mumbai = `https://polygon-mumbai.infura.io/v3/2abf317ac68f47b1890e187c552dcdc1`;
+  return ethers.getDefaultProvider(mumbai);
 };
 
-main().then(async (result) => {
-    console.log('res', JSON.stringify(result, null, 2));
-}).catch((error) => {
-    console.log('error', error);
-});
+const exchangeAddress = `0x5F1C00BEEd6B5E08d710f845A6541bFcFB428Ce2`;
 
-// {"order":{"makerAddress":"0x61aa980f7a87067f2da4ca6bc4b05b9b1efe8620","order1":{"assetType":2,"assetAddress":"0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa","data":[],"value":"30000000000000"},"order2":{"assetType":0,"assetAddress":"0x19D723c4DE507CeD21377F1e22ae89a2Ba795c97","data":"0x0000000000000000000000000000000000000000000000000000000000000077","value":1},"start":1686711758,"end":1686798158}}	
+const main = async () => {
+  const txInitiatorId = '0c684e00-fc5c-48c4-a6e7-fae4c7939d36'; // for example this is a bid transaction to accept
+  const wallet = new ethers.Wallet(`0x4b9fc1b6ae66fa8617b9ddad53eeb2dcb4aaa7fafa4f33e32f62ba394ae31b73`, getProvider());
+  let userWallet = wallet.address;
+
+  const transactionPlatformData = await sdk.apis.tenant.getTransactionPlatformData(txInitiatorId, wallet.address);
+  const offerOrder = OfferOrder.fromTransaction(sdk, transactionPlatformData.transaction);
+  const bidOrder = new BidOrder(
+    sdk,
+    offerOrder.itemData,
+    offerOrder.cryptoCurrencyData,
+    userWallet,
+    offerOrder.startTimeUtc,
+    offerOrder.endTimeUtc
+  );
+  const { domain, valueTypes, values } = (await bidOrder.buildEip712Data()) as any;
+  console.log(
+    {
+      domain,
+      valueTypes,
+      values,
+    },
+    '@eip712'
+  );
+  const signature = await wallet._signTypedData(domain, valueTypes, values);
+  console.log(signature, '@signature');
+  bidOrder.setSignature(signature);
+  const transaction = new OffchainMatchOrdersTransaction(
+    bidOrder,
+    offerOrder, // create it like we create bid order
+    transactionPlatformData,
+    txInitiatorId // the id of the initial transaction
+  );
+  console.log(transaction.platformData, '@platformData');
+  const matchOrderParams = await transaction.buildMatchOrderParams();
+  console.log({
+    matchOrderParams,
+    address: userWallet,
+  });
+  const contract = new ethers.Contract(exchangeAddress, exchangeAbi, wallet).connect(wallet);
+  const estimatedGas = await contract.estimateGas.matchOrders(...matchOrderParams, { from: wallet.address });
+  console.log(estimatedGas, '@estimatedGas');
+  // gas estimate: 0.000000000000000001
+};
+
+main()
+  .then(async (result) => {
+    console.log('res', JSON.stringify(result, null, 2));
+  })
+  .catch((error) => {
+    console.log('error', error);
+  });
+
+// {"order":{"makerAddress":"0x61aa980f7a87067f2da4ca6bc4b05b9b1efe8620","order1":{"assetType":2,"assetAddress":"0xa6fa4fb5f76172d178d61b04b0ecd319c5d1c0aa","data":[],"value":"30000000000000"},"order2":{"assetType":0,"assetAddress":"0x19D723c4DE507CeD21377F1e22ae89a2Ba795c97","data":"0x0000000000000000000000000000000000000000000000000000000000000077","value":1},"start":1686711758,"end":1686798158}}
 
 // const platformData = {
 //     "royaltyReceiver": "0x0000000000000000000000000000000000000000",

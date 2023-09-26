@@ -1,7 +1,7 @@
-import NftMarketplaceSdk from "../src/HyperSdk";
+import NftMarketplaceSdk from '../src/HyperSdk';
 
 describe('HyperPlaza SDK', () => {
-    it("should properly initialize the SDK", () => {
-        const instance = new NftMarketplaceSdk('a', 'a', 'mumbai');
-    });
+  it('should properly initialize the SDK', () => {
+    const instance = new NftMarketplaceSdk('a', 'a', 'mumbai');
+  });
 });

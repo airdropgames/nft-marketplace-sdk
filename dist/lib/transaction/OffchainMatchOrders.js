@@ -23,18 +23,8 @@ class OffchainMatchOrdersTransaction {
             bidOrder.getSignature(),
             await offerOrder.arrayify(),
             offerOrder.getSignature(),
-            [
-                royaltyReceiver,
-                royaltyPermyriad,
-                platformFeePermyriad,
-                signatureExpiryTimestamp,
-                validatedOrder
-            ],
-            [
-                nonceChannel,
-                nonce,
-                dataSignature,
-            ],
+            [royaltyReceiver, royaltyPermyriad, platformFeePermyriad, signatureExpiryTimestamp, validatedOrder],
+            [nonceChannel, nonce, dataSignature],
             txInitiatorId,
         ];
         return params;
