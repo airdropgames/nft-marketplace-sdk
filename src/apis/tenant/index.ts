@@ -269,7 +269,6 @@ export class TenantApis extends BaseApi {
       });
       return data;
     } catch (error: any) {
-      console.log(error, '@error?');
       log.error(error.message || 'Transaction not found');
       throw error?.response?.data || String(error);
     }
