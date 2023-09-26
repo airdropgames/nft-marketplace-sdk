@@ -8,13 +8,7 @@ class BaseApi {
   endpoints;
   headers;
 
-  constructor({
-    baseUrl,
-    endpoints,
-  }: {
-    baseUrl: string;
-    endpoints: Record<string, string>;
-  }) {
+  constructor({ baseUrl, endpoints }: { baseUrl: string; endpoints: Record<string, string> }) {
     this.axios = axios;
     this.baseUrl = baseUrl;
     this.endpoints = endpoints;
@@ -33,31 +27,19 @@ class BaseApi {
     q?: string;
   }): Promise<U> => {
     try {
-      const res = await this.axios.post<U>(
-        `${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`,
-        data,
-        header
-      );
+      const res = await this.axios.post<U>(`${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`, data, header);
       return res.data;
     } catch (error: any) {
       throw error;
     }
   };
 
-  get = async <T = any>({
-    q = '',
-    header = this.headers.Header(),
-    endpoint = '',
-    params = {},
-  }): Promise<T> => {
+  get = async <T = any>({ q = '', header = this.headers.Header(), endpoint = '', params = {} }): Promise<T> => {
     try {
-      const res = await this.axios.get<T>(
-        `${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`,
-        {
-          ...header,
-          params,
-        }
-      );
+      const res = await this.axios.get<T>(`${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`, {
+        ...header,
+        params,
+      });
       return res.data;
     } catch (error: any) {
       throw error;
@@ -73,17 +55,9 @@ class BaseApi {
     }
   };
 
-  put = async <T = any>({
-    header = this.headers.HeaderAuth(),
-    data = null,
-    endpoint = '',
-  }): Promise<T> => {
+  put = async <T = any>({ header = this.headers.HeaderAuth(), data = null, endpoint = '' }): Promise<T> => {
     try {
-      const res = await this.axios.put<T>(
-        `${this.baseUrl}${endpoint}`,
-        data,
-        header
-      );
+      const res = await this.axios.put<T>(`${this.baseUrl}${endpoint}`, data, header);
       return res.data;
     } catch (error: any) {
       throw error;
@@ -100,11 +74,7 @@ class BaseApi {
     header?: any;
   }): Promise<U> => {
     try {
-      const res = await this.axios.patch<U>(
-        `${this.baseUrl}${endpoint}`,
-        data,
-        header
-      );
+      const res = await this.axios.patch<U>(`${this.baseUrl}${endpoint}`, data, header);
       return res.data;
     } catch (error: any) {
       throw error;

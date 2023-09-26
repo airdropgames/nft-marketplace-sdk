@@ -1,9 +1,17 @@
-import { ethers } from "ethers";
-import NftMarketplaceSdk from "../../HyperSdk";
-import { ENUM_ASSET_TYPE } from "../../constants";
+import { ethers } from 'ethers';
+import NftMarketplaceSdk from '../../HyperSdk';
+import { ENUM_ASSET_TYPE } from '../../constants';
 import { Order } from './Order';
-import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams, NftProtocolType, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
-import { getUnixTimestampFromDateString, getMysqlDateTimeString } from "../../utils/date";
+import {
+  CreateTransactionResponse,
+  CurrencyBidOfferParams,
+  ItemBidOfferParams,
+  NftProtocolType,
+  OrderCurrency,
+  OrderItem,
+  Transaction,
+} from 'src/interfaces';
+import { getUnixTimestampFromDateString, getMysqlDateTimeString } from '../../utils/date';
 
 /**
  *
@@ -18,20 +26,13 @@ export class BidOrder extends Order {
     currency: CurrencyBidOfferParams,
     userWallet: string,
     startTimeUtc: number,
-    endTimeUtc: number,
+    endTimeUtc: number
   ) {
-    super(
-      nftMarketplaceSdk,
-      item,
-      currency,
-      userWallet,
-      startTimeUtc,
-      endTimeUtc,
-    );
+    super(nftMarketplaceSdk, item, currency, userWallet, startTimeUtc, endTimeUtc);
   }
 
   /**
-   * 
+   *
    * @inheritdoc Order.buildEip712Data
    */
   async buildEip712Data(): Promise<Object> {
@@ -43,21 +44,21 @@ export class BidOrder extends Order {
       throw new Error('cryptoCurrencyData is not set');
     }
 
-
     const values = {
       makerAddress: this.userWallet,
       offeredAsset: {
         assetType: ENUM_ASSET_TYPE.ERC20,
-        assetAddress: this.cryptoCurrencyData["contractAddress" as keyof typeof this.cryptoCurrencyData],
+        assetAddress: this.cryptoCurrencyData['contractAddress' as keyof typeof this.cryptoCurrencyData],
         data: this.cryptoCurrencyData.transferData || '0x',
         value: this.cryptoCurrencyData.value,
       },
       askedAsset: {
-        assetType: ENUM_ASSET_TYPE[this.itemData["protocolType" as keyof typeof this.itemData] as keyof typeof ENUM_ASSET_TYPE],
-        assetAddress: this.itemData["contractAddress" as keyof typeof this.itemData],
+        assetType:
+          ENUM_ASSET_TYPE[this.itemData['protocolType' as keyof typeof this.itemData] as keyof typeof ENUM_ASSET_TYPE],
+        assetAddress: this.itemData['contractAddress' as keyof typeof this.itemData],
         data: ethers.utils.solidityPack(
           ['uint256', 'bytes'],
-          [this.itemData["tokenId" as keyof typeof this.itemData], this.itemData.transferData || '0x']
+          [this.itemData['tokenId' as keyof typeof this.itemData], this.itemData.transferData || '0x']
         ),
         value: this.itemData.value,
       },
@@ -67,16 +68,16 @@ export class BidOrder extends Order {
 
     return {
       ...this.getEip712Constants(),
-      values
+      values,
     };
   }
 
   /**
-   * 
+   *
    * @inheritdoc Order.arrayify
    */
   async arrayify(): Promise<Array<string | number>> {
-    const { values } = await this.buildEip712Data() as any;
+    const { values } = (await this.buildEip712Data()) as any;
     if (!this.itemData) {
       throw new Error('itemData is not set');
     }
@@ -90,12 +91,8 @@ export class BidOrder extends Order {
         values.offeredAsset.assetAddress,
         values.offeredAsset.data,
         values.offeredAsset.value,
-      ], [
-        values.askedAsset.assetType,
-        values.askedAsset.assetAddress,
-        values.askedAsset.data,
-        values.askedAsset.value,
       ],
+      [values.askedAsset.assetType, values.askedAsset.assetAddress, values.askedAsset.data, values.askedAsset.value],
       values.start,
       values.end,
     ];
@@ -122,7 +119,7 @@ export class BidOrder extends Order {
         protocolType: transaction?.item?.collection?.protocolType as NftProtocolType,
         contractAddress: transaction?.item.collection?.contractAddress as string,
         tokenId: transaction?.item?.tokenId,
-        value: transaction?.itemValue
+        value: transaction?.itemValue,
       },
       {
         contractAddress: transaction?.currency?.contractAddress,
@@ -130,10 +127,9 @@ export class BidOrder extends Order {
       },
       transaction?.userId,
       getUnixTimestampFromDateString(transaction?.startTimestamp),
-      getUnixTimestampFromDateString(transaction?.endTimestamp),
+      getUnixTimestampFromDateString(transaction?.endTimestamp)
     );
     bidOrder.setSignature(transaction.signature);
     return bidOrder;
   }
 }
-

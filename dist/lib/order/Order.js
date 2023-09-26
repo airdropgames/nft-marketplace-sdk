@@ -45,7 +45,7 @@ class Order {
         }
         return {
             domain: this.eip712Domain,
-            valueTypes: this.eip712DataTypes
+            valueTypes: this.eip712DataTypes,
         };
     }
     validateOrderBeforeSubmit() {
@@ -68,11 +68,11 @@ class Order {
         }
         // get item & currency data from amount
         const dataPromises = [];
-        dataPromises.push(!("contractAddress" in this.itemData) || !("tokenId" in this.itemData)
-            ? this.nftMarketplaceSdk.apis.tenant.getNftItemById(this.itemData["id"])
+        dataPromises.push(!('contractAddress' in this.itemData) || !('tokenId' in this.itemData)
+            ? this.nftMarketplaceSdk.apis.tenant.getNftItemById(this.itemData['id'])
             : null);
-        dataPromises.push(!("contractAddress" in this.cryptoCurrencyData)
-            ? this.nftMarketplaceSdk.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyData["id"])
+        dataPromises.push(!('contractAddress' in this.cryptoCurrencyData)
+            ? this.nftMarketplaceSdk.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyData['id'])
             : null);
         const [fetchedItemData, fetchedCryptoCurrencyData] = await Promise.all(dataPromises);
         if (fetchedItemData != null) {

@@ -4,7 +4,7 @@ declare class BaseApi {
     baseUrl: string;
     endpoints: Record<string, string>;
     headers: typeof headers;
-    constructor({ baseUrl, endpoints, }: {
+    constructor({ baseUrl, endpoints }: {
         baseUrl: string;
         endpoints: Record<string, string>;
     });
@@ -14,11 +14,11 @@ declare class BaseApi {
         header?: any;
         q?: string | undefined;
     }) => Promise<U>;
-    get: <T = any>({ q, header, endpoint, params, }: {
+    get: <T = any>({ q, header, endpoint, params }: {
         q?: string | undefined;
         header?: {
             headers: {
-                "Content-Type": string;
+                'Content-Type': string;
             };
         } | undefined;
         endpoint?: string | undefined;
@@ -27,16 +27,16 @@ declare class BaseApi {
     delete: <T = any>({ header, endpoint }: {
         header?: {
             headers: {
-                "Content-Type": string;
+                'Content-Type': string;
                 Authorization: string;
             };
         } | undefined;
         endpoint?: string | undefined;
     }) => Promise<T>;
-    put: <T = any>({ header, data, endpoint, }: {
+    put: <T = any>({ header, data, endpoint }: {
         header?: {
             headers: {
-                "Content-Type": string;
+                'Content-Type': string;
                 Authorization: string;
             };
         } | undefined;

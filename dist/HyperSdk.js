@@ -26,7 +26,7 @@ class NftMarketplaceSdk {
          * HYPRPlaza SDK options
          */
         this.options = {
-            enableLogging: false
+            enableLogging: false,
         };
         const validatedUrl = this._validateUrl(url);
         this.url = validatedUrl;
@@ -42,13 +42,13 @@ class NftMarketplaceSdk {
         if (opts) {
             this.options = {
                 ...this.options,
-                ...opts
+                ...opts,
             };
         }
         this._setLogLevel();
         this.apis = {
             ...this.apis,
-            tenant: new tenant_1.TenantApis(this)
+            tenant: new tenant_1.TenantApis(this),
         };
     }
     getUrl() {

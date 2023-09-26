@@ -1,5 +1,14 @@
-import { CreateTransactionResponse, CryptoCurrency, CurrencyBidOfferParams, ItemBidOfferParams, NftItem, OrderCurrency, OrderItem, Transaction } from "src/interfaces";
-import NftMarketplaceSdk from "../../HyperSdk";
+import {
+  CreateTransactionResponse,
+  CryptoCurrency,
+  CurrencyBidOfferParams,
+  ItemBidOfferParams,
+  NftItem,
+  OrderCurrency,
+  OrderItem,
+  Transaction,
+} from 'src/interfaces';
+import NftMarketplaceSdk from '../../HyperSdk';
 
 /**
  * @class Order
@@ -44,7 +53,7 @@ export abstract class Order {
     currency: CurrencyBidOfferParams,
     userWallet: string,
     startTimeUtc: number,
-    endTimeUtc: number,
+    endTimeUtc: number
   ) {
     this.nftMarketplaceSdk = nftMarketplaceSdk;
     this.userWallet = userWallet;
@@ -64,7 +73,7 @@ export abstract class Order {
     }
     return {
       domain: this.eip712Domain,
-      valueTypes: this.eip712DataTypes
+      valueTypes: this.eip712DataTypes,
     };
   }
 
@@ -80,7 +89,7 @@ export abstract class Order {
 
   getSignature(): string | `0x${string}` {
     if (this.signature == null) {
-      return `0x`
+      return `0x`;
     }
     return this.signature;
   }
@@ -92,13 +101,17 @@ export abstract class Order {
     // get item & currency data from amount
     const dataPromises = [];
     dataPromises.push(
-      !("contractAddress" in this.itemData) || !("tokenId" in this.itemData)
-        ? this.nftMarketplaceSdk!.apis.tenant.getNftItemById(this.itemData["id" as keyof typeof this.itemData] as string)
+      !('contractAddress' in this.itemData) || !('tokenId' in this.itemData)
+        ? this.nftMarketplaceSdk!.apis.tenant.getNftItemById(
+            this.itemData['id' as keyof typeof this.itemData] as string
+          )
         : null
     );
     dataPromises.push(
-      !("contractAddress" in this.cryptoCurrencyData)
-        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrencyById(this.cryptoCurrencyData["id" as keyof typeof this.cryptoCurrencyData] as string)
+      !('contractAddress' in this.cryptoCurrencyData)
+        ? this.nftMarketplaceSdk!.apis.tenant.getCryptoCurrencyById(
+            this.cryptoCurrencyData['id' as keyof typeof this.cryptoCurrencyData] as string
+          )
         : null
     );
 

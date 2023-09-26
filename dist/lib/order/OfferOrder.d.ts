@@ -1,6 +1,6 @@
-import NftMarketplaceSdk from "../../HyperSdk";
+import NftMarketplaceSdk from '../../HyperSdk';
 import { Order } from './Order';
-import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams, Transaction } from "src/interfaces";
+import { CreateTransactionResponse, CurrencyBidOfferParams, ItemBidOfferParams, Transaction } from 'src/interfaces';
 /**
  *
  *

@@ -30,7 +30,7 @@ const headers = __importStar(require("./headers.services"));
 const axios_1 = __importDefault(require("axios"));
 // this will be useful for api services
 class BaseApi {
-    constructor({ baseUrl, endpoints, }) {
+    constructor({ baseUrl, endpoints }) {
         this.post = async ({ data, header = this.headers.HeaderAuth(), endpoint, q = '', }) => {
             try {
                 const res = await this.axios.post(`${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`, data, header);
@@ -40,7 +40,7 @@ class BaseApi {
                 throw error;
             }
         };
-        this.get = async ({ q = '', header = this.headers.Header(), endpoint = '', params = {}, }) => {
+        this.get = async ({ q = '', header = this.headers.Header(), endpoint = '', params = {} }) => {
             try {
                 const res = await this.axios.get(`${this.baseUrl}${endpoint}${q ? `?${q}` : ``}`, {
                     ...header,
@@ -61,7 +61,7 @@ class BaseApi {
                 throw error;
             }
         };
-        this.put = async ({ header = this.headers.HeaderAuth(), data = null, endpoint = '', }) => {
+        this.put = async ({ header = this.headers.HeaderAuth(), data = null, endpoint = '' }) => {
             try {
                 const res = await this.axios.put(`${this.baseUrl}${endpoint}`, data, header);
                 return res.data;

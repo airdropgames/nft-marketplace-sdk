@@ -28,12 +28,12 @@ export type Collection = {
   updatedAt: string;
   deletedAt: null;
   items:
-  | null
-  | undefined
-  | {
-    total: number;
-    data: NftItem[];
-  };
+    | null
+    | undefined
+    | {
+        total: number;
+        data: NftItem[];
+      };
 };
 
 export type ListCollectionsResponse = {
@@ -100,7 +100,7 @@ export enum ValidatedOrder {
   NONE = 0,
   BID = 1,
   OFFER = 2,
-  BOTH = 3
+  BOTH = 3,
 }
 
 export type PlatformDataResponse = {
@@ -137,10 +137,10 @@ export type ListItemsFilter = {
 };
 
 export type ListItemsSort =
-  `lastTransactionDate:${SortCriteria}` |
-  `totalVolume:${SortCriteria}` |
-  `highestActiveBidPrice:${SortCriteria}` |
-  `lowestActiveOfferPrice:${SortCriteria}`;
+  | `lastTransactionDate:${SortCriteria}`
+  | `totalVolume:${SortCriteria}`
+  | `highestActiveBidPrice:${SortCriteria}`
+  | `lowestActiveOfferPrice:${SortCriteria}`;
 
 export type TransactionTypes = 'BID' | 'OFFER';
 export type TransactionStatus = 'SUBMITTED' | 'MATCHED' | 'CANCELLED';
@@ -151,13 +151,13 @@ export type ListTransactionsFilter = {
       contractAddress?: string;
       network?: string;
       tokenId?: string;
-    }
+    },
   ];
   currencies?: [
     {
       contractAddress: string;
       network: string;
-    }
+    },
   ];
   type?: TransactionTypes;
   status?: TransactionStatus;
@@ -187,20 +187,20 @@ export type ListItemsContext = {
 };
 
 export type ListTransactionsRequestParams = {
-  filter?: ListTransactionsFilter,
-  page?: number,
-  limit?: number,
-  sort?: ListTransactionsSort[],
+  filter?: ListTransactionsFilter;
+  page?: number;
+  limit?: number;
+  sort?: ListTransactionsSort[];
   includes?: string[];
 };
 
 export type ListTransactionsSort =
-  `createdAt:${SortCriteria}` |
-  `currencyValue:${SortCriteria}` |
-  `usdValue:${SortCriteria}` |
-  `itemValue:${SortCriteria}` |
-  `startTime:${SortCriteria}` |
-  `endTime:${SortCriteria}`;
+  | `createdAt:${SortCriteria}`
+  | `currencyValue:${SortCriteria}`
+  | `usdValue:${SortCriteria}`
+  | `itemValue:${SortCriteria}`
+  | `startTime:${SortCriteria}`
+  | `endTime:${SortCriteria}`;
 
 export type ListTransactionsResponse = {
   total: number;
@@ -244,14 +244,14 @@ export type ItemBidOfferMainParams = {
 };
 
 export type ItemBidOfferParams = ItemBidOfferMainParams &
-  ({ id: string; } | { contractAddress: string; tokenId: string; protocolType: NftProtocolType; });
+  ({ id: string } | { contractAddress: string; tokenId: string; protocolType: NftProtocolType });
 
 export type CurrencyBidOfferMainParams = {
   value: string;
   transferData?: string;
 };
 
-export type CurrencyBidOfferParams = CurrencyBidOfferMainParams & ({ id: string; } | { contractAddress: string; });
+export type CurrencyBidOfferParams = CurrencyBidOfferMainParams & ({ id: string } | { contractAddress: string });
 
 export type BidOfferRequestParameters = {
   userAddress: string;
@@ -294,11 +294,11 @@ export type RegisterCollectionParams = {
 };
 
 export type UpdateCollectionParams = {
-  displayName?: string,
-  description?: string,
-  displayImage?: string,
-  coverImage?: string,
-  platformFeePermyriad?: number,
-  royaltyReceiver?: string,
+  displayName?: string;
+  description?: string;
+  displayImage?: string;
+  coverImage?: string;
+  platformFeePermyriad?: number;
+  royaltyReceiver?: string;
   royaltyPermyriad?: number;
 };

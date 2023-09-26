@@ -31,14 +31,14 @@ class BidOrder extends Order_1.Order {
             makerAddress: this.userWallet,
             offeredAsset: {
                 assetType: constants_1.ENUM_ASSET_TYPE.ERC20,
-                assetAddress: this.cryptoCurrencyData["contractAddress"],
+                assetAddress: this.cryptoCurrencyData['contractAddress'],
                 data: this.cryptoCurrencyData.transferData || '0x',
                 value: this.cryptoCurrencyData.value,
             },
             askedAsset: {
-                assetType: constants_1.ENUM_ASSET_TYPE[this.itemData["protocolType"]],
-                assetAddress: this.itemData["contractAddress"],
-                data: ethers_1.ethers.utils.solidityPack(['uint256', 'bytes'], [this.itemData["tokenId"], this.itemData.transferData || '0x']),
+                assetType: constants_1.ENUM_ASSET_TYPE[this.itemData['protocolType']],
+                assetAddress: this.itemData['contractAddress'],
+                data: ethers_1.ethers.utils.solidityPack(['uint256', 'bytes'], [this.itemData['tokenId'], this.itemData.transferData || '0x']),
                 value: this.itemData.value,
             },
             start: this.startTimeUtc,
@@ -46,7 +46,7 @@ class BidOrder extends Order_1.Order {
         };
         return {
             ...this.getEip712Constants(),
-            values
+            values,
         };
     }
     /**
@@ -54,7 +54,7 @@ class BidOrder extends Order_1.Order {
      * @inheritdoc Order.arrayify
      */
     async arrayify() {
-        const { values } = await this.buildEip712Data();
+        const { values } = (await this.buildEip712Data());
         if (!this.itemData) {
             throw new Error('itemData is not set');
         }
@@ -68,12 +68,8 @@ class BidOrder extends Order_1.Order {
                 values.offeredAsset.assetAddress,
                 values.offeredAsset.data,
                 values.offeredAsset.value,
-            ], [
-                values.askedAsset.assetType,
-                values.askedAsset.assetAddress,
-                values.askedAsset.data,
-                values.askedAsset.value,
             ],
+            [values.askedAsset.assetType, values.askedAsset.assetAddress, values.askedAsset.data, values.askedAsset.value],
             values.start,
             values.end,
         ];
@@ -96,7 +92,7 @@ class BidOrder extends Order_1.Order {
             protocolType: transaction?.item?.collection?.protocolType,
             contractAddress: transaction?.item.collection?.contractAddress,
             tokenId: transaction?.item?.tokenId,
-            value: transaction?.itemValue
+            value: transaction?.itemValue,
         }, {
             contractAddress: transaction?.currency?.contractAddress,
             value: transaction?.currencyValue,

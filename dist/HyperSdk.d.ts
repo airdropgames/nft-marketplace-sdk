@@ -1,5 +1,5 @@
-import { TenantApis } from "./apis/tenant";
-import { HyprSDKOptions } from "./interfaces";
+import { TenantApis } from './apis/tenant';
+import { HyprSDKOptions } from './interfaces';
 /**
  * @class NftMarketplaceSdk
  * Handles all the interactions with the HyperPlaza API and intermidiate operations
