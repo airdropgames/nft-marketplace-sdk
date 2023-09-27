@@ -22,7 +22,8 @@ import {
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
-
+import generalizeUrls from '../../utils/string';
+import axios from 'axios';
 export class TenantApis extends BaseApi {
   hyperPlazaSdk: NftMarketplaceSdk;
 
@@ -300,5 +301,17 @@ export class TenantApis extends BaseApi {
       log.error(error.message || 'updateCollection failed');
       throw error?.response?.data || String(error);
     }
+  }
+  async validatadeUri(uri: string): Promise<Boolean> {
+    const url = generalizeUrls(uri);
+    if (url == null) {
+      return false;
+    }
+    const result = await axios.get(uri);
+
+    if (!result.data.name || !result.data.image) {
+      return false;
+    }
+    return true;
   }
 }

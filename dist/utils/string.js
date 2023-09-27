@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * get generalize url
  * @param {string} url
@@ -15,3 +16,4 @@ const generalizeUrls = (url) => {
     return _url;
 };
 exports.generalizeUrls = generalizeUrls;
+exports.default = generalizeUrls;

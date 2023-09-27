@@ -8,6 +8,8 @@ const qs_1 = __importDefault(require("qs"));
 const base_api_services_1 = __importDefault(require("../../services/base.api.services"));
 const endpoints_1 = __importDefault(require("../../config/endpoints"));
 const loglevel_1 = __importDefault(require("../../utils/loglevel"));
+const string_1 = __importDefault(require("../../utils/string"));
+const axios_1 = __importDefault(require("axios"));
 class TenantApis extends base_api_services_1.default {
     constructor(hyperPlazaSdk) {
         super({
@@ -256,6 +258,17 @@ class TenantApis extends base_api_services_1.default {
             loglevel_1.default.error(error.message || 'updateCollection failed');
             throw error?.response?.data || String(error);
         }
+    }
+    async validatadeUri(uri) {
+        const url = (0, string_1.default)(uri);
+        if (url == null) {
+            return false;
+        }
+        const result = await axios_1.default.get(uri);
+        if (!result.data.name || !result.data.image) {
+            return false;
+        }
+        return true;
     }
 }
 exports.TenantApis = TenantApis;

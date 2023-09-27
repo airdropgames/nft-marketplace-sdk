@@ -15,3 +15,5 @@ const generalizeUrls = (url: string) => {
   return _url;
 };
 exports.generalizeUrls = generalizeUrls;
+
+export default generalizeUrls;
