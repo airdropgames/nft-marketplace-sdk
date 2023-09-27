@@ -303,15 +303,20 @@ export class TenantApis extends BaseApi {
     }
   }
   async validatadeUri(uri: string): Promise<Boolean> {
-    const url = generalizeUrls(uri);
-    if (url == null) {
-      return false;
-    }
-    const result = await axios.get(uri);
+    try {
+      const url = generalizeUrls(uri);
+      if (url == null) {
+        return false;
+      }
+      const result = await axios.get(uri);
 
-    if (!result.data.name || !result.data.image) {
-      return false;
+      if (!result.data.name || !result.data.image) {
+        return false;
+      }
+      return true;
+    } catch (error: any) {
+      log.error(error.message || 'validatadeUri failed');
+      throw error?.response?.data || String(error);
     }
-    return true;
   }
 }

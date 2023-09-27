@@ -260,15 +260,21 @@ class TenantApis extends base_api_services_1.default {
         }
     }
     async validatadeUri(uri) {
-        const url = (0, string_1.default)(uri);
-        if (url == null) {
-            return false;
+        try {
+            const url = (0, string_1.default)(uri);
+            if (url == null) {
+                return false;
+            }
+            const result = await axios_1.default.get(uri);
+            if (!result.data.name || !result.data.image) {
+                return false;
+            }
+            return true;
         }
-        const result = await axios_1.default.get(uri);
-        if (!result.data.name || !result.data.image) {
-            return false;
+        catch (error) {
+            loglevel_1.default.error(error.message || 'validatadeUri failed');
+            throw error?.response?.data || String(error);
         }
-        return true;
     }
 }
 exports.TenantApis = TenantApis;
