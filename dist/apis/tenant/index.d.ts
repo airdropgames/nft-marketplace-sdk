@@ -30,4 +30,5 @@ export declare class TenantApis extends BaseApi {
     getTransactionPlatformData(transactionId: string, senderAddress: string): Promise<PlatformDataResponse>;
     registerCollection(collectionData: RegisterCollectionParams): Promise<any>;
     updateCollection(id: string, collectionData: UpdateCollectionParams): Promise<Collection>;
+    validatadeUri(uri: string): Promise<Boolean>;
 }
