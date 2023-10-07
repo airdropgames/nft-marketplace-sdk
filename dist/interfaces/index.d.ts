@@ -58,20 +58,20 @@ export type ItemTransaction = {
 export type NftItem = {
     id: string;
     tokenId: string;
-    metadata: string | null;
-    name: string | null;
-    description: string | null;
-    image: string | null;
-    tokenUri: string | null;
+    metadata?: string;
+    name?: string;
+    description?: string;
+    image?: string;
+    tokenUri?: string;
     collectionId: string;
     owners: string[];
     createdAt: string;
     updatedAt: string;
-    deletedAt: string | null;
-    collection: Partial<Collection> | null | undefined;
-    activeTransactions: null | undefined | ItemTransaction[];
-    highestBidTransaction: null | undefined | ItemTransaction;
-    lowestOfferTransaction: null | undefined | ItemTransaction;
+    deletedAt?: string;
+    collection?: Partial<Collection>;
+    activeTransactions?: ItemTransaction[];
+    highestBidTransaction?: ItemTransaction;
+    lowestOfferTransaction?: ItemTransaction;
 };
 export type ListItemsResponse = {
     total: number;

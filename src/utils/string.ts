@@ -1,9 +1,9 @@
 /**
  * get generalize url
  * @param {string} url
- * @returns {string} random number between 0 and maxExclusiveNumber
+ * @returns {string | null} random number between 0 and maxExclusiveNumber
  */
-const generalizeUrls = (url: string) => {
+export const generalizeUrls = (url: string): string | null => {
   if (!url || url === '') {
     return null;
   }
@@ -14,6 +14,3 @@ const generalizeUrls = (url: string) => {
   }
   return _url;
 };
-exports.generalizeUrls = generalizeUrls;
-
-export default generalizeUrls;

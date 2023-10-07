@@ -8,7 +8,7 @@ const qs_1 = __importDefault(require("qs"));
 const base_api_services_1 = __importDefault(require("../../services/base.api.services"));
 const endpoints_1 = __importDefault(require("../../config/endpoints"));
 const loglevel_1 = __importDefault(require("../../utils/loglevel"));
-const string_1 = __importDefault(require("../../utils/string"));
+const string_1 = require("../../utils/string");
 const axios_1 = __importDefault(require("axios"));
 class TenantApis extends base_api_services_1.default {
     constructor(hyperPlazaSdk) {
@@ -261,7 +261,7 @@ class TenantApis extends base_api_services_1.default {
     }
     async validatadeUri(uri) {
         try {
-            const url = (0, string_1.default)(uri);
+            const url = (0, string_1.generalizeUrls)(uri);
             if (url == null) {
                 return false;
             }

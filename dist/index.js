@@ -26,3 +26,5 @@ __exportStar(require("./lib/order/BidOrder"), exports);
 __exportStar(require("./lib/order/OfferOrder"), exports);
 __exportStar(require("./lib/transaction/OffchainMatchOrders"), exports);
 __exportStar(require("./utils/date"), exports);
+__exportStar(require("./utils/web3"), exports);
+__exportStar(require("./utils/number"), exports);
