@@ -16,9 +16,10 @@ jobs:
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
-          scope: "@hyperplaza"
+          scope: '@hyperplaza'
       - run: yarn install --frozen-lockfile
       - run: yarn build
+      - run: yarn doc:html
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
