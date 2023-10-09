@@ -1,5 +1,5 @@
 import { MAX_NONCE_CHANNEL } from '../../src/constants';
-import { getRandomNonceChannel, getRandomNumber } from '../../src/utils/number'
+import { getRandomNonceChannel, getRandomNumber } from '../../src/utils/number';
 
 describe('utils/number', () => {
   describe('getRandomNumber', () => {

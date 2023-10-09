@@ -2,9 +2,8 @@ import { BidOrder } from '../src/lib/order/BidOrder';
 import { OfferOrder } from '../src/lib/order/OfferOrder';
 import { OffchainMatchOrdersTransaction } from '../src/lib/transaction/OffchainMatchOrders';
 import NftMarketplaceSdk from '../src/HyperSdk';
-import { Wallet, ethers } from 'ethers';
+import { ethers } from 'ethers';
 import exchangeAbi from './abis/exchange.json';
-import { inspect } from 'util';
 
 const sdk = new NftMarketplaceSdk(
   'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/',

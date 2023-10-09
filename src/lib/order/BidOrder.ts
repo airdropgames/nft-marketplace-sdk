@@ -7,8 +7,6 @@ import {
   CurrencyBidOfferParams,
   ItemBidOfferParams,
   NftProtocolType,
-  OrderCurrency,
-  OrderItem,
   Transaction,
 } from 'src/interfaces';
 import { getUnixTimestampFromDateString, getMysqlDateTimeString } from '../../utils/date';

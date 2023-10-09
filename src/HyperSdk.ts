@@ -1,7 +1,7 @@
 import { TenantApis } from './apis/tenant';
 import config from './config';
 import { NETWORKS, NETWORK_CONFIG } from './constants';
-import { HyprSDKOptions, HyprTenantApis } from './interfaces';
+import { HyprSDKOptions } from './interfaces';
 import log from './utils/loglevel';
 
 /**
