@@ -1,10 +1,23 @@
 {
-  "name": "nft-marketplace-sdk",
+  "name": "@hyperplaza/sdk",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "description": "Hyperplaza NFT Marketplace SDK is an utilities for you to build your own NFT Marketplace, built with typescript ❤️, fully typed and tested. It is integrated with Serverless framework with AWS Lambda and AWS DynamoDB.",
   "repository": "git@github.com:airdropgames/nft-marketplace-sdk.git",
   "author": "Ahmad Ali Abdilah <ahmad.ali.abdilah@gmail.com>",
+  "contributors": [
+    {
+      "email": "ahmad.ali.abdilah@gmail.com",
+      "name": "Ahmad Ali Abdilah"
+    },
+    {
+      "email": "nefti.dwiyan@gmail.com",
+      "name": "Dwi",
+      "url": "https://rashgaroth.tech"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.2",
@@ -16,7 +29,8 @@
     "typescript": "^5.1.3"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "/src"
   ],
   "scripts": {
     "build": "tsc",
