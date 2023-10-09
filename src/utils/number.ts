@@ -1,19 +1,18 @@
-const { MAX_NONCE_CHANNEL } = require('../constants');
+import { MAX_NONCE_CHANNEL } from '../constants';
 
 /**
  * get a random number between 0 and maxExclusiveNumber
  * @param {number} maxExclusiveNumber
  * @returns {number} random number between 0 and maxExclusiveNumber
  */
-const getRandomNumber = (maxExclusiveNumber: number) => {
+export const getRandomNumber = (maxExclusiveNumber: number): number => {
   return Math.floor(Math.random() * maxExclusiveNumber);
 };
-exports.getRandomNumber = getRandomNumber;
 
 /**
  * get a random number for nonce channel
  * @returns {number} random nonce channel
  */
-exports.getRandomNonceChannel = () => {
+export const getRandomNonceChannel = (): number => {
   return getRandomNumber(MAX_NONCE_CHANNEL);
 };

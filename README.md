@@ -130,3 +130,58 @@ const transaction = new OffchainMatchOrdersTransaction(
 // `contract` here is sample when we use ethers. Please adjust accordingly
 await contract.matchOrders(...transaction.buildMatchOrderParams());
 ```
+
+## API Reference
+
+### `apis`
+
+This object contains all the API methods to communicate with Hypr API
+
+#### `tenant`
+
+This object contains all the API methods to communicate with Hypr API
+
+##### `getNftItemById`
+
+Get NFT Item by its ID
+
+```js
+const nftItemId = '004de4df-2f74-4b50-944b-ace304f9b605';
+const nftItemData = await sdk.apis.tenant.getNftItemById(itemId);
+```
+
+##### `getCollectionById`
+
+Get Collection by its ID
+
+```js
+const collectionId = '3aeb2227-6914-4f92-8784-c8b4aaf51bb5';
+const collection = await sdk.apis.tenant.getCollectionById(collectionId);
+```
+
+##### `getCryptoCurrencyByContractAddress`
+
+Get Crypto Currency by its contract address
+
+```js
+const cryptoContractAddress = '0x0d787a4a1548f673ed375445535a6c7a1ee56180';
+const crypto = await sdk.apis.tenant.getCryptoCurrencyByContractAddress(cryptoContractAddress);
+```
+
+##### `getNftItemsByCollectionId`
+
+Get NFT Items by Collection ID
+
+```js
+const collectionId = '3aeb2227-6914-4f92-8784-c8b4aaf51bb5';
+const nftItems = await sdk.apis.tenant.getNftItemsByCollectionId(collectionId);
+```
+
+##### `getNftItemsByCollectionSlug`
+
+Get NFT Items by Collection Slug
+
+```js
+const collectionSlug = 'my-collection';
+const nftItems = await sdk.apis.tenant.getNftItemsByCollectionSlug(collectionSlug);
+```

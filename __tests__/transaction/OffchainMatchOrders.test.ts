@@ -1,7 +1,8 @@
 import NftMarketplaceSdk from '../../src/HyperSdk';
+import { PlatformDataResponse } from '../../src/interfaces';
 import { BidOrder } from '../../src/lib/order/BidOrder';
 import { OfferOrder } from '../../src/lib/order/OfferOrder';
-const { OffchainMatchOrdersTransaction } = require('../../src/lib/transaction/OffchainMatchOrders');
+import { OffchainMatchOrdersTransaction } from '../../src/lib/transaction/OffchainMatchOrders';
 
 describe('OffchainMatchOrdersTransaction', () => {
   // Initialize test data
@@ -16,7 +17,7 @@ describe('OffchainMatchOrdersTransaction', () => {
     txInitiatorId,
     signatureExpiryTimestamp: 1691645227,
     validatedOrder: 3,
-  };
+  } as PlatformDataResponse;
 
   test('buildMatchOrderParams returns the correct parameters', async () => {
     const mockBidOrderArrayify = ['1', '2', '3', '4', '5'];

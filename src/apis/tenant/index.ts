@@ -22,7 +22,7 @@ import {
 } from '../../interfaces';
 import log from '../../utils/loglevel';
 import { Transaction } from 'ethers';
-import generalizeUrls from '../../utils/string';
+import { generalizeUrls } from '../../utils/string';
 import axios from 'axios';
 export class TenantApis extends BaseApi {
   hyperPlazaSdk: NftMarketplaceSdk;
