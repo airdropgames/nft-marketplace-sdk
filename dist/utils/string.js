@@ -4,7 +4,7 @@ exports.generalizeUrls = void 0;
 /**
  * get generalize url
  * @param {string} url
- * @returns {string | null} random number between 0 and maxExclusiveNumber
+ * @returns {string | null} generalized url
  */
 const generalizeUrls = (url) => {
     if (!url || url === '') {
