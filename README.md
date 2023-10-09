@@ -2,18 +2,20 @@
 
 This SDK is to make integration with our NFT marketplace easier, fully integrated with Hyperplaza NFT Marketplace, written with Typescript ❤️
 
+## Documentation
+
+> 💡 \*Please follow our **[completed docs here](https://hypr-sdk-docs.netlify.app/docs/)**
+
 ## Installation
 
-We're currently not publishing the SDK into the `npm` package yet, so you need to install our SDK like this:
-
 ```bash
-yarn add https://github.com/airdropgames/nft-marketplace-sdk.git
+yarn add @hyperplaza/sdk
 ```
 
 or
 
 ```bash
-npm install https://github.com/airdropgames/nft-marketplace-sdk.git
+npm install @hyperplaza/sdk
 ```
 
 ## Sample Usage
@@ -29,9 +31,9 @@ This sample initialize the sdk with the needed parameters. Please replace the pa
 import hyprSDK from 'nft-marketplace-sdk';
 const { NftMarketplaceSdk } = hyprSDK;
 
-const baseUrl = 'https://bamal2gltj.execute-api.eu-west-2.amazonaws.com/'; // our base Url
+const baseUrl = '<<HYPR_BASE_URL>>'; // our base Url
 const apiKey = '<<YOUR_API_KEY>>'; // you can get it from our team
-const network = '<<YOUR_NETWORK>>'; 
+const network = '<<YOUR_NETWORK>>';
 const sdk = new NftMarketplaceSdk(baeUrl, apiKey, network, {
   enableLogging: true,
   // ... any config needed
@@ -42,7 +44,7 @@ const sdk = new NftMarketplaceSdk(baeUrl, apiKey, network, {
 const { NftMarketplaceSdk } = require('../../dist/index.js');
 
 async function main() {
-  const url = `https://bamal2gltj.execute-api.eu-west-2.amazonaws.com`;
+  const url = `<<HYPR_BASE_URL>>`;
   const key = `<<YOUR_API_KEY>>`; // you can get it from our team
   const network = '<<YOUR_NETWORK>>';
   const hyperSdk = new NftMarketplaceSdk(url, key, network, {
