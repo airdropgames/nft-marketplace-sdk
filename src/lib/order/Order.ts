@@ -4,9 +4,6 @@ import {
   CurrencyBidOfferParams,
   ItemBidOfferParams,
   NftItem,
-  OrderCurrency,
-  OrderItem,
-  Transaction,
 } from 'src/interfaces';
 import NftMarketplaceSdk from '../../HyperSdk';
 

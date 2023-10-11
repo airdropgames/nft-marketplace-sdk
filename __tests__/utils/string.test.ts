@@ -1,4 +1,4 @@
-import { generalizeUrls } from '../../src/utils/string'
+import { generalizeUrls } from '../../src/utils/string';
 
 describe('utils/string', () => {
   describe('generalizeUrls', () => {
